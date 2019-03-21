@@ -41,6 +41,7 @@ export default {
     display: grid;
     align-content: center;
     justify-content: center;
+    width: 100%;
     /* background-color: #4AA0D5; */
 }
 .screen .title {
@@ -65,5 +66,15 @@ export default {
 }
 .signup {
     margin-left: 1rem;
+}
+@media screen and (max-width: 1000px) {
+    .screen .title {
+        font-size: 3rem;
+    }
+}
+@media screen and (max-width: 700px) {
+    .screen .title {
+        font-size: 2rem;
+    }
 }
 </style>

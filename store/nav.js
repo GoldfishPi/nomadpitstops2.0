@@ -2,7 +2,7 @@ import Vuex from 'vuex';
 
 export const state = () => ({
     largeNav: true,
-    defaultLargeNav: true,
+    defaultLargeNav: false,
 });
 export const mutations = {
     setNav(state, bool) {

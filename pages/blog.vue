@@ -47,4 +47,16 @@ export default {
     text-align: right;
     margin-top: 1rem;
 }
+@media screen and (max-width: 900px) {
+    .blog-container .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 600px) {
+    .blog-container .cards {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
 </style>
