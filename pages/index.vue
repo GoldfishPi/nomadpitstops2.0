@@ -49,6 +49,7 @@ export default {
     color: #4aa0d5;
     padding-bottom: 2rem;
     text-align: center;
+    margin: 1rem 0;
 }
 .screen.contrast {
     background-color: #4aa0d5;
@@ -75,6 +76,11 @@ export default {
 @media screen and (max-width: 700px) {
     .screen .title {
         font-size: 2rem;
+    }
+}
+@media screen and (max-width: 500px) {
+    .screen .title {
+        font-size: 1.8rem;
     }
 }
 </style>
