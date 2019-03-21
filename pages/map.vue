@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <div class="map-container">
-            <Map/>
-            <Pitstops/>
-            <MapControlls/>
-        </div>
+    <div class="map-container">
+        <Map/>
+        <Pitstops/>
+        <MapControlls/>
     </div>
 </template>
 

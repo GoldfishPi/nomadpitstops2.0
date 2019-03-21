@@ -35,7 +35,7 @@ export default {
     ** Plugins to load before mounting the App
     */
     plugins: [
-        { src: "~plugins/vue2-google-maps.js", ssr: false },
+        { src: "~plugins/vue2-google-maps.js", ssr: true },
     ],
 
     /*
@@ -56,6 +56,9 @@ export default {
         /*
         ** You can extend webpack config here
         */
+        // transpile: [
+        //     'vue2-google-maps'
+        // ],
         extend(config, ctx) {
         }
     }
