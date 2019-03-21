@@ -63,5 +63,9 @@ export default {
     .map {
         grid-column: 1;
     }
+    .pitstops {
+        grid-column: 1;
+        grid-row: 3;
+    }
 }
 </style>
