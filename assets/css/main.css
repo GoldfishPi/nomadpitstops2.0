@@ -1,0 +1,180 @@
+body {
+    font-family: 'Montserrat';
+    margin: 0;
+    overflow-x: hidden;
+}
+p {
+    line-height: 1.3em;
+    font-size: 1.2rem;
+}
+.page-enter-active, .page-leave-active {
+    transition: opacity .5s
+  }
+  .page-enter, .page-leave-active {
+    opacity: 0
+  }
+.__card {
+    min-width: 40px;
+    min-height: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    padding: 1.3rem;
+    /* margin: 1.3rem; */
+    background-color: white;
+    border-right: 5px solid #4AA0D5;
+    border-radius: 3px;
+}
+.__card-borderless {
+    border-right: none;
+}
+.__card.__card-hoverable:hover {
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.__card-deck {
+    max-height: 100%;
+    overflow-y: auto;
+}
+.__card-deck .__card {
+    margin-bottom: 1.3rem;
+    border-right: none;
+}
+
+
+.__btn {
+    border: none;
+    min-width: 100px;
+    min-height: 30px;
+    border-radius: 3px;
+    font-size: 1.3rem;
+    padding: .5em;
+    opacity: .9;
+    font-weight: 600;
+}
+a.__btn {
+    text-decoration: none;
+    color: initial;
+}
+.__btn:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+.__btn.__btn-light {
+    background-color: white;
+}
+.__btn.__btn-primary {
+    background-color: #337AB7;
+    color: white;
+}
+.__btn.__btn-danger {
+    background-color: #E15562;
+    color: white;
+}
+.__btn-border {
+    border:1px solid grey;
+}
+.__btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+.__txt-danger {
+    color: #E15562;
+}
+.__txt {
+    border-radius: 3px;
+    border: 1px solid grey;
+    font-size: 1.3rem;
+    padding: .3rem;
+}
+
+
+
+
+
+/* Lazy input lol */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 6.3px 0;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    background: #4888BE;
+    border-radius: 1.3px;
+    border: 0.2px solid #010101;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    border: 5px solid #4888BE;
+    height: 21px;
+    width: 21px;
+    border-radius: 13px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6.5px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #4888BE;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    background: #4888BE;
+    border-radius: 1.3px;
+    border: 0.2px solid #010101;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    border: 1px solid #020000;
+    height: 21px;
+    width: 21px;
+    border-radius: 13px;
+    background: #ffffff;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #4888BE;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #4888BE;
+    border: 0.2px solid #010101;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  }
+  input[type=range]::-ms-thumb {
+    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+    border: 1px solid #4888BE;
+    height: 21px;
+    width: 21px;
+    border-radius: 13px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 8.4px;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #4888BE;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #4888BE;
+  }
+  
