@@ -1,5 +1,6 @@
 <template>
     <div class="map-container">
+        <h1 class="__page-heading heading">Map</h1>
         <Map/>
         <Pitstops/>
         <MapControlls/>
@@ -37,33 +38,49 @@ export default {
 .map-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 15vh 65vh;
+    grid-template-rows: 4rem 10vh 55vh;
     grid-gap: 1.3rem;
     margin: 1.3rem;
 }
+.map-container .heading {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 1;
+}
+.controlls {
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
 .map {
     padding: 0;
-    grid-row: 2;
+    grid-row: 3;
     grid-column: 2;
 }
 .pitstops {
-    grid-row-start: 1;
-    grid-row-end: 3;
+    grid-column: 1;
+    grid-row-start: 2;
+    grid-row-end: 4;
 }
 @media screen and (max-width: 1100px) {
     .map-container {
         grid-template-columns: 1fr;
-        grid-template-rows: 200px 60vh auto;
+        grid-template-rows: 4rem 200px 60vh auto;
     }
     .cards {
-        grid-row: 3;
+        grid-row: 2;
+        grid-column: 1;
     }
     .map {
         grid-column: 1;
     }
+    .controlls {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column: 1;
+    }
     .pitstops {
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 4;
     }
 }
 </style>

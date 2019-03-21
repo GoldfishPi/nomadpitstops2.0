@@ -10,10 +10,10 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li>
-                    <nuxt-link to="map">Map</nuxt-link>
+                    <nuxt-link to="/map">Map</nuxt-link>
                 </li>
                 <li>
-                    <nuxt-link to="blog">Blog</nuxt-link>
+                    <nuxt-link to="/blog">Blog</nuxt-link>
                 </li>
                 <!-- <li>
           <nuxt-link to="about">About</nuxt-link>
