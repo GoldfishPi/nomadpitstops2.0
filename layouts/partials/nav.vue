@@ -13,8 +13,12 @@
                     <nuxt-link to="/map">Map</nuxt-link>
                 </li>
                 <li>
+                    <nuxt-link to="/dashboard">Dashboards</nuxt-link>
+                </li>
+                <li>
                     <nuxt-link to="/blog">Blog</nuxt-link>
                 </li>
+
                 <!-- <li>
           <nuxt-link to="about">About</nuxt-link>
                 </li>-->
