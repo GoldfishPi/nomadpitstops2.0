@@ -2,7 +2,6 @@
     <div class="post-container">
         <div class="content">
             <h1>{{post.title}}</h1>
-            <!-- <div v-html="post.body"></div> -->
             <VueMarkdown>{{post.body}}</VueMarkdown>
         </div>
     </div>
@@ -23,19 +22,19 @@ export default {
         }
     },
     asyncData(context) {
-        console.log('manifest', context);
+        console.log('window?', context.env.baseUrl);
         var post = manifest.find(p => {
-            console.log('p', p);
+            // console.log('p', p);
             return p.postId === context.route.params.id;
         });
         return axios
-            .get(`http://localhost:3000/blog/posts/${post.id}/index.md`)
+            .get(`${context.env.baseUrl}/blog/posts/${post.id}/index.md`)
             .then(res => {
-                console.log('lol res', res);
+                // console.log('lol res', res);
                 post.body = res.data;
                 context.store.commit('blog/setActiveBlogPost', post);
             });
-        console.log('found post', post);
+        // console.log('found post', post);
     }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="map-container">
-        <h1 class="__page-heading heading">Map</h1>
+        <h1 class="__page-heading heading">Maple</h1>
         <Map/>
         <Pitstops/>
         <MapControlls/>
