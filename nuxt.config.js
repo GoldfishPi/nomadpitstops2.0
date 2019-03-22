@@ -64,6 +64,6 @@ export default {
         }
     },
     env: {
-        siteUrl: process.env.NODE_ENV ? 'http://localhost:3000' : 'https://nomadpitstops.com'
+        siteUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'https://nomadpitstops.com'
     }
 }
