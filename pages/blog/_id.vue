@@ -22,13 +22,13 @@ export default {
         }
     },
     asyncData(context) {
-        console.log('window?', context.env.baseUrl);
+        console.log('window?', context.env.siteUrl);
         var post = manifest.find(p => {
             // console.log('p', p);
             return p.postId === context.route.params.id;
         });
         return axios
-            .get(`${context.env.baseUrl}/blog/posts/${post.id}/index.md`)
+            .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
             .then(res => {
                 // console.log('lol res', res);
                 post.body = res.data;
