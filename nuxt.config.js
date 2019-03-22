@@ -36,6 +36,7 @@ export default {
     */
     plugins: [
         { src: "~plugins/vue2-google-maps.js", ssr: true },
+        // { src: "~plugins/vueMarkdown.js", ssr: true },
     ],
 
     /*

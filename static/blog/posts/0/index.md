@@ -1,4 +1,5 @@
-![alt-text](https://images.pexels.com/photos/509922/pexels-photo-509922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260 "chair")
+![alt text](https://images.pexels.com/photos/509922/pexels-photo-509922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260 "Logo Title Text 1")
+
 Have you ever met those people who say "I'm not really in to things", this used to confuse me, now I am one of those people. A little over a year ago cleaned my closet of all but ten shirts, three sweatshirts, two pairs of jeans and an assortment of socks and underwear, this was the best decision of my life. I never knew how much stuff I had until I started getting rid of it all. Now I have an almost visceral reaction to bringing more stuff into my house that I don't need. This wasn't a switch though, a lot of people when they think minimalism they think somone who owns one fork and only meditates for three hours a day, that's just not true and I'd like to explain why.
 
 
