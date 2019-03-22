@@ -2,7 +2,8 @@
     <div class="post-container">
         <div class="content">
             <h1>{{post.title}}</h1>
-            <VueMarkdown>{{post.body}}</VueMarkdown>
+            <div v-html="post.body"></div>
+            <!-- <VueMarkdown>{{post.body}}</VueMarkdown> -->
         </div>
     </div>
 </template>
@@ -12,6 +13,7 @@
 import manifest from '@/static/blog/postManifest';
 import axios from 'axios';
 import VueMarkdown from 'vue-markdown';
+import marked from 'marked';
 export default {
     components: {
         VueMarkdown
@@ -22,16 +24,17 @@ export default {
         }
     },
     asyncData(context) {
-        console.log('window?', context.env.siteUrl);
+        console.log('marked?', marked);
         var post = manifest.find(p => {
             // console.log('p', p);
             return p.postId === context.route.params.id;
         });
+
         return axios
             .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
             .then(res => {
                 // console.log('lol res', res);
-                post.body = res.data;
+                post.body = marked(res.data);
                 context.store.commit('blog/setActiveBlogPost', post);
             });
         // console.log('found post', post);
