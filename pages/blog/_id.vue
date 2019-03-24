@@ -24,7 +24,6 @@ export default {
         }
     },
     asyncData(context) {
-        console.log('marked?', marked);
         var post = manifest.find(p => {
             // console.log('p', p);
             return p.postId === context.route.params.id;

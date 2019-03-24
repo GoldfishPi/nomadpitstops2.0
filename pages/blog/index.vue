@@ -42,9 +42,14 @@ export default {
 }
 .blog-container .cards h2 {
     margin-bottom: 1rem;
+    text-align: center;
 }
 .blog-container .cards img {
     max-width: 100%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 .blog-container .card {
     margin-bottom: 1.3rem;
@@ -54,6 +59,7 @@ export default {
 .blog-container .cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1.3rem;
 }
 .blog-container .more {
     text-align: right;

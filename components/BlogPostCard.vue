@@ -2,7 +2,7 @@
     <div class="post-card-container">
         <nuxt-link class="link" :to="`/blog/${post.postId}`">
             <h2>{{post.title}}</h2>
-            <img v-bind:src="`./blog/posts/${post.id}/thumbnail.jpg`" alt>
+            <img v-bind:src="`/blog/posts/${post.id}/thumbnail.jpg`" alt>
             <!-- <h2>{{card.title}}</h2>
             
             <p>{{card.snippet}}</p>
