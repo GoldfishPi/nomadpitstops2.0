@@ -2,7 +2,8 @@
     <div class="post-container">
         <div class="content">
             <h1>{{post.title}}</h1>
-            <div v-html="post.body"></div>
+            <h2 class="__text-sub">{{post.author}}</h2>
+            <div class="post-content" v-html="post.body"></div>
             <!-- <VueMarkdown>{{post.body}}</VueMarkdown> -->
         </div>
     </div>
@@ -37,6 +38,74 @@ export default {
                 context.store.commit('blog/setActiveBlogPost', post);
             });
         // console.log('found post', post);
+    },
+    head() {
+        // console.log('geh', this.$el);
+        var description = '';
+        if (this.$el) {
+            var paragraphs = this.$el.querySelectorAll('p');
+            for (var i = 0; i < paragraphs.length; i++) {
+                let p = paragraphs[i];
+
+                if (!paragraphs[i].firstChild.tagName) {
+                    console.log('p');
+                    description = paragraphs[i].innerHTML;
+                    break;
+                }
+                // if (p.firstChild && !p.firstChild.tagName) {
+                //     return (description = p.innerHTML);
+                //     break;
+                // }
+            }
+        }
+        console.log('this', this.$route.path);
+        return {
+            title:
+                'Nomad Pit Stops | ' +
+                this.$store.state.blog.activeBlogPost.title,
+            meta: [
+                //Normal
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: description
+                },
+                //OG
+                {
+                    hid: 'og:title',
+                    name: 'og:title',
+                    content: this.$store.state.blog.activeBlogPost.title
+                },
+                {
+                    hid: 'og:image',
+                    name: 'og:image',
+                    content: `${process.env.siteUrl}/blog/posts/${
+                        this.$store.state.blog.activeBlogPost.id
+                    }/cover.jpg`
+                },
+                {
+                    hid: 'og:type',
+                    name: 'og:type',
+                    content: 'website'
+                },
+                {
+                    hid: 'og:description',
+                    name: 'og:description',
+                    content: description
+                },
+                {
+                    hid: 'or:url',
+                    name: 'og:url',
+                    content: process.env.siteUrl + this.$route.path
+                },
+                //twitter
+                {
+                    hid: 'twitter:card',
+                    name: 'twitter:card',
+                    content: description
+                }
+            ]
+        };
     }
 };
 </script>
@@ -57,7 +126,7 @@ export default {
     font-size: 2.5rem;
     margin: 1rem 0;
 }
-.post-container h2 {
+.post-content h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }

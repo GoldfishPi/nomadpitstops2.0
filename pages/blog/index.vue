@@ -30,6 +30,11 @@ export default {
 
         console.log('manifest', postManifest);
         // this.$store.dispatch('blog/getBlogPosts');
+    },
+    head() {
+        return {
+            title: 'Nomad Pit Stops | Blog'
+        };
     }
     // middleware: 'blogs'
 };

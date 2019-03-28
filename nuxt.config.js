@@ -7,11 +7,17 @@ export default {
     ** Headers of the page
     */
     head: {
-        title: 'Nomad Pit Stops',
+        title: 'Nomad Pit Stops | Intentional Travel Tools For The Modern Nomad',
         meta: [
             { charset: 'utf-8' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: pkg.description }
+            {
+                hid: 'twitter:site',
+                name: 'twitter:site',
+                content: '@nomadpitstops'
+            },
+            { name: 'robots', content: 'index, follow' }
+            // { hid: 'description', name: 'description', content: pkg.description }
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
@@ -35,6 +41,7 @@ export default {
     ** Plugins to load before mounting the App
     */
     plugins: [
+        { src: '~plugins/ga.js', ssr: false },
         { src: "~plugins/vue2-google-maps.js", ssr: true },
         // { src: "~plugins/vueMarkdown.js", ssr: true },
     ],

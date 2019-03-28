@@ -30,6 +30,11 @@ export default {
         this.$store.commit('nav/setDefault', false);
         this.$store.dispatch('map/getMarkers');
         this.$store.dispatch('map/getUserLocation');
+    },
+    head() {
+        return {
+            title: 'Nomad Pit Stops | Map'
+        };
     }
 };
 </script>
