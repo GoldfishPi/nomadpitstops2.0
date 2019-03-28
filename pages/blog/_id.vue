@@ -30,34 +30,29 @@ export default {
             return p.postId === context.route.params.id;
         });
 
-        return axios
-            .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
-            .then(res => {
-                // console.log('lol res', res);
-                post.body = marked(res.data);
-                context.store.commit('blog/setActiveBlogPost', post);
-            });
+        return Promise.all([
+            axios
+                .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
+                .then(res => {
+                    // console.log('lol res', res);
+                    post.body = marked(res.data);
+                    context.store.commit('blog/setActiveBlogPost', post);
+                }),
+            axios
+                .get(
+                    `${context.env.siteUrl}/blog/posts/${
+                        post.id
+                    }/description.txt`
+                )
+                .then(res => {
+                    // console.log('lol res', res);
+                    post.description = res.data;
+                    context.store.commit('blog/setActiveBlogPost', post);
+                })
+        ]);
         // console.log('found post', post);
     },
     head() {
-        // console.log('geh', this.$el);
-        var description = '';
-        if (this.$el) {
-            var paragraphs = this.$el.querySelectorAll('p');
-            for (var i = 0; i < paragraphs.length; i++) {
-                let p = paragraphs[i];
-
-                if (!paragraphs[i].firstChild.tagName) {
-                    console.log('p');
-                    description = paragraphs[i].innerHTML;
-                    break;
-                }
-                // if (p.firstChild && !p.firstChild.tagName) {
-                //     return (description = p.innerHTML);
-                //     break;
-                // }
-            }
-        }
         return {
             title: this.$store.state.blog.activeBlogPost.title,
             meta: [
@@ -65,7 +60,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: description
+                    content: this.$store.state.blog.activeBlogPost.description
                 },
                 //OG
                 {
@@ -88,7 +83,7 @@ export default {
                 {
                     hid: 'og:description',
                     name: 'og:description',
-                    content: description
+                    content: this.$store.state.blog.activeBlogPost.description
                 },
                 {
                     hid: 'or:url',
@@ -99,7 +94,14 @@ export default {
                 {
                     hid: 'twitter:card',
                     name: 'twitter:card',
-                    content: description
+                    content: this.$store.state.blog.activeBlogPost.description
+                },
+                {
+                    hid: 'twitter:image',
+                    name: 'twitter:image',
+                    content: `${process.env.siteUrl}/blog/posts/${
+                        this.$store.state.blog.activeBlogPost.id
+                    }/thumbnail.jpg`
                 }
             ]
         };
