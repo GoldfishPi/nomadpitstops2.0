@@ -58,11 +58,8 @@ export default {
                 // }
             }
         }
-        console.log('this', this.$route.path);
         return {
-            title:
-                'Nomad Pit Stops | ' +
-                this.$store.state.blog.activeBlogPost.title,
+            title: this.$store.state.blog.activeBlogPost.title,
             meta: [
                 //Normal
                 {
