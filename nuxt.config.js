@@ -52,7 +52,7 @@ export default {
     modules: [
         '@nuxtjs/pwa',
         ['@nuxtjs/axios', {
-            baseURL: 'https://api.nomadpitstops.com'
+            baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : 'https://api.nomadpitstops.com'
         }]
     ],
     vendor: ['vue2-google-maps'],
