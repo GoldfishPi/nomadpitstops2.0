@@ -92,8 +92,8 @@ export default {
                 },
                 //twitter
                 {
-                    hid: 'twitter:card',
-                    name: 'twitter:card',
+                    hid: 'twitter:description',
+                    name: 'twitter:description',
                     content: this.$store.state.blog.activeBlogPost.description
                 },
                 {
@@ -102,6 +102,11 @@ export default {
                     content: `${process.env.siteUrl}/blog/posts/${
                         this.$store.state.blog.activeBlogPost.id
                     }/thumbnail.jpg`
+                }
+                {
+                    hid: 'twitter:title',
+                    name: 'twitter:title',
+                    content: this.$store.state.blog.activeBlogPost.title
                 }
             ]
         };
