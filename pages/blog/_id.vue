@@ -107,6 +107,11 @@ export default {
                     hid: 'twitter:title',
                     name: 'twitter:title',
                     content: this.$store.state.blog.activeBlogPost.title
+                },
+                {
+                    hid: 'twitter:card',
+                    name: 'twitter:card',
+                    content: 'website'
                 }
             ]
         };
