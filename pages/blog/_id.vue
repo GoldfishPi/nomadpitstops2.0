@@ -102,7 +102,7 @@ export default {
                     content: `${process.env.siteUrl}/blog/posts/${
                         this.$store.state.blog.activeBlogPost.id
                     }/thumbnail.jpg`
-                }
+                },
                 {
                     hid: 'twitter:title',
                     name: 'twitter:title',
