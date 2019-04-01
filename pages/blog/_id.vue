@@ -42,7 +42,7 @@ export default {
                 .get(
                     `${context.env.siteUrl}/blog/posts/${
                         post.id
-                    }/description.txt`
+                    }/description.md`
                 )
                 .then(res => {
                     // console.log('lol res', res);

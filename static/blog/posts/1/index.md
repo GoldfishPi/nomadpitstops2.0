@@ -13,9 +13,9 @@ Electricity supply in Vietnam is 220 Volts at 50Hz and there plug types support 
 
 ## Workspaces
 
-![alt text](https://images.pexels.com/photos/1846398/pexels-photo-1846398.jpeg?cs=srgb&dl=animal-cafe-chair-1846398.jpg&fm=jpg "People at cafe")
-
 The workspaces in Vietnam is one of the best reasons to go there. In short the Vietnamese people adore all things coffee and cafes which means you can plop yourself down in any random nook or cranny order yourself some of the best coffee in the entire world and work until your heart's content. The downside is that most cafes in major cities only have little stools you can squat at but with a little hunting you can find somewhere suitable fairly easily.
+
+![alt text](https://images.pexels.com/photos/1846398/pexels-photo-1846398.jpeg?cs=srgb&dl=animal-cafe-chair-1846398.jpg&fm=jpg "People at cafe")
 
 Co-working spaces are also fairly 
 ubiquitous but they will usually run you $6 a day and don't expect any frills...or coffee which is a major bummer if you are like me and that is one of the main requirements for life sustainability. 

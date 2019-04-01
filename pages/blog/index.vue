@@ -15,6 +15,7 @@
 <script>
 import postManifest from '@/static/blog/postManifest';
 import BlogPostCard from '@/components/BlogPostCard';
+import axios from 'axios';
 export default {
     components: {
         BlogPostCard
@@ -35,6 +36,23 @@ export default {
         return {
             title: 'Nomad Pit Stops | Blog'
         };
+    },
+    asyncData(context) {
+        console.log('async data');
+        var promises = postManifest.map(post => {
+            return axios
+                .get(
+                    `${context.env.siteUrl}/blog/posts/${
+                        post.id
+                    }/description.md`
+                )
+                .then(res => {
+                    // console.log('lol res', res);
+                    post.description = res.data;
+                    context.store.commit('blog/setActiveBlogPost', post);
+                });
+        });
+        return Promise.all(promises);
     }
     // middleware: 'blogs'
 };
