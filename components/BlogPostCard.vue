@@ -1,5 +1,5 @@
 <template>
-    <div class="post-card-container">
+    <div class="post-card-container" v-bind:title="post.title">
         <nuxt-link class="link" :to="`/blog/${post.postId}`">
             <div class="description">
                 <h2>{{post.title}}</h2>
@@ -27,9 +27,12 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    overflow: hidden;
 }
 .post-card-container img {
     max-width: 400px;
+    min-width: 400px;
+    height: 500px;
 }
 .post-card-container .description {
     position: absolute;
