@@ -1,3 +1,4 @@
+import postManifest from '@/static/blog/postManifest';
 export const state = () => {
     return {
         blogPosts: [],
@@ -29,10 +30,8 @@ export const mutations = {
 }
 export const actions = {
     getBlogPosts(context) {
-        this.$axios.get('/blog')
-            .then(posts => {
-                context.commit('setBlogPosts', posts.data.posts);
-                console.log('blog poosts', posts)
-            })
+        if (!context.state.blogPosts.length) {
+            context.commit('setBlogPosts', postManifest);
+        }
     }
 }

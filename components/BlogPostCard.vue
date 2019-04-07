@@ -9,12 +9,19 @@
             <img v-bind:src="`/blog/posts/${post.id}/thumbnail.jpg`" alt>
         </nuxt-link>
     </div>
+    <!-- <div></div> -->
 </template>
 
 <script>
 import axios from 'axios';
 export default {
-    props: ['post']
+    props: ['postKey'],
+    computed: {
+        post() {
+            return this.$store.state.blog.blogPosts[this.postKey];
+        }
+    },
+    mounted() {}
 };
 </script>
 

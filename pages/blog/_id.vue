@@ -32,13 +32,6 @@ export default {
 
         return Promise.all([
             axios
-                .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
-                .then(res => {
-                    // console.log('lol res', res);
-                    post.body = marked(res.data);
-                    context.store.commit('blog/setActiveBlogPost', post);
-                }),
-            axios
                 .get(
                     `${context.env.siteUrl}/blog/posts/${
                         post.id
@@ -47,6 +40,13 @@ export default {
                 .then(res => {
                     // console.log('lol res', res);
                     post.description = res.data;
+                    context.store.commit('blog/setActiveBlogPost', post);
+                }),
+            axios
+                .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
+                .then(res => {
+                    // console.log('lol res', res);
+                    post.body = marked(res.data);
                     context.store.commit('blog/setActiveBlogPost', post);
                 })
         ]);

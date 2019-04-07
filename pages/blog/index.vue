@@ -6,7 +6,7 @@
                 class="__card __card-hoverable card"
                 v-for="(post, index) of manifest"
                 :key="index"
-                :post="post"
+                :postKey="index"
             />
         </div>
     </div>
@@ -20,6 +20,11 @@ export default {
     components: {
         BlogPostCard
     },
+    computed: {
+        posts() {
+            return this.$store.state.blogPosts;
+        }
+    },
     data() {
         return {
             manifest: postManifest
@@ -28,8 +33,8 @@ export default {
     mounted() {
         this.$store.commit('nav/setNav', false);
         this.$store.commit('nav/setDefault', false);
-
-        console.log('manifest', postManifest);
+        // this.$store.dispatch('blog/getBlogPosts', false);
+        // console.log('manifest', postManifest);
         // this.$store.dispatch('blog/getBlogPosts');
     },
     head() {
@@ -38,8 +43,9 @@ export default {
         };
     },
     asyncData(context) {
-        console.log('async data');
-        var promises = postManifest.map(post => {
+        context.store.dispatch('blog/getBlogPosts');
+        var posts = context.store.state.blog.blogPosts;
+        var promises = posts.map(post => {
             return axios
                 .get(
                     `${context.env.siteUrl}/blog/posts/${
@@ -47,11 +53,11 @@ export default {
                     }/description.md`
                 )
                 .then(res => {
-                    // console.log('lol res', res);
                     post.description = res.data;
                     context.store.commit('blog/setActiveBlogPost', post);
                 });
         });
+        // console.log('promises', promises[0]);
         return Promise.all(promises);
     }
     // middleware: 'blogs'
