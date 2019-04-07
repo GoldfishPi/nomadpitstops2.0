@@ -1,0 +1,1 @@
+It is no secret that cafes are a digital nomads best friend, there really is somthing about the hustle and bustle that gets the creative juices flowing and Hanoi has some of the best cafes in the entire world.
