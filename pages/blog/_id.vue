@@ -122,14 +122,23 @@ export default {
 <style>
 .post-container {
     /* margin: 1rem 6rem; */
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    /* display: grid;
+    grid-template-columns: 1fr 3fr 1fr; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .post-container .content {
-    grid-column: 2;
+    /* grid-column: 2; */
+    width: calc(100vw - 10em);
+    max-width: 800px;
 }
 .post-container img {
-    max-width: 100%;
+    /* max-width: 100%; */
+    width: 100vw;
+    margin: 0 calc(-50vw + 50%);
+    max-height: 60vh;
+    object-fit: cover;
 }
 .post-container h1 {
     font-size: 2.5rem;
