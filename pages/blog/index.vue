@@ -2,12 +2,15 @@
     <div class="blog-container">
         <h1 class="__page-heading">Blog</h1>
         <div class="cards">
-            <BlogPostCard
-                class="__card __card-hoverable card"
-                v-for="(post, index) of manifest"
-                :key="index"
-                :postKey="index"
-            />
+            <BlogPostCard v-for="(post, index) of manifest" :key="index" :postKey="index"/>
+            <!-- <v-card v-for="(post, index) of manifest" :key="index">
+                <v-card-title primary-title>
+                    <div>
+                        <h3>{{post.title}}</h3>
+                        <div>{{post}}</div>
+                    </div>
+                </v-card-title>
+            </v-card>-->
         </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="__card controlls">
+    <v-card class="controlls">
         <div class="search">
             <input type="text" ref="places" class="__txt">
             <!-- <img class="search-icon" src="../assets/icons/maps/icons/search.svg" alt="search icon"> -->
@@ -21,7 +21,7 @@
                 <p class="__txt-danger">Canncel</p>
             </div>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -76,7 +76,7 @@ export default {
 .controlls {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .search {
     display: flex;

@@ -22,6 +22,7 @@ export default {
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:300,700' },
+            { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.6.3/css/all.css' },
         ]
     },
 
@@ -53,7 +54,8 @@ export default {
         '@nuxtjs/pwa',
         ['@nuxtjs/axios', {
             baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : 'https://api.nomadpitstops.com'
-        }]
+        }],
+        '@nuxtjs/vuetify'
     ],
     vendor: ['vue2-google-maps'],
 

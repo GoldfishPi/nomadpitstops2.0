@@ -1,10 +1,11 @@
 <template>
-    <div class="__card __card-borderless map" v-bind:class="selecting">
+    <v-card class="map" v-bind:class="selecting">
         <GmapMap
             :center="focus"
             :zoom="mapZoom"
             map-type-id="terrain"
             v-on:click="onSelect($event)"
+            :options="mapOptions"
         >
             <GmapMarker
                 :key="index"
@@ -50,7 +51,7 @@
                 <input type="button" class="__btn __btn-primary" value="Save" v-on:click="onSave">
             </div>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -77,7 +78,10 @@ export default {
             },
             name: '',
             notes: '',
-            speed: 0
+            speed: 0,
+            mapOptions: {
+                disableDefaultUI: true
+            }
         };
     },
     methods: {

@@ -1,9 +1,8 @@
 <template>
     <div class="map-container">
-        <h1 class="__page-heading heading">Map</h1>
-        <Map/>
         <Pitstops/>
-        <MapControlls/>
+        <Map/>
+        <!-- <MapControlls/> -->
     </div>
 </template>
 
@@ -43,11 +42,13 @@ export default {
 .map-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 4rem 10vh 55vh;
-    grid-gap: 1.3rem;
-    margin: 1.3rem;
+    /* grid-template-rows: 4rem 10vh 55vh; */
+    grid-template-rows: 90vh;
+    /* grid-gap: 1.3rem; */
+    /* margin: 1.3rem; */
+    height: 100%;
 }
-.map-container .heading {
+/* .map-container .heading {
     grid-row-start: 1;
     grid-row-end: 3;
     grid-column: 1;
@@ -63,10 +64,10 @@ export default {
 }
 .pitstops {
     grid-column: 1;
-    grid-row-start: 2;
+    grid-row-start: 1;
     grid-row-end: 4;
-}
-@media screen and (max-width: 1100px) {
+} */
+/* @media screen and (max-width: 1100px) {
     .map-container {
         grid-template-columns: 1fr;
         grid-template-rows: 4rem 200px 60vh auto;
@@ -87,5 +88,5 @@ export default {
         grid-column: 1;
         grid-row: 4;
     }
-}
+} */
 </style>

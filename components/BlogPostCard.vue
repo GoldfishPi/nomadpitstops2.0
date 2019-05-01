@@ -1,14 +1,16 @@
 <template>
-    <div class="post-card-container" v-bind:title="post.title">
-        <nuxt-link class="link" :to="`/blog/${post.postId}`">
-            <div class="description">
-                <h2>{{post.title}}</h2>
-                <p>{{post.description}}</p>
+    <v-card class="blog-post-card" v-on:click="doRoute()">
+        <v-img v-bind:src="`/blog/posts/${post.id}/thumbnail.jpg`" aspect-ratio="1.75"></v-img>
+        <v-card-title>
+            <div>
+                <h3>{{post.title}}</h3>
+                <div>{{post.description}}</div>
             </div>
-            <h2>{{post.title}}</h2>
-            <img v-bind:src="`/blog/posts/${post.id}/thumbnail.jpg`" alt>
-        </nuxt-link>
-    </div>
+        </v-card-title>
+        <v-card-actions>
+            <v-btn flat color="blue" :to="`/blog/${post.postId}`">More</v-btn>
+        </v-card-actions>
+    </v-card>
     <!-- <div></div> -->
 </template>
 
@@ -21,36 +23,18 @@ export default {
             return this.$store.state.blog.blogPosts[this.postKey];
         }
     },
-    mounted() {}
+    mounted() {},
+    methods: {
+        doRoute() {
+            console.log('router', this);
+            this.$router.push(`/blog/${this.post.postId}`);
+        }
+    }
 };
 </script>
 
 <style>
-.post-card-container .link {
-    position: relative;
-    color: initial;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow: hidden;
-}
-.post-card-container img {
-    max-width: 400px;
-    min-width: 400px;
-    height: 500px;
-}
-.post-card-container .description {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: white;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-.post-card-container:hover .description {
-    opacity: 1;
+.blog-post-card {
+    cursor: pointer;
 }
 </style>
