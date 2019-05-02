@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { auth } from '~/plugins/firebase.js';
 export default {
     computed: {
         loggedIn() {
@@ -64,7 +65,7 @@ export default {
             this.$store.commit('login/setActive', true);
         },
         logOut() {
-            this.$firebase.auth().signOut();
+            auth.signOut();
         }
     }
 };

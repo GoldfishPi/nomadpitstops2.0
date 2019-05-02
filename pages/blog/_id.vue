@@ -164,7 +164,7 @@ export default {
 }
 @media screen and (max-width: 700px) {
     .post-container h1 {
-        font-size: 1.3rem;
+        font-size: 2.8rem;
     }
 }
 @media screen and (max-width: 500px) {

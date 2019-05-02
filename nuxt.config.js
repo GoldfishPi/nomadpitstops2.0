@@ -1,9 +1,10 @@
 import pkg from './package'
-import TerserPlugin from 'terser-webpack-plugin'    
+import TerserPlugin from 'terser-webpack-plugin'
 
 export default {
     mode: 'universal',
-
+    // buildDir: './functions/nuxt',
+    // buildDir: './dist',
     /*
     ** Headers of the page
     */
@@ -45,7 +46,8 @@ export default {
     plugins: [
         { src: '~plugins/ga.js', ssr: false },
         { src: "~plugins/vue2-google-maps.js", ssr: true },
-        { src: "~plugins/fireauth.js", ssr: true },
+        { src: "~plugins/firebase.js", ssr: false },
+        { src: "~plugins/fireauth.js", ssr: false },
         // { src: "~plugins/vueMarkdown.js", ssr: true },
     ],
 
@@ -58,35 +60,35 @@ export default {
             baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : 'https://api.nomadpitstops.com'
         }],
         '@nuxtjs/vuetify',
-        {
-            src: 'nuxt-firebase',
-            options: {
-                apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
-                authDomain: 'nomad-pit-stops.firebaseapp.com',
-                databaseURL: 'https://nomad-pit-stops.firebaseio.com',
-                projectId: 'nomad-pit-stops',
-                storageBucket: 'nomad-pit-stops.appspot.com',
-                messagingSenderId: '1069723342252'
-            }
-        }
+        // {
+        //     src: 'nuxt-firebase',
+        //     options: {
+        //         apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
+        //         authDomain: 'nomad-pit-stops.firebaseapp.com',
+        //         databaseURL: 'https://nomad-pit-stops.firebaseio.com',
+        //         projectId: 'nomad-pit-stops',
+        //         storageBucket: 'nomad-pit-stops.appspot.com',
+        //         messagingSenderId: '1069723342252'
+        //     }
+        // }
     ],
     vendor: ['vue2-google-maps'],
 
     /*
     ** Build configuration
     */
-   build: {
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          cache: true,
-          parallel: false
-        })
-      ]
-    }
-},
+    build: {
+        optimization: {
+            minimize: true,
+            minimizer: [
+                new TerserPlugin({
+                    cache: true,
+                    parallel: false
+                })
+            ]
+        }
+    },
     env: {
-        siteUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'https://nomadpitstops.com'
+        siteUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:3333' : 'https://nomadpitstops.com'
     }
 }

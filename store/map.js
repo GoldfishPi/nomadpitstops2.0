@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { fireDb } from '~/plugins/firebase.js';
 
 export const state = () => ({
     focus: {
@@ -41,23 +42,28 @@ export const mutations = {
     }
 };
 export const actions = {
-    getMarkers(context) {
-        if (this.state.map.markers.length) return;
-        this.$axios.get('/pitstops')
-            .then(data => {
-                data = data.data.map(marker => {
-                    return {
-                        name: marker.name,
-                        notes: marker.notes,
-                        position: {
-                            lng: marker.longitude,
-                            lat: marker.latitude,
-                        },
-                        connection: marker.connection
-                    }
-                });
-                context.commit('setMarkers', data);
-            })
+    async getMarkers(context) {
+        console.log('getting markers')
+        var pitstops = await fireDb.collection('pitstops').get();
+        context.commit('setMarkers', pitstops.docs.map(ps => {
+            console.log('data', ps.data())
+            return ps.data()
+        }));
+        // this.$axios.get('/pitstops')
+        //     .then(data => {
+        //         data = data.data.map(marker => {
+        //             return {
+        //                 name: marker.name,
+        //                 notes: marker.notes,
+        //                 position: {
+        //                     lng: marker.longitude,
+        //                     lat: marker.latitude,
+        //                 },
+        //                 connection: marker.connection
+        //             }
+        //         });
+        //         context.commit('setMarkers', data);
+        //     })
 
     },
     getMarkersRadius(context, position) {

@@ -1,15 +1,19 @@
 <template>
-    <div class="map-container">
-        <Pitstops/>
-        <Map/>
-        <!-- <MapControlls/> -->
-    </div>
+    <v-layout row style="height:100%;">
+        <v-flex xs5 class="hidden-sm-and-down pm-6">
+            <Pitstops/>
+        </v-flex>
+        <v-flex xs12 style="height:100%;">
+            <Map class="pm-6"/>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
 import Map from '../components/Map';
 import Pitstops from '@/components/Pitstops';
 import MapControlls from '@/components/MapControlls';
+import { fireDb } from '~/plugins/firebase.js';
 export default {
     components: {
         Map,
@@ -29,6 +33,9 @@ export default {
         this.$store.commit('nav/setDefault', false);
         this.$store.dispatch('map/getMarkers');
         this.$store.dispatch('map/getUserLocation');
+    },
+    async asyncData(context) {
+        return context.store.dispatch('map/getMarkers');
     },
     head() {
         return {

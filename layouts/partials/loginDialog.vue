@@ -23,7 +23,7 @@
                             ></v-text-field>
                         </v-flex>
                         <v-flex right>
-                            <v-btn v-on:click="onLogin()">Login</v-btn>
+                            <v-btn v-on:click="onLogIn()">Login</v-btn>
                         </v-flex>
                     </v-layout>
                 </v-tab-item>
@@ -51,32 +51,36 @@
 </template>
 
 <script>
+import { auth } from '~/plugins/firebase.js';
 export default {
     data() {
         return {
             tabs: null,
             username: '',
-            password: ''
+            password: '',
+            active: false
         };
     },
-    computed: {
-        active() {
-            return this.$store.state.login.active;
-        }
+    mounted() {
+        this.$store.watch((state = this.$store.state.login.active) => {
+            if (this.$store.state.login.active) {
+                this.active = true;
+                this.$store.commit('login/setActive', false);
+            }
+        });
     },
     methods: {
         async onSignUp() {
             console.log('signing up...', this.$firebase);
-            await this.$firebase
-                .auth()
-                .createUserWithEmailAndPassword(this.username, this.password);
-            this.$store.commit('login/setActive', false);
+            await auth.createUserWithEmailAndPassword(
+                this.username,
+                this.password
+            );
+            this.active = false;
         },
         async onLogIn() {
-            await this.$firebase
-                .auth()
-                .signInWithEmailAndPassword(this.username, this.password);
-            this.$store.commit('login/setActive', false);
+            await auth.signInWithEmailAndPassword(this.username, this.password);
+            this.active = false;
         }
     }
 };

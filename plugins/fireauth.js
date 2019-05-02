@@ -1,16 +1,16 @@
+import { auth } from '~/plugins/firebase.js';
 export default context => {
-    const {store} = context;
-    
+    const { store } = context;
+
     return new Promise((resolve, reject) => {
-        console.log('context?', context)
-        context.$firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-                // resolve(store.commit('auth/setUser', user));
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                context.store.commit('auth/setLoggedIn', true);
             } else {
-                // resolve(store.commit('auth/setUser', user));
+                context.store.commit('auth/setLoggedIn', false);
             }
-            resolve();
+            return resolve();
         })
     })
-    
+
 }
