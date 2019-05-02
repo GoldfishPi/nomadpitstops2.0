@@ -12,6 +12,8 @@
                 :to="item.link"
                 color="white"
             >{{item.title}}</v-btn>
+            <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
+            <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>
             <!-- <v-btn to="map" flat color="white">Map</v-btn>
             <v-btn to="blog" flat color="white">Blog</v-btn>-->
         </v-toolbar-items>
@@ -31,10 +33,8 @@
 <script>
 export default {
     computed: {
-        isTop() {
-            // return false;
-            if (!this.$store.state.nav.defaultLargeNav) return false;
-            return this.$store.state.nav.largeNav;
+        loggedIn() {
+            return this.$store.state.auth.loggedIn;
         }
     },
     data() {
@@ -53,37 +53,18 @@ export default {
                     title: 'Blog',
                     link: '/blog'
                 }
-            ]
+            ],
+            loginOverride: false
         };
     },
-    mounted() {
-        // console.log('this lol', this)
-
-        this.checkScroll();
-        console.log('state');
-        document.addEventListener('scroll', e => {
-            this.checkScroll();
-        });
-    },
+    mounted() {},
     methods: {
-        checkScroll() {
-            if (
-                typeof document.scrollingElement.scrollTop === 'number' &&
-                document.scrollingElement.scrollTop > 50
-            ) {
-                this.$store.commit('nav/setNav', false, 'lol');
-            } else {
-                this.$store.commit('nav/setNav', true);
-            }
-            //   console.log('store nav', this.$store.state.nav.largeNav)
+        openLoginDialog() {
+            console.log('lololol', this.$firebase);
+            this.$store.commit('login/setActive', true);
         },
-        toggleMenu() {
-            this.isOpen = !this.isOpen;
-            if (this.isOpen) {
-                document.addEventListener('click', e => {
-                    //   if (this.isOpen) this.toggleMenu();
-                });
-            }
+        logOut() {
+            this.$firebase.auth().signOut();
         }
     }
 };
