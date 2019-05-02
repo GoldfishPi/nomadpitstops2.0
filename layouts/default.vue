@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <v-app>
         <Nav/>
-        <div class="_content">
+        <v-content>
             <nuxt/>
-        </div>
+        </v-content>
         <Snackbar/>
-    </div>
+    </v-app>
 </template>
 <script>
 import Nav from './partials/nav';

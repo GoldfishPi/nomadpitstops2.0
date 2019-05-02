@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar fixed color="#454553" dark>
+    <v-toolbar app color="#454553" dark>
         <img class="logo" src="./../../assets/logo.png" alt>
         <v-toolbar-title>Nomad Pit Stops</v-toolbar-title>
 

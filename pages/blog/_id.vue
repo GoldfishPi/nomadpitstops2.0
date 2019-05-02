@@ -1,6 +1,7 @@
 <template>
     <div class="post-container">
         <div class="content">
+            <v-parallax class="cover" v-bind:src="`/blog/posts/${post.id}/cover.jpg`"></v-parallax>
             <h1>{{post.title}}</h1>
             <h2 class="__text-sub">{{post.author}}</h2>
             <div class="post-content" v-html="post.body"></div>
@@ -49,6 +50,13 @@ export default {
                     post.body = marked(res.data);
                     context.store.commit('blog/setActiveBlogPost', post);
                 })
+            // axios
+            //     .get(
+            //         `${context.env.siteUrl}/blog/posts/${
+            //             post.id
+            //         }/description.md`
+            //     )
+            //     .then(res => {})
         ]);
         // console.log('found post', post);
     },
@@ -133,15 +141,18 @@ export default {
     width: calc(100vw - 10em);
     max-width: 800px;
 }
-.post-container img {
+.post-container .cover {
     /* max-width: 100%; */
     width: 100vw;
     margin: 0 calc(-50vw + 50%);
-    max-height: 60vh;
-    object-fit: cover;
+    /* max-height: 60vh; */
+    /* object-fit: cover; */
+}
+.post-container .post-content img {
+    max-width: 100%;
 }
 .post-container h1 {
-    font-size: 2.5rem;
+    font-size: 4rem;
     margin: 1rem 0;
 }
 .post-content h2 {
