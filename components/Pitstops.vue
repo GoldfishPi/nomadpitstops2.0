@@ -78,9 +78,7 @@ export default {
 
 <style>
 .scrooly {
-    padding-top: 100px;
+    max-height: 93vh;
     overflow: auto;
-    max-height: 100%;
-    box-sizing: border-box;
 }
 </style>

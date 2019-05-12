@@ -1,9 +1,12 @@
 <template>
-    <div class="map-container">
-        <Pitstops/>
-        <Map/>
-        <!-- <MapControlls/> -->
-    </div>
+    <v-layout fill-height>
+        <v-flex xs4 grow style="background-color:green">
+            <Pitstops/>
+        </v-flex>
+        <v-flex style="background-color:red">
+            <Map/>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>

@@ -129,6 +129,7 @@ export default {
 .map {
     position: relative;
     overflow: hidden;
+    height: 100%;
 }
 .vue-map-container {
     transition: all 0.5s;
