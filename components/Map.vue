@@ -1,5 +1,6 @@
 <template>
     <v-card class="map" v-bind:class="selecting">
+        <MapControlls class="hidden-md-and-up"/>
         <GmapMap
             :center="focus"
             :zoom="mapZoom"
@@ -55,7 +56,11 @@
 </template>
 
 <script>
+import MapControlls from './MapControlls';
 export default {
+    components: {
+        MapControlls
+    },
     computed: {
         markers() {
             return this.$store.state.map.markers;

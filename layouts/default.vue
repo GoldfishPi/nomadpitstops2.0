@@ -5,15 +5,18 @@
             <nuxt/>
         </v-content>
         <Snackbar/>
+        <LoginDialog/>
     </v-app>
 </template>
 <script>
 import Nav from './partials/nav';
 import Snackbar from './partials/snackbar';
+import LoginDialog from './partials/loginDialog';
 export default {
     components: {
         Nav,
-        Snackbar
+        Snackbar,
+        LoginDialog
     }
 };
 </script>

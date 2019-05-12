@@ -1,10 +1,19 @@
 <template>
+<<<<<<< HEAD
     <v-layout fill-height>
         <v-flex xs4 grow style="background-color:green">
             <Pitstops/>
         </v-flex>
         <v-flex style="background-color:red">
             <Map/>
+=======
+    <v-layout row style="height:100%;">
+        <v-flex xs5 class="hidden-sm-and-down pm-6">
+            <Pitstops/>
+        </v-flex>
+        <v-flex xs12 style="height:100%;">
+            <Map class="pm-6"/>
+>>>>>>> 8c859ef706e3b3c93c89feeb2dc53d05aa49c719
         </v-flex>
     </v-layout>
 </template>
@@ -13,6 +22,7 @@
 import Map from '../components/Map';
 import Pitstops from '@/components/Pitstops';
 import MapControlls from '@/components/MapControlls';
+import { fireDb } from '~/plugins/firebase.js';
 export default {
     components: {
         Map,
@@ -32,6 +42,9 @@ export default {
         this.$store.commit('nav/setDefault', false);
         this.$store.dispatch('map/getMarkers');
         this.$store.dispatch('map/getUserLocation');
+    },
+    async asyncData(context) {
+        return context.store.dispatch('map/getMarkers');
     },
     head() {
         return {
