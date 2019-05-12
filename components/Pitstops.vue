@@ -1,17 +1,18 @@
 <template>
     <v-card class="pitstops">
         <MapControlls/>
-        <v-list class="scrooly" three-line>
-            <template v-for="(m, index) in markers">
-                <v-list-tile :key="index" v-on:click="setFocus($event, m)">
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{m.title}}</v-list-tile-title>
-                        <!-- <v-list-tile-sub-title>{{m.notes}}</v-list-tile-sub-title> -->
-                    </v-list-tile-content>
-                </v-list-tile>
-                <!-- <v-space :key="index"></v-space> -->
-            </template>
-        </v-list>
+        <div class="scrooly">
+            <v-list three-line>
+                <template v-for="(m, index) in markers">
+                    <v-list-tile :key="index" v-on:click="setFocus($event, m)">
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{m.name}}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{m.notes}}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
+            </v-list>
+        </div>
     </v-card>
 </template>
 
@@ -48,12 +49,13 @@ export default {
 
 <style>
 .pitstops {
-    height: 100%;
+    height: 91.5vh;
 }
 .scrooly {
-    padding-top: 100px;
+    padding-top: 60px;
     overflow: auto;
     max-height: 100%;
     box-sizing: border-box;
+    direction: rtl;
 }
 </style>
