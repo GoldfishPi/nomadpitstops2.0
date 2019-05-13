@@ -28,7 +28,7 @@
                 </v-list>-->
             </v-menu>
         </v-toolbar>
-        <v-navigation-drawer absolute v-model="drawer" dark right class="hidden-md-and-up">
+        <v-navigation-drawer app v-model="drawer" dark right class="hidden-md-and-up">
             <v-list>
                 <v-list-tile v-for="item in menu" :key="item.link" :to="item.link">
                     <v-list-tile-title>{{item.title}}</v-list-tile-title>
