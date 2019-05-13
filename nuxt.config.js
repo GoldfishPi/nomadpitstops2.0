@@ -1,18 +1,22 @@
-import pkg from './package'
-import TerserPlugin from 'terser-webpack-plugin'
+import pkg from './package';
+import TerserPlugin from 'terser-webpack-plugin';
 
 export default {
     mode: 'universal',
     // buildDir: './functions/nuxt',
     // buildDir: './dist',
     /*
-    ** Headers of the page
-    */
+     ** Headers of the page
+     */
     head: {
-        title: 'Nomad Pit Stops | Intentional Travel Tools For The Modern Nomad',
+        title:
+            'Nomad Pit Stops | Intentional Travel Tools For The Modern Nomad',
         meta: [
             { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+            {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1'
+            },
             {
                 hid: 'twitter:site',
                 name: 'twitter:site',
@@ -23,43 +27,54 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:300,700' },
-            { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.6.3/css/all.css' },
+            {
+                rel: 'stylesheet',
+                href:
+                    'https://fonts.googleapis.com/css?family=Montserrat:300,700'
+            },
+            {
+                rel: 'stylesheet',
+                href: 'https://use.fontawesome.com/releases/v5.6.3/css/all.css'
+            }
         ]
     },
 
     /*
-    ** Customize the progress-bar color
-    */
+     ** Customize the progress-bar color
+     */
     loading: { color: '#4AA0D5' },
 
     /*
-    ** Global CSS
-    */
-    css: [
-        '@/assets/css/main.css'
-    ],
+     ** Global CSS
+     */
+    css: ['@/assets/css/main.css'],
 
     /*
-    ** Plugins to load before mounting the App
-    */
+     ** Plugins to load before mounting the App
+     */
     plugins: [
         { src: '~plugins/ga.js', ssr: false },
-        { src: "~plugins/vue2-google-maps.js", ssr: true },
-        { src: "~plugins/firebase.js", ssr: false },
-        { src: "~plugins/fireauth.js", ssr: false },
+        { src: '~plugins/vue2-google-maps.js', ssr: true },
+        { src: '~plugins/firebase.js', ssr: false },
+        { src: '~plugins/fireauth.js', ssr: false }
         // { src: "~plugins/vueMarkdown.js", ssr: true },
     ],
 
     /*
-    ** Nuxt.js modules
-    */
+     ** Nuxt.js modules
+     */
     modules: [
         '@nuxtjs/pwa',
-        ['@nuxtjs/axios', {
-            baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : 'https://api.nomadpitstops.com'
-        }],
-        '@nuxtjs/vuetify',
+        [
+            '@nuxtjs/axios',
+            {
+                baseURL:
+                    process.env.NODE_ENV !== 'production'
+                        ? 'http://localhost:3001'
+                        : 'https://api.nomadpitstops.com'
+            }
+        ],
+        '@nuxtjs/vuetify'
         // {
         //     src: 'nuxt-firebase',
         //     options: {
@@ -75,20 +90,23 @@ export default {
     vendor: ['vue2-google-maps'],
 
     /*
-    ** Build configuration
-    */
+     ** Build configuration
+     */
     build: {
-        optimization: {
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    cache: true,
-                    parallel: false
-                })
-            ]
-        }
+        // optimization: {
+        //     minimize: true,
+        //     minimizer: [
+        //         new TerserPlugin({
+        //             cache: true,
+        //             parallel: false
+        //         })
+        //     ]
+        // }
     },
     env: {
-        siteUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:3333' : 'https://nomadpitstops.com'
+        siteUrl:
+            process.env.NODE_ENV !== 'production'
+                ? 'http://localhost:3333'
+                : 'https://nomadpitstops.com'
     }
-}
+};
