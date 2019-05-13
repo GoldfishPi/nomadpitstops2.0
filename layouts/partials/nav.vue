@@ -1,37 +1,46 @@
 <template>
-    <v-toolbar app color="#454553" dark>
-        <img class="logo" src="./../../assets/logo.png" alt>
-        <v-toolbar-title>Nomad Pit Stops</v-toolbar-title>
-
-        <v-spacer></v-spacer>
-        <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn
-                flat
-                v-for="item in menu"
-                :key="item.link"
-                :to="item.link"
-                color="white"
-            >{{item.title}}</v-btn>
-            <!-- <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
-            <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>-->
-            <!-- <v-btn to="map" flat color="white">Map</v-btn>
-            <v-btn to="blog" flat color="white">Blog</v-btn>-->
-        </v-toolbar-items>
-        <v-menu class="hidden-md-and-up">
-            <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-            <v-list>
+    <div>
+        <v-toolbar app color="#454553" dark>
+            <img class="logo" src="./../../assets/logo.png" alt>
+            <v-toolbar-title>Nomad Pit Stops</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items class="hidden-sm-and-down">
+                <v-btn
+                    flat
+                    v-for="item in menu"
+                    :key="item.link"
+                    :to="item.link"
+                    color="white"
+                >{{item.title}}</v-btn>
+                <!-- <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
+                <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>-->
+                <!-- <v-btn to="map" flat color="white">Map</v-btn>
+                <v-btn to="blog" flat color="white">Blog</v-btn>-->
+            </v-toolbar-items>
+            <v-menu class="hidden-md-and-up">
+                <v-toolbar-side-icon slot="activator" v-on:click="drawer = !drawer"></v-toolbar-side-icon>
+                <!-- <v-list>
                 <v-list-tile v-for="item in menu" :key="item.link" :to="item.link">
                     <v-list-tile-content>
                         <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                </v-list>-->
+            </v-menu>
+        </v-toolbar>
+        <v-navigation-drawer absolute v-model="drawer" dark right class="hidden-md-and-up">
+            <v-list>
+                <v-list-tile v-for="item in menu" :key="item.link" :to="item.link">
+                    <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                </v-list-tile>
             </v-list>
-        </v-menu>
-    </v-toolbar>
+        </v-navigation-drawer>
+    </div>
 </template>
 
 <script>
 import { auth } from '~/plugins/firebase.js';
+
 export default {
     computed: {
         loggedIn() {
@@ -55,7 +64,8 @@ export default {
                     link: '/blog'
                 }
             ],
-            loginOverride: false
+            loginOverride: false,
+            drawer: false
         };
     },
     mounted() {},

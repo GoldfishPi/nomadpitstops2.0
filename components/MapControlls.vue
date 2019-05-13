@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar absolute color="#4AA0D5" dark>
+    <v-toolbar color="#4AA0D5" dark>
         <v-toolbar-title>
             <h1>Map</h1>
         </v-toolbar-title>

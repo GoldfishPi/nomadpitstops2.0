@@ -1,6 +1,6 @@
 <template>
     <v-card class="blog-post-card" v-on:click="doRoute()">
-        <v-img v-bind:src="post.thumbnail" aspect-ratio="1.75"></v-img>
+        <v-img v-bind:src="post.lead" aspect-ratio="1.75"></v-img>
         <v-card-title>
             <div>
                 <h3>{{post.title}}</h3>

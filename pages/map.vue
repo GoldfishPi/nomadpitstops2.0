@@ -1,11 +1,12 @@
 <template>
     <v-layout fill-height>
-        <v-flex xs5 class="hidden-sm-and-down pm-6">
-            <Pitstops/>
-        </v-flex>
         <v-flex xs12 style="height:100%;">
             <Map class="pm-6"/>
         </v-flex>
+        <v-navigation-drawer absolute v-model="drawer">
+            <MapControlls/>
+            <Pitstops/>
+        </v-navigation-drawer>
     </v-layout>
 </template>
 
@@ -27,6 +28,11 @@ export default {
         focus() {
             return this.$store.state.map.focus;
         }
+    },
+    data() {
+        return {
+            drawer: true
+        };
     },
     mounted() {
         this.$store.commit('nav/setNav', false);
