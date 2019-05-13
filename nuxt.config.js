@@ -74,7 +74,8 @@ export default {
                         : 'https://api.nomadpitstops.com'
             }
         ],
-        '@nuxtjs/vuetify'
+        '@nuxtjs/vuetify',
+        '@nuxtjs/sitemap'
         // {
         //     src: 'nuxt-firebase',
         //     options: {
@@ -108,5 +109,9 @@ export default {
             process.env.NODE_ENV !== 'production'
                 ? 'http://localhost:3333'
                 : 'https://nomadpitstops.com'
+    },
+    sitemap: {
+        hostname: 'https://nomadpitstops.com',
+        gzip: true
     }
 };
