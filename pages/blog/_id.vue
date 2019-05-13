@@ -11,8 +11,6 @@
 </template>
 
 <script>
-// import VueMarkdown from '../node_module/VueMarkdown';
-import manifest from '@/static/blog/postManifest';
 import axios from 'axios';
 import VueMarkdown from 'vue-markdown';
 import marked from 'marked';

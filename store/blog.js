@@ -1,4 +1,3 @@
-import postManifest from '@/static/blog/postManifest';
 import prismic from 'prismic-javascript';
 import prismicDom from 'prismic-dom';
 import prismicConfig from '@/prismic.config.js';

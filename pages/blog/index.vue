@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import postManifest from '@/static/blog/postManifest';
 import BlogPostCard from '@/components/BlogPostCard';
 import axios from 'axios';
 export default {
