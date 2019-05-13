@@ -1,7 +1,7 @@
 <template>
     <div class="post-container">
         <div class="content">
-            <v-parallax class="cover" v-bind:src="`/blog/posts/${post.id}/cover.jpg`"></v-parallax>
+            <v-parallax class="cover" v-bind:src="post.lead"></v-parallax>
             <h1>{{post.title}}</h1>
             <h2 class="__text-sub">{{post.author}}</h2>
             <div class="post-content" v-html="post.body"></div>
@@ -16,6 +16,7 @@ import manifest from '@/static/blog/postManifest';
 import axios from 'axios';
 import VueMarkdown from 'vue-markdown';
 import marked from 'marked';
+import prismicDom from 'prismic-dom';
 export default {
     components: {
         VueMarkdown
@@ -25,40 +26,16 @@ export default {
             return this.$store.state.blog.activeBlogPost;
         }
     },
-    asyncData(context) {
-        var post = manifest.find(p => {
+    async asyncData({ store, route }) {
+        await store.dispatch('blog/fetchBlogPosts');
+        var post = store.state.blog.blogPosts.find(p => {
             // console.log('p', p);
-            return p.postId === context.route.params.id;
+            return p.uid === route.params.id;
         });
-
-        return Promise.all([
-            axios
-                .get(
-                    `${context.env.siteUrl}/blog/posts/${
-                        post.id
-                    }/description.md`
-                )
-                .then(res => {
-                    // console.log('lol res', res);
-                    post.description = res.data;
-                    context.store.commit('blog/setActiveBlogPost', post);
-                }),
-            axios
-                .get(`${context.env.siteUrl}/blog/posts/${post.id}/index.md`)
-                .then(res => {
-                    // console.log('lol res', res);
-                    post.body = marked(res.data);
-                    context.store.commit('blog/setActiveBlogPost', post);
-                })
-            // axios
-            //     .get(
-            //         `${context.env.siteUrl}/blog/posts/${
-            //             post.id
-            //         }/description.md`
-            //     )
-            //     .then(res => {})
-        ]);
-        // console.log('found post', post);
+        if (!post.rendered) {
+            store.dispatch('blog/renderBody', post.uid);
+        }
+        store.commit('blog/setActiveBlogPost', post);
     },
     head() {
         return {
@@ -68,7 +45,7 @@ export default {
                 {
                     hid: 'description',
                     name: 'description',
-                    content: this.$store.state.blog.activeBlogPost.description
+                    content: this.$store.state.blog.activeBlogPost.snippet
                 },
                 //OG
                 {
@@ -79,9 +56,7 @@ export default {
                 {
                     hid: 'og:image',
                     name: 'og:image',
-                    content: `${process.env.siteUrl}/blog/posts/${
-                        this.$store.state.blog.activeBlogPost.id
-                    }/cover.jpg`
+                    content: this.$store.state.blog.activeBlogPost.lead
                 },
                 {
                     hid: 'og:type',
@@ -107,9 +82,7 @@ export default {
                 {
                     hid: 'twitter:image',
                     name: 'twitter:image',
-                    content: `${process.env.siteUrl}/blog/posts/${
-                        this.$store.state.blog.activeBlogPost.id
-                    }/thumbnail.jpg`
+                    content: this.$store.state.blog.activeBlogPost.thumbnail
                 },
                 {
                     hid: 'twitter:title',

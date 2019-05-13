@@ -1,1 +1,0 @@
-Backpacking through this mysterious countryside is an amazing experience but what about taking your laptop and never missing a beat at the office as you ride through these limestone mountains and meandering rivers?

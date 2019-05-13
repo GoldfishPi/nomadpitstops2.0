@@ -2,15 +2,7 @@
     <div class="blog-container">
         <h1 class="__page-heading">Blog</h1>
         <div class="cards">
-            <BlogPostCard v-for="(post, index) of manifest" :key="index" :postKey="index"/>
-            <!-- <v-card v-for="(post, index) of manifest" :key="index">
-                <v-card-title primary-title>
-                    <div>
-                        <h3>{{post.title}}</h3>
-                        <div>{{post}}</div>
-                    </div>
-                </v-card-title>
-            </v-card>-->
+            <BlogPostCard v-for="(post, index) of posts" :key="index" :post="post"/>
         </div>
     </div>
 </template>
@@ -25,45 +17,17 @@ export default {
     },
     computed: {
         posts() {
-            return this.$store.state.blogPosts;
+            return this.$store.state.blog.blogPosts;
         }
-    },
-    data() {
-        return {
-            manifest: postManifest
-        };
-    },
-    mounted() {
-        this.$store.commit('nav/setNav', false);
-        this.$store.commit('nav/setDefault', false);
-        // this.$store.dispatch('blog/getBlogPosts', false);
-        // console.log('manifest', postManifest);
-        // this.$store.dispatch('blog/getBlogPosts');
     },
     head() {
         return {
             title: 'Nomad Pit Stops | Blog'
         };
     },
-    asyncData(context) {
-        context.store.dispatch('blog/getBlogPosts');
-        var posts = context.store.state.blog.blogPosts;
-        var promises = posts.map(post => {
-            return axios
-                .get(
-                    `${context.env.siteUrl}/blog/posts/${
-                        post.id
-                    }/description.md`
-                )
-                .then(res => {
-                    post.description = res.data;
-                    context.store.commit('blog/setActiveBlogPost', post);
-                });
-        });
-        // console.log('promises', promises[0]);
-        return Promise.all(promises);
+    async asyncData({ store }) {
+        const posts = await store.dispatch('blog/fetchBlogPosts');
     }
-    // middleware: 'blogs'
 };
 </script>
 

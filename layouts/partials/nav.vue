@@ -12,8 +12,8 @@
                 :to="item.link"
                 color="white"
             >{{item.title}}</v-btn>
-            <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
-            <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>
+            <!-- <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
+            <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>-->
             <!-- <v-btn to="map" flat color="white">Map</v-btn>
             <v-btn to="blog" flat color="white">Blog</v-btn>-->
         </v-toolbar-items>

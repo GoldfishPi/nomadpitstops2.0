@@ -1,1 +1,0 @@
-Featuring calming rice patties, tranquil villages, and the tallest mountain in all of south east Asia, Sa Pa has become a staple for backpackers visiting Vietnam. However, how well does this hilly terrain suite the working traveler?

@@ -1,19 +1,10 @@
 <template>
-<<<<<<< HEAD
     <v-layout fill-height>
-        <v-flex xs4 grow style="background-color:green">
-            <Pitstops/>
-        </v-flex>
-        <v-flex style="background-color:red">
-            <Map/>
-=======
-    <v-layout row style="height:100%;">
         <v-flex xs5 class="hidden-sm-and-down pm-6">
             <Pitstops/>
         </v-flex>
         <v-flex xs12 style="height:100%;">
             <Map class="pm-6"/>
->>>>>>> 8c859ef706e3b3c93c89feeb2dc53d05aa49c719
         </v-flex>
     </v-layout>
 </template>
