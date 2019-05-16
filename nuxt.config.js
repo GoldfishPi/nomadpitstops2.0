@@ -1,5 +1,7 @@
 import pkg from './package';
 import TerserPlugin from 'terser-webpack-plugin';
+import prismic from 'prismic-javascript';
+import prismicConfig from './prismic.config';
 
 export default {
     mode: 'universal',
@@ -112,6 +114,13 @@ export default {
     },
     sitemap: {
         hostname: 'https://nomadpitstops.com',
-        gzip: true
+        gzip: true,
+        async routes(callback) {
+            let api = await prismic.api(prismicConfig.endpoint);
+            let posts = await api.query(
+                prismic.Predicates.at('document.type', 'blog-post')
+            );
+            callback(null, posts.results.map(post => '/blog/' + post.uid));
+        }
     }
 };
