@@ -4,7 +4,6 @@
         <v-content>
             <nuxt/>
         </v-content>
-
         <Snackbar/>
         <LoginDialog/>
     </v-app>
@@ -25,7 +24,7 @@ export default {
 </script>
 
 <style>
-._content {
+/* ._content {
     padding-top: 5rem;
-}
+} */
 </style>

@@ -1,6 +1,7 @@
 import prismic from 'prismic-javascript';
 import prismicDom from 'prismic-dom';
 import prismicConfig from '@/prismic.config.js';
+import moment from 'moment';
 export const state = () => {
     return {
         blogPosts: [],
@@ -11,7 +12,7 @@ export const state = () => {
     };
 };
 export const mutations = {
-    setBlogPosts(state, posts) {
+    SET_BLOG_POSTS(state, posts) {
         state.blogPosts = posts;
     },
     updatePost(state, post) {
@@ -22,10 +23,10 @@ export const mutations = {
                 return post;
             }
             return p;
-        });
+        })
         if (!updated) state.blogPosts.push(post);
     },
-    updateBody(state, { post, uid }) {
+    UPDATE_POST_BODY(state, { post, uid }) {
         post.body = prismicDom.RichText.asHtml(post.body);
         post.rendered = true;
     },
@@ -34,30 +35,40 @@ export const mutations = {
     }
 };
 export const actions = {
-    async fetchBlogPosts({ commit }) {
+    async FETCH({ commit }) {
         const api = await prismic.getApi(prismicConfig.endpoint);
         let posts = await api.query(
-            prismic.Predicates.at('document.type', 'blog-post')
+            prismic.Predicates.at('document.type', 'blog-post'),
+            { orderings : '[document.first_publication_date desc]' }
         );
         posts = posts.results.map(post => {
+            // console.log('post', post)
             return {
                 uid: post.uid,
                 title: prismicDom.RichText.asText(post.data.title),
                 snippet: prismicDom.RichText.asText(post.data.snippet),
-                firstPublicationDate: post.first_publication_date,
+                // firstPublicationDate: post.first_publication_date,
                 body: post.data.body,
                 thumbnail: prismicDom.Link.url(post.data.thumbnail),
                 lead: prismicDom.Link.url(post.data.lead),
-                rendered: false
+                rendered: false,
+                date:moment(post.first_publication_date).format('MMMM, DD, YYYY '),
+                type:post.data.type
             };
-        });
-        commit('setBlogPosts', posts);
+        })
+        commit('SET_BLOG_POSTS', posts);
         return posts;
     },
     renderBody({ commit, state }, uid) {
         let post = state.blogPosts.find(p => {
             return p.uid === uid;
         });
-        commit('updateBody', { uid: uid, post: post });
+        commit('UPDATE_POST_BODY', { uid: uid, post: post });
     }
 };
+
+export const getters = {
+    POSTS(state) {
+        return state.blogPosts;
+    }
+}

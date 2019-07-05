@@ -14,8 +14,8 @@
             <h2 class="screen-title">Ready to Get Started?</h2>
             <div class="buttons">
                 <div class="wraper">
-                    <v-btn to="/map">Map</v-btn>
-                    <v-btn to="/blog">Blog</v-btn>
+                    <!-- <v-btn to="/map">Map</v-btn> -->
+                    <v-btn to="/blog" color="primary">Blog</v-btn>
                 </div>
             </div>
         </div>
