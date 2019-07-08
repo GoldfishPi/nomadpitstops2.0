@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { auth } from '~/plugins/firebase.js';
 import Hammock from '~/static/hammock.svg?inline';
 
 export default {

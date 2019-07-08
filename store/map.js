@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { fireDb } from '~/plugins/firebase.js';
 
 export const state = () => ({
     focus: {

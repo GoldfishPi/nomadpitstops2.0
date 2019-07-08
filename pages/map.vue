@@ -14,7 +14,6 @@
 import Map from '../components/Map';
 import Pitstops from '@/components/Pitstops';
 import MapControlls from '@/components/MapControlls';
-import { fireDb } from '~/plugins/firebase.js';
 export default {
     components: {
         Map,
