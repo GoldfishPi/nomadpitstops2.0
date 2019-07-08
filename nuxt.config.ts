@@ -57,9 +57,6 @@ export default {
     plugins: [
         { src: '~plugins/ga.js', ssr: false },
         { src: '~plugins/vue2-google-maps.js', ssr: true },
-        { src: '~plugins/firebase.js', ssr: false },
-        { src: '~plugins/fireauth.js', ssr: false }
-        // { src: "~plugins/vueMarkdown.js", ssr: true },
     ],
 
     /*

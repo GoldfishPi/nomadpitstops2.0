@@ -37,7 +37,6 @@
 <script>
 import axios from 'axios';
 import VueMarkdown from 'vue-markdown';
-import marked from 'marked';
 import prismicDom from 'prismic-dom';
 import BlogPostCard from './../../components/BlogPostCard.vue'
 export default {
