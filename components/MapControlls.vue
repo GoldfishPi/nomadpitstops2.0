@@ -39,18 +39,10 @@ export default {
             this.$store.commit('map/setZoom', 16);
         },
         startSelectingPoint() {
-            if (this.$store.state.auth.loggedIn) {
-                if (this.$store.state.map.selectingState === 'standby') {
-                    this.$store.commit(
-                        'snackbar/setSnack',
-                        'Select A Point On The Map'
-                    );
-                    this.$store.commit('map/setSelectState', 'selecting');
-                } else {
-                    this.$store.commit('map/setSelectState', 'standby');
-                }
+            if (this.$store.state.map.selectingState === 'standby') {
+                this.$store.commit('map/setSelectState', 'selecting');
             } else {
-                this.$store.commit('login/setActive', true);
+                this.$store.commit('map/setSelectState', 'standby');
             }
         }
     }

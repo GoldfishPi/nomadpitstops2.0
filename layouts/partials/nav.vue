@@ -1,8 +1,9 @@
 <template>
     <div>
-        <v-app-bar dark  color="#454553">
-            <img class="logo" src="./../../assets/logo.png" alt>
-            <v-app-bar-title class="title">Nomad Pit Stops</v-app-bar-title>
+        <v-app-bar app >
+            <Hammock class="logo"/>
+            <!-- <img class="logo" src="./../../assets/logo.png" alt> -->
+            <v-toolbar-title class="title">Nomad Pit Stops</v-toolbar-title>
             <v-spacer></v-spacer>
             <!-- <v-app-bar-items class="hidden-sm-and-down">
                 
@@ -15,26 +16,32 @@
                     :to="item.link"
                 >{{item.title}}</v-btn>
             </v-toolbar-items>
-            
-            <v-menu class="hidden-md-and-up">
-                <v-toolbar-side-icon slot="activator" v-on:click="drawer = !drawer"></v-toolbar-side-icon>
-            </v-menu>
+            <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
+
         </v-app-bar>
-        <v-navigation-drawer app v-model="drawer" dark right class="hidden-md-and-up">
-            <v-list>
-                <v-list-tile v-for="item in menu" :key="item.link" nuxt :to="item.link">
-                    <v-list-tile-action v-if="item.icon"><v-icon>{{item.icon}}</v-icon></v-list-tile-action>
-                    <v-list-tile-title>{{item.title}}</v-list-tile-title>
-                </v-list-tile>
-            </v-list>
+        <v-navigation-drawer app v-model="drawer" right class="hidden-md-and-up">
+            
+            <v-list-item v-for="item in menu" :key="item.link" nuxt :to="item.link">
+                <v-list-item-icon><v-icon>{{item.icon}}</v-icon></v-list-item-icon>
+                <v-list-item-content class="title">
+                    <v-list-item-title>
+                        {{item.title}}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            
         </v-navigation-drawer>
     </div>
 </template>
 
 <script>
 import { auth } from '~/plugins/firebase.js';
+import Hammock from '~/static/hammock.svg?inline';
 
 export default {
+    components: {
+        Hammock
+    },
     computed: {
         loggedIn() {
             return this.$store.state.auth.loggedIn;
@@ -66,10 +73,6 @@ export default {
     },
     mounted() {},
     methods: {
-        openLoginDialog() {
-            console.log('lololol', this.$firebase);
-            this.$store.commit('login/setActive', true);
-        },
         logOut() {
             auth.signOut();
         }
@@ -77,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 header {
     position: fixed;
     width: 100%;
@@ -88,6 +91,7 @@ header {
     height: 100%;
     margin-right: 1rem;
     /* border-radius: 100%; */
+    fill: #4AA0D5;
 }
 v-toolbar-title {
     color: white;

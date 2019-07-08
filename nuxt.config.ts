@@ -1,4 +1,3 @@
-import pkg from './package';
 import TerserPlugin from 'terser-webpack-plugin';
 import prismic from 'prismic-javascript';
 import prismicConfig from './prismic.config';
@@ -29,6 +28,7 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon-228.png', sizes:'228x228' },
             {
                 rel: 'stylesheet',
                 href:
@@ -77,7 +77,8 @@ export default {
             }
         ],
         '@nuxtjs/vuetify',
-        '@nuxtjs/sitemap'
+        '@nuxtjs/sitemap',
+        'nuxt-svg',
         // {
         //     src: 'nuxt-firebase',
         //     options: {
@@ -116,7 +117,7 @@ export default {
         hostname: 'https://nomadpitstops.com',
         gzip: true,
         async routes(callback) {
-            let api = await prismic.api(prismicConfig.endpoint);
+            let api:any = await prismic.api(prismicConfig.endpoint);
             let posts = await api.query(
                 prismic.Predicates.at('document.type', 'blog-post')
             );

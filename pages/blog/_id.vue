@@ -53,7 +53,7 @@ export default {
             return this.$store.state.blog.activeBlogPost;
         },
         latestPosts() {
-            return this.$store.state.blog.blogPosts.slice(0, 3);
+            return this.$store.state.blog.posts.slice(0, 3);
         }
     },
     mounted() {
@@ -78,14 +78,14 @@ export default {
     },
     async asyncData({ store, route }) {
         await store.dispatch('blog/FETCH');
-        var post = store.state.blog.blogPosts.find(p => {
+        var post = store.getters['blog/POSTS'].find(p => {
             // console.log('p', p);
             return p.uid === route.params.id;
         });
         if (!post.rendered) {
-            store.dispatch('blog/renderBody', post.uid);
+            store.dispatch('blog/RENDER_POST_BODY', post.uid);
         }
-        store.commit('blog/setActiveBlogPost', post);
+        store.commit('blog/SET_ACTIVE_POST', post);
     },
     
     head() {
@@ -189,7 +189,7 @@ export default {
 .back {
     position: fixed;
     left: 10px;
-    top:10px;
+    top:70px;
     transition: top .5s;
 }
 .back.top {

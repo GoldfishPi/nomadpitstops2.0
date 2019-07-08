@@ -2,20 +2,24 @@ import prismic from 'prismic-javascript';
 import prismicDom from 'prismic-dom';
 import prismicConfig from '@/prismic.config.js';
 import moment from 'moment';
-export const state = () => {
+import { BlogPost } from '~/types/Blog';
+
+export interface BlogState {
+    posts:Array<BlogPost>;
+    activePost:BlogPost | boolean;
+}
+
+export const state = ():BlogState => {
     return {
-        blogPosts: [],
-        activeBlogPost: {
-            title: '',
-            body: ''
-        }
+        posts: [],
+        activePost: false
     };
 };
 export const mutations = {
-    SET_BLOG_POSTS(state, posts) {
-        state.blogPosts = posts;
+    SET_BLOG_POSTS(state:BlogState, posts) {
+        state.posts = posts;
     },
-    updatePost(state, post) {
+    UPDATE_POST(state, post) {
         var updated = false;
         state.blogPosts = state.blogPosts.map(p => {
             if (p.id === post.id) {
@@ -30,7 +34,7 @@ export const mutations = {
         post.body = prismicDom.RichText.asHtml(post.body);
         post.rendered = true;
     },
-    setActiveBlogPost(state, post) {
+    SET_ACTIVE_POST(state, post) {
         state.activeBlogPost = post;
     }
 };
@@ -41,7 +45,7 @@ export const actions = {
             prismic.Predicates.at('document.type', 'blog-post'),
             { orderings : '[document.first_publication_date desc]' }
         );
-        posts = posts.results.map(post => {
+        const blogPosts:Array<BlogPost> = posts.results.map(post => {
             // console.log('post', post)
             return {
                 uid: post.uid,
@@ -56,11 +60,11 @@ export const actions = {
                 type:post.data.type
             };
         })
-        commit('SET_BLOG_POSTS', posts);
+        commit('SET_BLOG_POSTS', blogPosts);
         return posts;
     },
-    renderBody({ commit, state }, uid) {
-        let post = state.blogPosts.find(p => {
+    RENDER_POST_BODY({ commit, state }, uid) {
+        let post = state.posts.find(p => {
             return p.uid === uid;
         });
         commit('UPDATE_POST_BODY', { uid: uid, post: post });
@@ -68,7 +72,7 @@ export const actions = {
 };
 
 export const getters = {
-    POSTS(state) {
-        return state.blogPosts;
+    POSTS(state:BlogState) {
+        return state.posts;
     }
 }

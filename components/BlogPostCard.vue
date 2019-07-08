@@ -17,16 +17,17 @@
     <!-- <div></div> -->
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
     props: ['post'],
     methods: {
         doRoute() {
             this.$router.push(`/blog/${this.post.uid}`);
         }
     }
-};
+});
 </script>
 
 <style>

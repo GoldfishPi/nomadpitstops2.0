@@ -35,8 +35,6 @@ export default {
         };
     },
     mounted() {
-        this.$store.commit('nav/setNav', false);
-        this.$store.commit('nav/setDefault', false);
         this.$store.dispatch('map/getMarkers');
         this.$store.dispatch('map/getUserLocation');
     },
