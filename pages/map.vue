@@ -14,7 +14,6 @@
 import Map from '../components/Map';
 import Pitstops from '@/components/Pitstops';
 import MapControlls from '@/components/MapControlls';
-import { fireDb } from '~/plugins/firebase.js';
 export default {
     components: {
         Map,
@@ -35,8 +34,6 @@ export default {
         };
     },
     mounted() {
-        this.$store.commit('nav/setNav', false);
-        this.$store.commit('nav/setDefault', false);
         this.$store.dispatch('map/getMarkers');
         this.$store.dispatch('map/getUserLocation');
     },

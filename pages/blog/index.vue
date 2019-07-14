@@ -1,6 +1,15 @@
 <template>
     <div class="blog-container">
-        <h1 class="__page-heading">Blog</h1>
+        <v-layout align-end>
+                <v-flex>
+                    <h1 class="__page-heading">Blog</h1>
+                </v-flex>
+                <v-flex>
+                    <v-select v-model="select" :items="items" label="Type">
+                    </v-select>
+                </v-flex>
+                <v-spacer></v-spacer>
+            </v-layout>
         <div class="cards">
             <BlogPostCard v-for="(post, index) of posts" :key="index" :post="post"/>
         </div>
@@ -10,22 +19,38 @@
 <script>
 import BlogPostCard from '@/components/BlogPostCard';
 import axios from 'axios';
+import moment from 'moment';
 export default {
     components: {
         BlogPostCard
     },
     computed: {
         posts() {
-            return this.$store.state.blog.blogPosts;
+            return this.$store.getters['blog/POSTS']
+                .filter(post => {
+                    if(this.select === 'all')return post;
+                    if(this.select === post.type)return post;
+                })
+        },
+        items() {
+            return [
+                'all',
+                'Blog Update',
+                'Nomad Log',
+                'Language Diaries'
+            ]
         }
     },
+    data: () => ({
+        select:'all'
+    }),
     head() {
         return {
             title: 'Nomad Pit Stops | Blog'
         };
     },
     async asyncData({ store }) {
-        const posts = await store.dispatch('blog/fetchBlogPosts');
+        return await store.dispatch('blog/FETCH');
     }
 };
 </script>

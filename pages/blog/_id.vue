@@ -1,40 +1,92 @@
 <template>
-    <div class="post-container">
-        <div class="content">
-            <v-parallax class="cover" v-bind:src="post.lead"></v-parallax>
-            <h1>{{post.title}}</h1>
-            <h2 class="__text-sub">{{post.author}}</h2>
-            <div class="post-content" v-html="post.body"></div>
-            <!-- <VueMarkdown>{{post.body}}</VueMarkdown> -->
+    <div>
+        <div class="post-container">
+            <div class="content">
+                <v-parallax class="cover" v-bind:src="post.lead"></v-parallax>
+                <v-btn to="/blog" :class="`back ${backClass}`" fab large color="primary">
+                    <v-icon>fas fa-chevron-left</v-icon>
+                </v-btn>
+                <h1>{{post.title}}</h1>
+                <h2 class="__text-sub">{{post.author}}</h2>
+                <div class="post-content" v-html="post.body"></div>
+                <!-- <VueMarkdown>{{post.body}}</VueMarkdown> -->
+                
+            </div>
         </div>
+        <v-footer class="pa-3">
+            <v-container fluid>
+                <h2 class="subheading grey--text">Latest Posts</h2>
+                <div class="posts">
+                    <BlogPostCard v-for="(post, index) of latestPosts" :key="index" :post="post"/>
+                    <!-- <v-btn text color="primary">lol</v-btn> -->
+                    <!-- <v-card v-for="post in latestPosts" :key="post.uid" :to="`/blog/${post.uid}`"  margin="5" flat outlined>
+                        <v-img v-bind:src="post.lead" aspect-ratio="1.75"></v-img>
+                        <v-card-title>{{post.title}}</v-card-title>
+                        <v-card-actions>
+                            <v-btn text color="primary">More</v-btn>
+                        </v-card-actions>
+                    </v-card> -->
+                </div>
+            </v-container>
+            
+        </v-footer>
     </div>
+    
 </template>
 
 <script>
 import axios from 'axios';
 import VueMarkdown from 'vue-markdown';
-import marked from 'marked';
 import prismicDom from 'prismic-dom';
+import BlogPostCard from './../../components/BlogPostCard.vue'
 export default {
     components: {
-        VueMarkdown
+        VueMarkdown,
+        BlogPostCard
     },
+    data: () => ({
+        backClass:'top'
+    }),
     computed: {
         post() {
             return this.$store.state.blog.activeBlogPost;
+        },
+        latestPosts() {
+            return this.$store.state.blog.posts.slice(0, 3);
+        }
+    },
+    mounted() {
+        if(window.scrollY > 20) {
+            this.backClass = '';
+        } else {
+            this.backClass = 'top'
+        }
+        window.addEventListener('scroll',this.scroll);
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.scroll);
+    },
+    methods: {
+        scroll(e) {
+            if(window.scrollY > 20) {
+                this.backClass = '';
+            } else {
+                this.backClass = 'top'
+            }
         }
     },
     async asyncData({ store, route }) {
-        await store.dispatch('blog/fetchBlogPosts');
-        var post = store.state.blog.blogPosts.find(p => {
+        await store.dispatch('blog/FETCH');
+        var post = store.getters['blog/POSTS'].find(p => {
             // console.log('p', p);
             return p.uid === route.params.id;
         });
         if (!post.rendered) {
-            store.dispatch('blog/renderBody', post.uid);
+            store.dispatch('blog/RENDER_POST_BODY', post.uid);
         }
-        store.commit('blog/setActiveBlogPost', post);
+        store.commit('blog/SET_ACTIVE_POST', post);
     },
+    
     head() {
         return {
             title: this.$store.state.blog.activeBlogPost.title,
@@ -133,9 +185,27 @@ export default {
 .post-container p {
     padding-bottom: 3rem;
 }
+.back {
+    position: fixed;
+    left: 10px;
+    top:70px;
+    transition: top .5s;
+}
+.back.top {
+    top: 70px;
+}
+.posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    /* grid-template-rows: 100px; */
+}
 @media screen and (max-width: 700px) {
     .post-container h1 {
         font-size: 2.8rem;
+    }
+    .posts {
+        grid-template-columns: 1fr;
     }
 }
 @media screen and (max-width: 500px) {
