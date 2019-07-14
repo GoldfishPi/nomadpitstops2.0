@@ -12,20 +12,9 @@
                     :to="item.link"
                     color="white"
                 >{{item.title}}</v-btn>
-                <!-- <v-btn v-if="!loggedIn" flat v-on:click="openLoginDialog()">Login</v-btn>
-                <v-btn v-if="loggedIn" flat v-on:click="logOut()">Logout</v-btn>-->
-                <!-- <v-btn to="map" flat color="white">Map</v-btn>
-                <v-btn to="blog" flat color="white">Blog</v-btn>-->
             </v-toolbar-items>
             <v-menu class="hidden-md-and-up">
                 <v-toolbar-side-icon slot="activator" v-on:click="drawer = !drawer"></v-toolbar-side-icon>
-                <!-- <v-list>
-                <v-list-tile v-for="item in menu" :key="item.link" :to="item.link">
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-                </v-list>-->
             </v-menu>
         </v-toolbar>
         <v-navigation-drawer app v-model="drawer" dark right class="hidden-md-and-up">
