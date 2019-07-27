@@ -1,6 +1,15 @@
 <template>
-    <v-card class="map" v-bind:class="selecting">
-        <MapControlls class="hidden-md-and-up"/>
+    <div flat class="map" v-bind:class="selecting">
+        <v-toolbar class="hidden-md-and-up">
+            <v-toolbar-title>Pit Stop Name</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="dialog = !dialog">
+                <v-icon>fas fa-expand</v-icon>
+            </v-btn>
+            <v-btn icon>
+                <v-icon>fas fa-directions</v-icon>
+            </v-btn>
+        </v-toolbar>
         <GmapMap
             :center="focus"
             :zoom="mapZoom"
@@ -23,36 +32,44 @@
                 :draggable="true"
             />
         </GmapMap>
-        <div class="__card add-controlls __card-borderless">
-            <div>
-                <input type="text" class="__txt text" placeholder="Name" v-model="name">
-            </div>
-            <div>
-                <textarea
-                    name
-                    id
-                    cols="30"
-                    rows="10"
-                    class="__txt text"
-                    placeholder="Notes"
-                    v-model="notes"
-                ></textarea>
-            </div>
-            <div>
-                <h3 class="speed">Internet Speed</h3>
-                <input type="range" min="0" max="5" v-model="speed">
-            </div>
-            <div class="__btn-group">
-                <input
-                    type="button"
-                    class="__btn __btn-light __btn-border"
-                    value="Select Other Point"
-                    v-on:click="onClose"
-                >
-                <input type="button" class="__btn __btn-primary" value="Save" v-on:click="onSave">
-            </div>
-        </div>
-    </v-card>
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+            <v-card>
+                <v-toolbar>
+                    <v-btn @click="dialog = !dialog" icon>
+                        <v-icon>fas fa-times</v-icon>
+                    </v-btn>
+                </v-toolbar>
+                <v-layout fill-height>
+                    <v-flex>
+                        <div class="fullscreen-map">
+                            <GmapMap
+                                :center="focus"
+                                :zoom="mapZoom"
+                                map-type-id="terrain"
+                                v-on:click="onSelect($event)"
+                                :options="mapOptions"
+                            >
+                                <GmapMarker
+                                    :key="index"
+                                    v-for="(m, index) in markers"
+                                    :position="m.position"
+                                    :clickable="true"
+                                    :draggable="true"
+                                    @click="center=m.position"
+                                />
+                                <GmapMarker
+                                    v-if="selecting === 'selected'"
+                                    :position="selectMarker"
+                                    :clickable="true"
+                                    :draggable="true"
+                                />
+                            </GmapMap>
+                        </div>
+                    </v-flex>
+                </v-layout>
+            </v-card>
+        </v-dialog>
+    </div>
 </template>
 
 <script>
@@ -60,6 +77,21 @@ import MapControlls from './MapControlls';
 export default {
     components: {
         MapControlls
+    },
+    data() {
+        return {
+            selectMarker: {
+                lat: 0,
+                lng: 0
+            },
+            name: '',
+            notes: '',
+            speed: 0,
+            mapOptions: {
+                disableDefaultUI: true
+            },
+            dialog: false
+        };
     },
     computed: {
         markers() {
@@ -75,20 +107,7 @@ export default {
             return this.$store.state.map.selectingState;
         }
     },
-    data() {
-        return {
-            selectMarker: {
-                lat: 0,
-                lng: 0
-            },
-            name: '',
-            notes: '',
-            speed: 0,
-            mapOptions: {
-                disableDefaultUI: true
-            }
-        };
-    },
+
     methods: {
         onSelect(e) {
             if (this.$store.state.map.selectingState === 'selecting') {
@@ -124,6 +143,9 @@ export default {
 </script>
 
 <style>
+.fullscreen-map {
+    height: 94vh;
+}
 .close {
     color: grey;
     position: absolute;
