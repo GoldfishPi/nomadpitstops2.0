@@ -3,7 +3,7 @@
         <div class="post-container">
             <div class="content">
                 <v-parallax class="cover" v-bind:src="post.lead"></v-parallax>
-                <v-btn to="/blog" :class="`back ${backClass}`" fab large color="primary">
+                <v-btn to="/blog" :class="`back ${backClass}`" fab :large="large" :small="!large"  color="primary">
                     <v-icon>fas fa-chevron-left</v-icon>
                 </v-btn>
                 <h1>{{post.title}}</h1>
@@ -45,7 +45,8 @@ export default {
         BlogPostCard
     },
     data: () => ({
-        backClass:'top'
+        backClass:'top',
+        large:true
     }),
     computed: {
         post() {
@@ -57,8 +58,10 @@ export default {
     },
     mounted() {
         if(window.scrollY > 20) {
+            this.large = false;
             this.backClass = '';
         } else {
+            this.large = true;
             this.backClass = 'top'
         }
         window.addEventListener('scroll',this.scroll);
@@ -69,8 +72,10 @@ export default {
     methods: {
         scroll(e) {
             if(window.scrollY > 20) {
+                this.large=false;
                 this.backClass = '';
             } else {
+                this.large=true;
                 this.backClass = 'top'
             }
         }
@@ -150,7 +155,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .post-container {
     /* margin: 1rem 6rem; */
     /* display: grid;
@@ -171,7 +176,7 @@ export default {
     /* max-height: 60vh; */
     /* object-fit: cover; */
 }
-.post-container .post-content img {
+.block-img img {
     max-width: 100%;
 }
 .post-container h1 {
@@ -209,8 +214,8 @@ export default {
     }
 }
 @media screen and (max-width: 500px) {
-    .post-container {
-        grid-template-columns: 1fr 5fr 1fr;
+    .post-container .content {
+            width:calc(100vw - 2em);
     }
 }
 </style>

@@ -7,7 +7,8 @@
             <h2 class="white--text text-xs-center">Language Culture Travel</h2>
             <h1 class="heading white--text text-xs-center">Nomad Pit Stops</h1>
             <div class="text-xs-center">
-                <v-btn to="/blog" title="Blog">Blog</v-btn>
+                <v-btn to="/blog"  depressed title="Blog">Blog</v-btn>
+                <v-btn to="/pitstops"  depressed title="Pit Stops">Pit Stops</v-btn>
             </div>
         </v-flex>
     </v-layout>

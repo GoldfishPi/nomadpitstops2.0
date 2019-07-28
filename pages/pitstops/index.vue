@@ -2,16 +2,15 @@
     <div>
         <v-container>
             <v-layout column>
-                <v-flex class="pitstop-card" v-for="i of 19" :key="i">
-                    <v-card>
+                <v-flex class="pitstop-card" v-for="(p, i) of pitstops" :key="i">
+                    <v-card flat outlined :to="`pitstops/${p.id}`">
                         <v-layout align-center>
                             <v-flex xs11>
-                                <v-card-title>Pitstop</v-card-title>
-                                <v-card-text>pitstop text</v-card-text>
+                                <v-card-title>{{p.name}}</v-card-title>
                             </v-flex>
                             <v-flex>
                                 <v-card-actions>
-                                    <v-btn icon to="pitstops/000">
+                                    <v-btn icon :to="`pitstops/${p.id}`">
                                         <v-icon>fas fa-angle-right</v-icon>
                                     </v-btn>
                                 </v-card-actions>
@@ -50,23 +49,16 @@ export default {
         };
     },
     computed: {
-        markers() {
-            return this.$store.state.map.markers;
-        },
-        focus() {
-            return this.$store.state.map.focus;
+        pitstops() {
+            return this.$store.state.pitstops.pitstops;
         }
     },
-    mounted() {
-        this.$store.dispatch('map/getMarkers');
-        this.$store.dispatch('map/getUserLocation');
-    },
-    async asyncData(context) {
-        return context.store.dispatch('map/getMarkers');
+    async asyncData ({store}) {
+        await store.dispatch('pitstops/GET_PITSTOPS');
     },
     head() {
         return {
-            title: 'Nomad Pit Stops | Map'
+            title: 'Nomad Pit Stops | Pit Stops'
         };
     }
 };

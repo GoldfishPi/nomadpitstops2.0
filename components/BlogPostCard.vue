@@ -1,5 +1,5 @@
 <template functional>
-    <v-card flat outlined class="blog-post-card" >
+    <v-card flat outlined class="blog-post-card" :title="props.post.title" :to="`/blog/${props.post.uid}`">
         <v-img v-bind:src="props.post.lead" aspect-ratio="1.75"></v-img>
         <v-card-title>
             <div>

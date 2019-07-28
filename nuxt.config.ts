@@ -23,7 +23,8 @@ export default {
                 name: 'twitter:site',
                 content: '@nomadpitstops'
             },
-            { name: 'robots', content: 'index, follow' }
+            { name: 'robots', content: 'index, follow' },
+            { name: 'google-site-verification', content:'9VGw1vGDng4XjENSPsdsIUp3wLu3s9mSc7-VD2boKO8' }
             // { hid: 'description', name: 'description', content: pkg.description }
         ],
         link: [

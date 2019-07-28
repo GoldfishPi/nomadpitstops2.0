@@ -1,17 +1,31 @@
 <template>
     <v-app>
-        <Nav :menu="menu" :loggedIn="loggedIn" @login="onLogin()" @signout="onSignout()">
+        <Nav :menu="menu" :loggedIn="loggedIn" @login="onLogin()" @signout="onSignout()" @drawer="drawer = true">
             <Hammock class="logo"/>
         </Nav>
         <v-content>
             <nuxt/>
         </v-content>
-        <v-dialog width="400" v-model="loginDialog">
+        <v-navigation-drawer fixed right v-model="drawer"  class="hidden-md-and-up">
+            <v-list-item v-for="item in menu" :key="item.link" nuxt :to="item.link">
+                <v-list-item-icon>
+                    <v-icon>{{item.icon}}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="title">
+                    <v-list-item-title>{{item.title}}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+        </v-navigation-drawer>
+        </v-app-bar>
+
+        <v-dialog width="400" v-model="loginDialog" @keydown="checkForEnter($event)">
             <v-card>
                 <v-card-title>Login</v-card-title>
                 <v-card-text>
-                    <v-text-field label="Username" v-model="email"></v-text-field>
-                    <v-text-field label="Password" type="password" v-model="password"></v-text-field>
+                    <v-form>
+                        <v-text-field label="Email" :rules="emailRules" v-model="email"></v-text-field>
+                        <v-text-field label="Password" type="password" v-model="password"></v-text-field>
+                    </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-btn text @click="loginDialog=false">Cancel</v-btn>
@@ -25,8 +39,11 @@
             <v-card>
                 <v-card-title>Sign Up</v-card-title>
                 <v-card-text>
-                    <v-text-field label="Email" v-model="email"></v-text-field>
-                    <v-text-field label="Password" type="password" v-model="password"></v-text-field>
+                    <v-form>
+                        <v-text-field label="Username" v-model="username"></v-text-field>
+                        <v-text-field :rules="emailRules" label="Email" v-model="email"></v-text-field>
+                        <v-text-field :rules="passwordRules" label="Password" type="password" v-model="password"></v-text-field>
+                    </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-btn text v-on:click="signUpDialog=false">Cancel</v-btn>
@@ -36,23 +53,21 @@
             </v-card>
         </v-dialog>
         <v-snackbar
-            v-model="loginSuccessSnackbar"
-            color="success"
-            :top="true"
-            :left="true"
-        >Logged in!
-        <v-btn color="white" text @click="loginSuccessSnackbar= false">Close</v-btn>  
+                           v-model="loginSuccessSnackbar"
+                           color="success"
+                           :top="true"
+                           >Welcome Back!
+                           <v-btn color="white" text @click="loginSuccessSnackbar= false">Close</v-btn>  
         </v-snackbar>
         <v-snackbar
-            v-model="loginFailSnackbar"
-            color="red"
-            :top="true"
-            :left="true"
-        >Bad Username Or Password
-        <v-btn color="white" text @click="loginFailSnackbar= false">Close</v-btn>  
+                                  v-model="loginFailSnackbar"
+                                  color="red"
+                                  :top="true"
+                                  >Bad Username Or Password
+                                  <v-btn color="white" text @click="loginFailSnackbar= false">Close</v-btn>  
         </v-snackbar>
         <v-snackbar color="success" v-model="signUpSuccessSnackbar" :top="true">Welcome To Nomad Pit Stops</v-snackbar>
-    </v-app>
+        </v-app>
 </template>
 <script>
 import Nav from './partials/nav';
@@ -76,9 +91,19 @@ export default {
         loggedIn:false,
         email:'',
         password:'',
+        username:'',
         loginSuccessSnackbar:false,
         loginFailSnackbar:false,
         signUpSuccessSnackbar:false,
+        drawer:false,
+        emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        passwordRules: [
+            v => (v && v.length >= 8) || 'Password must contain at least 8 charecters'
+        ],
+
         menu: [
             {
                 title: 'Home',
@@ -91,7 +116,7 @@ export default {
                 icon: 'fas fa-book-open'
             },
             {
-                title: 'Pitstops',
+                title: 'Pit Stops',
                 link: '/pitstops',
                 icon: 'fas fa-map'
             },
@@ -113,9 +138,17 @@ export default {
         },
         async signUp() {
             try {
-                console.log('sign up', this.email, this.password);
                 const signUp = await this.$fireAuth.createUserWithEmailAndPassword(this.email, this.password);       
                 const login = await this.$fireAuth.signInWithEmailAndPassword(this.email, this.password);
+
+                const userCollection = this.$fireStore.collection('users');
+                await userCollection.doc(this.$fireAuth.getUid()).set({
+                    username:this.username
+                });
+
+                this.$fireAuth.currentUser.updateProfile({
+                    displayName:this.username
+                });
                 this.signUpDialog = false;
                 this.signUpSuccessSnackbar = true;
             } catch (e) {
@@ -129,6 +162,9 @@ export default {
         onSignout() {
             this.$fireAuth.signOut();
             this.loggedIn = false;
+        },
+        checkForEnter(e) {
+            if(e.keyCode === 13) this.login();
         }
     }
 
