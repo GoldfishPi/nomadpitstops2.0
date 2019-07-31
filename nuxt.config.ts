@@ -66,43 +66,46 @@ export default {
     modules: [
         '@nuxtjs/pwa',
         [
+            '@bazzite/nuxt-netlify', { }
+        ],
+        [
             '@nuxtjs/axios',
             {
                 baseURL:
-                    process.env.NODE_ENV !== 'production'
-                        ? 'http://localhost:3001'
-                        : 'https://api.nomadpitstops.com'
+                process.env.NODE_ENV !== 'production'
+                ? 'http://localhost:3001'
+                : 'https://api.nomadpitstops.com'
             }
         ],
         '@nuxtjs/vuetify',
         '@nuxtjs/sitemap',
         'nuxt-svg',
         [ 
-             'nuxt-fire',
-             {
-                 config: {
-                     development: {
+            'nuxt-fire',
+            {
+                config: {
+                    development: {
 
-                         apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
-                         authDomain: 'nomad-pit-stops.firebaseapp.com',
-                         databaseURL: 'https://nomad-pit-stops.firebaseio.com',
-                         projectId: 'nomad-pit-stops',
-                         storageBucket: 'nomad-pit-stops.appspot.com',
-                         messagingSenderId: '1069723342252',
-                         appId:'1:1069723342252:web:d7e898b8b6faafb1'
-                     },
-                     production: {
-                         apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
-                         authDomain: 'nomad-pit-stops.firebaseapp.com',
-                         databaseURL: 'https://nomad-pit-stops.firebaseio.com',
-                         projectId: 'nomad-pit-stops',
-                         storageBucket: 'nomad-pit-stops.appspot.com',
-                         messagingSenderId: '1069723342252',
-                         appId:'1:1069723342252:web:d7e898b8b6faafb1'
-                     }
-                 },
+                        apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
+                        authDomain: 'nomad-pit-stops.firebaseapp.com',
+                        databaseURL: 'https://nomad-pit-stops.firebaseio.com',
+                        projectId: 'nomad-pit-stops',
+                        storageBucket: 'nomad-pit-stops.appspot.com',
+                        messagingSenderId: '1069723342252',
+                        appId:'1:1069723342252:web:d7e898b8b6faafb1'
+                    },
+                    production: {
+                        apiKey: 'AIzaSyCbsunvjqhzvVJimsptgvg6UR_ysEa9XEo',
+                        authDomain: 'nomad-pit-stops.firebaseapp.com',
+                        databaseURL: 'https://nomad-pit-stops.firebaseio.com',
+                        projectId: 'nomad-pit-stops',
+                        storageBucket: 'nomad-pit-stops.appspot.com',
+                        messagingSenderId: '1069723342252',
+                        appId:'1:1069723342252:web:d7e898b8b6faafb1'
+                    }
+                },
 
-             }
+            }
         ]
     ],
     vendor: ['vue2-google-maps'],
