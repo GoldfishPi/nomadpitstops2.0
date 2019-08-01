@@ -9,9 +9,18 @@ export default {
     /*
      ** Headers of the page
      */
+    generate: {
+        routes: async () => {
+            const api:any = await prismic.api(prismicConfig.endpoint);
+            const posts = await api.query(
+                prismic.Predicates.at('document.type', 'blog-post')
+            );
+            return posts.results.map(post => '/blog/' + post.uid)
+        }
+    },
     head: {
         title:
-            'Nomad Pit Stops | Intentional Travel Tools For The Modern Nomad',
+        'Nomad Pit Stops | Intentional Travel Tools For The Modern Nomad',
         meta: [
             { charset: 'utf-8' },
             {
@@ -33,7 +42,7 @@ export default {
             {
                 rel: 'stylesheet',
                 href:
-                    'https://fonts.googleapis.com/css?family=Montserrat:300,700'
+                'https://fonts.googleapis.com/css?family=Montserrat:300,700'
             },
             {
                 rel: 'stylesheet',
