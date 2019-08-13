@@ -14,6 +14,23 @@
                     <v-list-item-title>{{item.title}}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item v-if="!this.loggedIn" @click="onLogin()">
+                <v-list-item-icon>
+                    <v-icon>fas fa-user</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content  class="title">    
+                    <v-list-item-title>Login</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="this.loggedIn" @click="onLogin()">
+                <v-list-item-icon>
+                    <v-icon>fas fa-user</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content  class="title">    
+                    <v-list-item-title>Signout</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
         </v-navigation-drawer>
     </v-app-bar>
 
@@ -52,18 +69,18 @@
         </v-card>
     </v-dialog>
     <v-snackbar
-                       v-model="loginSuccessSnackbar"
-                       color="success"
-                       :top="true"
-                       >Welcome Back!
-                       <v-btn color="white" text @click="loginSuccessSnackbar= false">Close</v-btn>  
+       v-model="loginSuccessSnackbar"
+       color="success"
+       :top="true">
+        Welcome Back!
+        <v-btn color="white" text @click="loginSuccessSnackbar= false">Close</v-btn>  
     </v-snackbar>
     <v-snackbar
-                              v-model="loginFailSnackbar"
-                              color="red"
-                              :top="true"
-                              >Bad Username Or Password
-                              <v-btn color="white" text @click="loginFailSnackbar= false">Close</v-btn>  
+        v-model="loginFailSnackbar"
+        color="red"
+        :top="true"
+        >Bad Username Or Password
+        <v-btn color="white" text @click="loginFailSnackbar= false">Close</v-btn>  
     </v-snackbar>
     <v-snackbar color="success" v-model="signUpSuccessSnackbar" :top="true">Welcome To Nomad Pit Stops</v-snackbar>
     </v-app>
