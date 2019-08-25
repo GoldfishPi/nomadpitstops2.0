@@ -1,3 +1,4 @@
+import gql from "graphql-tag";
 interface Pitstop  {
     id:string;
     name:string;
@@ -34,38 +35,65 @@ export const mutations = {
 };
 
 export const actions:any = {
-    async GET_PITSTOPS({commit}) {
-        const collection = this.$fireStore.collection('pitstops');
-        const snapshot = await collection.get();
-        const docs = snapshot.docs;
-        return commit('SET_PITSTOPS', docs.map(d => ({...d.data(), id:d.id})));
+    async GET_PITSTOPS({commit}, context) {
+        const query = gql`
+            {
+                pitstops {
+                    id
+                    name
+                    notes
+                }
+            }
+        `
+        console.log('query', query);
+        const res = await this.app.apolloProvider.defaultClient.query({query});
+        console.log('res lol', res);
+        return commit('SET_PITSTOPS', res.data.pitstops);
+        //const res = await this.$apollo.query(query);
+        //console.log('gql lol', res);
+
+        //const collection = this.$fireStore.collection('pitstops');
+        //const snapshot = await collection.get();
+        //const docs = snapshot.docs;
+        //return commit('SET_PITSTOPS', docs.map(d => ({...d.data(), id:d.id})));
 
     },
     async GET_PITSTOP({commit, state}, id) {
-        const pitstopCollection = this.$fireStore.collection('pitstops');
-        const docRef = pitstopCollection.doc(id);
-        const doc = await docRef.get();
-        const data = {...doc.data(), id};
-        commit('SET_PITSTOPS', state.pitstops.map(s => s.id === data.id ? {...s} : data));
+        const query = gql`
+            {
+                pitstop (id:"${id}") {
+                    id
+                    name
+                    notes
+                    longitude
+                    latitude
+                    comments {
+                        text
+                        user {
+                            displayName
+                        }
+                    }
+                }
+            }
+        `;
+        
+        const res = await this.app.apolloProvider.defaultClient.query({query});
+
+        const pitstop = res.data.pitstop;
+
+        console.log('res lol', pitstop);
+        if(!state.pitstops.length) {
+            console.log('defaulting lol');
+            commit('SET_PITSTOPS',[pitstop]);
+            console.log('state lol', state);
+            return;
+        }
+        commit('SET_PITSTOPS', state.pitstops
+            .map(s => s.id === pitstop.id ? pitstop : s));
+        console.log('state', state);
 
     },
     async GET_PITSTOP_NOTES({commit, state}, pitstopId) {
-        const collection = this.$fireStore.collection('pitstops').doc(pitstopId).collection('pitstopNotes');
-        const data = await collection.get();
-        const notes = data.docs.map(d => d.data()); 
-
-        const userCollection = this.$fireStore.collection('users');
-        const noteUserPromises = notes.map(n => userCollection.doc(n.uid).get());
-        const userCredDocs:any = await Promise.all(noteUserPromises);
-
-        const compoundNotes = notes.map((n, i) => ({...n, ...userCredDocs[i].data()}));
-
-        if(state.pitstopNotes.find(n => n.pitstopId === pitstopId)) {
-            const pitstopNotes = state.pitstopNotes.map(n => n.pitstopId === pitstopId ? {pitstopId, notes:compoundNotes} : n);
-            commit('SET_PITSTOP_NOTES', pitstopNotes);
-        } else {
-            commit('SET_PITSTOP_NOTES', [...state.pitstopNotes, {pitstopId, notes:compoundNotes}]);
-        }
 
     },
     async POST_PITSTOP_NOTE({commit, state}, {note, pitstopId}) {
@@ -76,6 +104,27 @@ export const actions:any = {
             note,
             uid:this.$fireAuth.getUid()
         });
+    },
+
+    async ADD_COMMENT({commit, state}, { comment, id}) {
+
+        if(!this.$fireAuth.currentUser)return;
+
+        const userToken = await this.$fireAuth.currentUser.getIdToken();
+        console.log('id lol', id);
+        const mutation = gql`
+            mutation {
+                addPitstopComment(
+                    token: "${userToken}",
+                    linkedId: "${id}",
+                    text: "${comment}"
+                ) {
+                    text
+                }
+            }
+        `;
+        const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
+        console.log('user', res);
     }
 };
 

@@ -15,10 +15,13 @@
                             </v-btn>
                         </v-toolbar>
 
-                        <Map :loc="pitstop.loc" @fullscreen="fullscreen = true"/> </v-flex>
+                        <Map 
+                            :loc="[pitstop.longitude, pitstop.latitude]" 
+                            @fullscreen="fullscreen = true"/></v-flex>
                         <v-flex xs12 md5>
                             <v-card flat class="hidden-sm-and-down">
                                 <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
+                                <v-card-text>{{pitstop.notes}}</v-card-text>
                             </v-card>
                             <v-card flat>
                                 <v-card-text>
@@ -30,15 +33,19 @@
                                 </v-card-actions>
                             </v-card>
                             <v-list three-line>
-                                <v-list-item v-for="note in notes">
+                                <v-list-item v-for="c in pitstop.comments">
                                     <v-list-item-avatar>
                                         <v-img
                                              src="https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif"
                                              ></v-img>
                                     </v-list-item-avatar>
                                     <v-list-item-content>
-                                        <v-list-item-title>{{note.username}}</v-list-item-title>
-                                        <v-list-item-subtitle>{{note.note}}</v-list-item-subtitle>
+                                        <v-list-item-title>
+                                            {{c.user.displayName}} 
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle>
+                                            {{c.text}}
+                                        </v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -53,7 +60,10 @@
                         </v-toolbar>
                     </v-flex>
                 <v-flex xs11>
-                    <Map :hide-toolbar="true" :loc="pitstop.loc" @fullscreen=""></Map>
+                    <Map 
+                        :hide-toolbar="true" 
+                        :loc="[pitstop.longitude, pitstop.latitude]" 
+                        @fullscreen=""></Map>
                 </v-flex>
                 </v-layout>
             </v-dialog>
@@ -61,19 +71,22 @@
         </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import Map from '~/components/Map';
-export default {
+import Vue from 'vue';
+export default Vue.extend({
     components: {
         Map
     },
     computed: {
         pitstop() {
-            return this.$store.state.pitstops.pitstops.find(p => p.id === this.$route.params.id);
+            return this.$store.state.pitstops.pitstops
+                .find(p => p.id == this.$route.params.id);
         },
         notes() {
-            return this.$store.getters['pitstops/NOTES'].find(n => n.pitstopId === this.$route.params.id).notes;
             return [];
+            return this.$store.getters['pitstops/NOTES']
+                .find(n => n.pitstopId === this.$route.params.id).notes;
         },
     },
     data: () => ({
@@ -81,23 +94,16 @@ export default {
         doc:{},
         note:'',
     }),
-    mounted() {
-        const collection = this.$fireStore
-            .collection('pitstops')
-            .doc(this.$route.params.id)
-            .collection('pitstopNotes');
-       
-       collection.onSnapshot(async doc => {
-            this.$store.dispatch('pitstops/GET_PITSTOP_NOTES', this.$route.params.id);
-        });
-    },
     async asyncData({params, app, store}) {
-        await store.dispatch('pitstops/GET_PITSTOP', params.id);
-        await store.dispatch('pitstops/GET_PITSTOP_NOTES', params.id);
+        return await store.dispatch('pitstops/GET_PITSTOP', params.id);
     },
     methods: {
         async addNote() {
-            this.$store.dispatch('pitstops/POST_PITSTOP_NOTE', {note:this.note, pitstopId:this.$route.params.id});
+            this.$store
+                .dispatch('pitstops/ADD_COMMENT', {
+                    comment:this.note, 
+                    id:this.$route.params.id
+                });
         }
     },
     head() {
@@ -105,7 +111,7 @@ export default {
             title: `Nomad Pit Stops | Pit Stops | ${this.pitstop.name}`
         }
     }
-};
+});
 </script>
 
 <style scoped>

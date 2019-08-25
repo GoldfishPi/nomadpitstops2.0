@@ -67,6 +67,7 @@ export default {
     plugins: [
         { src: '~plugins/ga.js', ssr: false },
         { src: '~plugins/vue2-google-maps.js', ssr: true },
+        { src: '~plugins/apollo.ts', ssr: true },
     ],
 
     /*
@@ -77,6 +78,7 @@ export default {
         [
             '@bazzite/nuxt-netlify', { }
         ],
+        ['@nuxtjs/apollo'],
         [
             '@nuxtjs/axios',
             {
@@ -117,6 +119,13 @@ export default {
             }
         ]
     ],
+    apollo: {
+        clientConfigs: {
+            default: {
+                httpEndpoint: 'http://localhost:3001'
+            }
+        }
+    },
     vendor: ['vue2-google-maps'],
 
     /*

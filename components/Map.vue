@@ -1,11 +1,11 @@
 <template functional>
     <div flat class="map" v-bind:class="selecting">
-                <GmapMap
-            :center="{lng:props.loc._long, lat:props.loc._lat}"
+        <GmapMap
+            :center="{lng:props.loc[0], lat:props.loc[1]}"
             :zoom="15"
             :options="{disableDefaultUI: true}"
         >
-        <GmapMarker :position="{lng:props.loc._long, lat:props.loc._lat}"></GmapMarker> 
+        <GmapMarker :position="{lng:props.loc[0], lat:props.loc[1]}"></GmapMarker> 
         </GmapMap>
     </div>
 </template>
