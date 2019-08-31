@@ -122,9 +122,7 @@ export default {
     apollo: {
         clientConfigs: {
             default: {
-                httpEndpoint: process.env.NODE_ENV !== 'production'
-                        ? 'http://localhost:3001'
-                        : 'https://nomadpitstops.com'
+                httpEndpoint: process.env.NODE_ENV === 'production' ? 'https://lol.nomadpitstops.com' : 'http://localhost:3001'
             }
         }
     },
@@ -147,7 +145,7 @@ export default {
     env: {
         siteUrl:
         process.env.NODE_ENV !== 'production'
-        ? 'http://localhost:3001'
+        ? 'http://localhost:3000'
         : 'https://nomadpitstops.com'
     },
     sitemap: {
