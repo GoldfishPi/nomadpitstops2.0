@@ -45,12 +45,9 @@ export const actions:any = {
                 }
             }
         `
-        console.log('query', query);
         const res = await this.app.apolloProvider.defaultClient.query({query});
-        console.log('res lol', res);
         return commit('SET_PITSTOPS', res.data.pitstops);
         //const res = await this.$apollo.query(query);
-        //console.log('gql lol', res);
 
         //const collection = this.$fireStore.collection('pitstops');
         //const snapshot = await collection.get();
@@ -81,17 +78,12 @@ export const actions:any = {
 
         const pitstop = res.data.pitstop;
 
-        console.log('res lol', pitstop);
         if(!state.pitstops.length) {
-            console.log('defaulting lol');
             commit('SET_PITSTOPS',[pitstop]);
-            console.log('state lol', state);
             return;
         }
         commit('SET_PITSTOPS', state.pitstops
             .map(s => s.id === pitstop.id ? pitstop : s));
-        console.log('state', state);
-
     },
     async GET_PITSTOP_NOTES({commit, state}, pitstopId) {
 
@@ -111,7 +103,6 @@ export const actions:any = {
         if(!this.$fireAuth.currentUser)return;
 
         const userToken = await this.$fireAuth.currentUser.getIdToken();
-        console.log('id lol', id);
         const mutation = gql`
             mutation {
                 addPitstopComment(
@@ -124,7 +115,6 @@ export const actions:any = {
             }
         `;
         const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
-        console.log('user', res);
     }
 };
 

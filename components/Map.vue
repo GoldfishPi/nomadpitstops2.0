@@ -1,15 +1,24 @@
-<template functional>
-    <div flat class="map" v-bind:class="selecting">
+<template >
+    <div flat class="map">
         <GmapMap
-            :center="{lng:props.loc[0], lat:props.loc[1]}"
+            :center="{lng:loc[0], lat:loc[1]}"
             :zoom="15"
             :options="{disableDefaultUI: true}"
         >
-        <GmapMarker :position="{lng:props.loc[0], lat:props.loc[1]}"></GmapMarker> 
+        <GmapMarker :position="{lng:loc[0], lat:loc[1]}"></GmapMarker> 
         </GmapMap>
     </div>
 </template>
 
+<script lang="ts">
+
+import Vue from 'vue';
+
+export default Vue.extend({
+    props:['loc'],
+});
+
+</script>
 
 <style>
 .fullscreen-map {

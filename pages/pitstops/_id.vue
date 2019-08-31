@@ -80,6 +80,7 @@ export default Vue.extend({
     },
     computed: {
         pitstop() {
+
             return this.$store.state.pitstops.pitstops
                 .find(p => p.id == this.$route.params.id);
         },
@@ -93,9 +94,6 @@ export default Vue.extend({
         fullscreen:false,
         doc:{},
         note:'',
-        pitstop: {
-            name:'',
-        }
     }),
     async asyncData({params, app, store}) {
         return await store.dispatch('pitstops/GET_PITSTOP', params.id);
