@@ -1,6 +1,7 @@
 import TerserPlugin from 'terser-webpack-plugin';
 import prismic from 'prismic-javascript';
 import prismicConfig from './prismic.config';
+import axios from 'axios';
 
 export default {
     mode: 'universal',
@@ -11,11 +12,31 @@ export default {
      */
     generate: {
         routes: async () => {
+            //prismic routes
             const api:any = await prismic.api(prismicConfig.endpoint);
             const posts = await api.query(
                 prismic.Predicates.at('document.type', 'blog-post')
             );
-            return posts.results.map(post => '/blog/' + post.uid)
+            const postRoutes = posts.results.map(post => '/blog/' + post.uid)
+
+            //pitstop routes
+            const pitstops = await axios.post('https://lol.nomadpitstops.com', {
+                query: `
+                {
+                      pitstops {
+                        id
+                      }
+                }
+                `
+            });
+            const pitstopRoutes = pitstops.data.data.pitstops
+                .map(ps => `/pitstops/${ps.id}`);
+
+            return [
+                ...postRoutes,
+                ...pitstopRoutes
+            ];
+             
         }
     },
     head: {
