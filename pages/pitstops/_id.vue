@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import Map from '~/components/Map';
+import Map from '../../components/Map.vue';
 import Vue from 'vue';
 export default Vue.extend({
     components: {
@@ -93,6 +93,9 @@ export default Vue.extend({
         fullscreen:false,
         doc:{},
         note:'',
+        pitstop: {
+            name:'',
+        }
     }),
     async asyncData({params, app, store}) {
         return await store.dispatch('pitstops/GET_PITSTOP', params.id);
