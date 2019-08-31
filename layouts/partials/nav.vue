@@ -16,13 +16,13 @@
     </v-app-bar>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
-import Hammock from '~/static/hammock.svg?inline';
+import Hammock from '../../static/hammock.svg?inline';
 Vue.component('Hammock', Hammock);
 export default Vue.extend({
     props:['menu', 'loggedIn', 'drawer'],
-    component: {
+    components: {
         Hammock
     },
     methods:{

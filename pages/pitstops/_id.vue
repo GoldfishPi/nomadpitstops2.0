@@ -109,7 +109,7 @@ export default Vue.extend({
     },
     head() {
         return {
-            title: `Nomad Pit Stops | Pit Stops | ${this.pitstop.name}`
+            title: `Nomad Pit Stops | Pit Stops`
         }
     }
 });
