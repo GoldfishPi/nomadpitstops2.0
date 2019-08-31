@@ -85,7 +85,7 @@ export default {
                 baseURL:
                 process.env.NODE_ENV !== 'production'
                 ? 'http://localhost:3001'
-                : 'https://api.nomadpitstops.com'
+                : 'https://lol.nomadpitstops.com'
             }
         ],
         '@nuxtjs/vuetify',
@@ -122,7 +122,9 @@ export default {
     apollo: {
         clientConfigs: {
             default: {
-                httpEndpoint: 'http://localhost:3001'
+                httpEndpoint: process.env.NODE_ENV !== 'production'
+                        ? 'http://localhost:3001'
+                        : 'https://nomadpitstops.com'
             }
         }
     },
@@ -145,7 +147,7 @@ export default {
     env: {
         siteUrl:
         process.env.NODE_ENV !== 'production'
-        ? 'http://localhost:3333'
+        ? 'http://localhost:3001'
         : 'https://nomadpitstops.com'
     },
     sitemap: {
