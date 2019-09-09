@@ -4,6 +4,7 @@
             <div class="pitstops">
                 <v-card v-for="p of pitstops" :key="p.id" :to="`pitstops/${p.id}`">
                     <v-img 
+                        v-if="p.images"
                         :src="p.images[1]"
                     ></v-img>
                     <v-card-title>{{p.name}}</v-card-title>
@@ -11,29 +12,22 @@
                 </v-card>
             </div>
         </v-container>
+        <PitstopDialog :active="dialog" @close="dialog = !dialog"></PitstopDialog>
         <div class="add">
             <v-btn @click="dialog = true" color="primary" fab large>
                 <v-icon>fas fa-plus</v-icon>
             </v-btn>
         </div>
-        <v-dialog fullscreen v-model="dialog" hide-overlay transition="dialog-bottom-transition">
-            <v-card>
-                <v-toolbar dark color="primary">
-                    <v-btn icon @click="dialog = !dialog">
-                        <v-icon>fas fa-times</v-icon>
-                    </v-btn>
-                    <v-toolbar-title>Add Pit Stop</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-btn text @click="dialog = !dialog">Save</v-btn>
-                </v-toolbar>
-                <v-card-title>helo</v-card-title>
-            </v-card>
-        </v-dialog>
     </div>
 </template>
 
-<script>
-export default {
+<script lange="ts">
+import Vue from "vue";
+import PitstopDialog from "../../components/PitstopDialog";
+export default Vue.extend({
+    components: {
+        PitstopDialog
+    },
     data() {
         return {
             dialog: false
@@ -52,9 +46,10 @@ export default {
             title: 'Nomad Pit Stops | Pit Stops'
         };
     }
-};
+});
+
 </script>
-    
+
 <style scoped>
 .add {
     position: fixed;

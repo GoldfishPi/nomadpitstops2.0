@@ -1,0 +1,505 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20190908.224055.13472.0.001.json",
+    "dumpEventTime": "2019-09-08T22:40:55Z",
+    "dumpEventTimeStamp": "1567996855901",
+    "processId": 13472,
+    "cwd": "/home/erik/projects/nomadpitstops/app",
+    "commandLine": [
+      "/usr/local/bin/node",
+      "/home/erik/projects/nomadpitstops/app/node_modules/.bin/nuxt",
+      "--port",
+      "3333"
+    ],
+    "nodejsVersion": "v12.8.0",
+    "glibcVersionRuntime": "2.29",
+    "glibcVersionCompiler": "2.17",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "linux",
+    "componentVersions": {
+      "node": "12.8.0",
+      "v8": "7.5.288.22-node.16",
+      "uv": "1.30.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.1",
+      "napi": "4",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.8.0/node-v12.8.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.8.0/node-v12.8.0.tar.gz"
+    },
+    "osName": "Linux",
+    "osRelease": "5.0.0-27-generic",
+    "osVersion": "#28-Ubuntu SMP Tue Aug 20 19:53:07 UTC 2019",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2300,
+        "user": 90330200,
+        "nice": 83200,
+        "sys": 29205800,
+        "idle": 738119600,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2300,
+        "user": 86968700,
+        "nice": 181900,
+        "sys": 24297000,
+        "idle": 42189400,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2300,
+        "user": 97575200,
+        "nice": 132500,
+        "sys": 27859000,
+        "idle": 42275300,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2300,
+        "user": 89768800,
+        "nice": 119200,
+        "sys": 28098200,
+        "idle": 42129000,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2299,
+        "user": 92341700,
+        "nice": 97000,
+        "sys": 27746200,
+        "idle": 42638200,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2299,
+        "user": 88431800,
+        "nice": 112400,
+        "sys": 28682600,
+        "idle": 43635600,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2299,
+        "user": 83170400,
+        "nice": 88400,
+        "sys": 31927700,
+        "idle": 43008200,
+        "irq": 0
+      },
+      {
+        "model": "Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz",
+        "speed": 2300,
+        "user": 90498300,
+        "nice": 159800,
+        "sys": 29258900,
+        "idle": 42935600,
+        "irq": 0
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "wlp2s0",
+        "internal": false,
+        "mac": "d4:25:8b:82:9c:63",
+        "address": "192.168.1.17",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "lo",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "wlp2s0",
+        "internal": false,
+        "mac": "d4:25:8b:82:9c:63",
+        "address": "fe80::8c50:2cc5:456e:f4f7",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 2
+      }
+    ],
+    "host": "mi"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x0000000000ad5b45",
+      "symbol": "report::TriggerNodeReport(v8::Isolate*, node::Environment*, char const*, char const*, std::string const&, v8::Local<v8::String>) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x00000000009b17b3",
+      "symbol": "node::OnFatalError(char const*, char const*) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000b0ee8e",
+      "symbol": "v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000b0f209",
+      "symbol": "v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cec115",
+      "symbol": " [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cf795b",
+      "symbol": "v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cf8677",
+      "symbol": "v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cf9ea9",
+      "symbol": "v8::internal::Heap::CollectAllAvailableGarbage(v8::internal::GarbageCollectionReason) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cfb1ff",
+      "symbol": "v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000cc5768",
+      "symbol": "v8::internal::Factory::NewUninitializedFixedArray(int, v8::internal::AllocationType) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000c70c41",
+      "symbol": " [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000c71482",
+      "symbol": " [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x0000000000f723ce",
+      "symbol": "v8::internal::Runtime_GrowArrayElements(int, unsigned long*, v8::internal::Isolate*) [/usr/local/bin/node]"
+    },
+    {
+      "pc": "0x000000000131d9b9",
+      "symbol": " [/usr/local/bin/node]"
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2153250816,
+    "totalCommittedMemory": 2150521792,
+    "usedMemory": 2131379960,
+    "availableMemory": 46889008,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 32272,
+        "capacity": 261832,
+        "used": 31960,
+        "available": 229872
+      },
+      "new_space": {
+        "memorySize": 2097152,
+        "committedMemory": 2496,
+        "capacity": 1047328,
+        "used": 0,
+        "available": 1047328
+      },
+      "old_space": {
+        "memorySize": 1965699072,
+        "committedMemory": 1965452600,
+        "capacity": 1950697304,
+        "used": 1950697304,
+        "available": 0
+      },
+      "code_space": {
+        "memorySize": 3833856,
+        "committedMemory": 3679456,
+        "capacity": 3189376,
+        "used": 3189376,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 13111296,
+        "committedMemory": 13107672,
+        "capacity": 9922400,
+        "used": 9922400,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 167337984,
+        "committedMemory": 167337984,
+        "capacity": 166717096,
+        "used": 166717096,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 909312,
+        "committedMemory": 909312,
+        "capacity": 821824,
+        "used": 821824,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 1047328,
+        "used": 0,
+        "available": 1047328
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 363.143,
+    "kernelCpuSeconds": 9.83086,
+    "cpuConsumptionPercent": 9.04399,
+    "maxRss": 2298138624,
+    "pageFaults": {
+      "IORequired": 20,
+      "IONotRequired": 2003855
+    },
+    "fsActivity": {
+      "reads": 46320,
+      "writes": 4640
+    }
+  },
+  "uvthreadResourceUsage": {
+    "userCpuSeconds": 142.113,
+    "kernelCpuSeconds": 5.0663,
+    "cpuConsumptionPercent": 3.56884,
+    "fsActivity": {
+      "reads": 44488,
+      "writes": 16
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "GJS_DEBUG_TOPICS": "JS ERROR;JS LOG",
+    "LESSOPEN": "| /usr/bin/lesspipe %s",
+    "TMUX": "/tmp//tmux-1000/default,22025,1",
+    "npm_package_dependencies_prismic_javascript": "^2.0.3",
+    "USER": "erik",
+    "npm_package_devDependencies__nuxt_typescript": "^2.8.1",
+    "npm_package_dependencies_node_sass": "^4.12.0",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_user_agent": "yarn/1.17.3 npm/? node/v12.8.0 linux x64",
+    "XDG_SEAT": "seat0",
+    "npm_config_bin_links": "true",
+    "SSH_AGENT_PID": "1849",
+    "XDG_SESSION_TYPE": "x11",
+    "npm_node_execpath": "/usr/local/bin/node",
+    "npm_package_devDependencies_nodemon": "^1.18.9",
+    "npm_config_init_version": "1.0.0",
+    "SHLVL": "2",
+    "BROWSER": "firefox",
+    "QT4_IM_MODULE": "xim",
+    "HOME": "/home/erik",
+    "OLDPWD": "/home/erik",
+    "npm_package_devDependencies_sass": "^1.22.7",
+    "npm_package_dependencies_vuex": "^3.1.0",
+    "DESKTOP_SESSION": "ubuntu",
+    "GIO_LAUNCHED_DESKTOP_FILE": "/usr/share/applications/rxvt-unicode.desktop",
+    "npm_config_init_license": "MIT",
+    "GNOME_SHELL_SESSION_MODE": "ubuntu",
+    "GTK_MODULES": "gail:atk-bridge",
+    "YARN_WRAP_OUTPUT": "false",
+    "npm_package_dependencies__nuxtjs_sitemap": "^1.2.0",
+    "npm_config_version_tag_prefix": "v",
+    "npm_package_dependencies_graphql_tag": "^2.10.1",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+    "npm_package_dependencies_moment": "^2.24.0",
+    "npm_package_dependencies__nuxtjs_pwa": "^2.6.0",
+    "COLORTERM": "rxvt-xpm",
+    "GIO_LAUNCHED_DESKTOP_FILE_PID": "21910",
+    "npm_package_description": "My first-class Nuxt.js project",
+    "npm_package_readmeFilename": "README.md",
+    "npm_package_dependencies_nuxt": "^2.4.0",
+    "IM_CONFIG_PHASE": "2",
+    "npm_package_scripts_dev": "nuxt --port 3333",
+    "GTK_IM_MODULE": "ibus",
+    "LOGNAME": "erik",
+    "npm_package_dependencies_nuxt_svg": "^0.1.6",
+    "WINDOWID": "75497482",
+    "_": "/usr/local/bin/yarn",
+    "npm_package_dependencies_sass_loader": "^7.1.0",
+    "npm_package_private": "true",
+    "XDG_SESSION_CLASS": "user",
+    "COLORFGBG": "default;default",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "USERNAME": "erik",
+    "TERM": "screen-256color",
+    "XDG_SESSION_ID": "3",
+    "npm_package_dependencies_vuetify": "^2.0.1",
+    "npm_package_dependencies__nuxtjs_apollo": "^4.0.0-rc11",
+    "GNOME_DESKTOP_SESSION_ID": "this-is-deprecated",
+    "npm_package_scripts_start": "nuxt start",
+    "npm_config_ignore_scripts": "",
+    "WINDOWPATH": "2",
+    "npm_package_dependencies_axios": "^0.18.0",
+    "PATH": "/tmp/yarn--1567992731239-0.6755168517601653:/home/erik/projects/nomadpitstops/app/node_modules/.bin:/home/erik/.config/yarn/link/node_modules/.bin:/home/erik/.yarn/bin:/usr/local/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/bin/node_modules/npm/bin/node-gyp-bin:/home/erik/.cargo/bin:/home/erik/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+    "NODE": "/usr/local/bin/node",
+    "SESSION_MANAGER": "local/mi:@/tmp/.ICE-unix/1746,unix/mi:/tmp/.ICE-unix/1746",
+    "npm_package_dependencies_cross_env": "^5.2.0",
+    "npm_package_name": "NomadPitStops",
+    "XDG_MENU_PREFIX": "gnome-",
+    "XDG_RUNTIME_DIR": "/run/user/1000",
+    "npm_package_dependencies_prismic_dom": "^2.1.0",
+    "DISPLAY": ":0",
+    "npm_package_dependencies_nuxt_fire": "^1.4.1",
+    "DESKTOP_STARTUP_ID": "gnome-shell/Rxvt Color Unicode Terminal/1875-0-mi_TIME46308385",
+    "LANG": "en_US.UTF-8",
+    "XDG_CURRENT_DESKTOP": "ubuntu:GNOME",
+    "npm_package_dependencies_apollo_boost": "^0.4.4",
+    "XMODIFIERS": "@im=ibus",
+    "XDG_SESSION_DESKTOP": "ubuntu",
+    "XAUTHORITY": "/run/user/1000/gdm/Xauthority",
+    "LS_COLORS": "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:",
+    "npm_lifecycle_script": "nuxt --port 3333",
+    "npm_package_dependencies_ts_node": "^8.3.0",
+    "npm_package_dependencies_nuxt_google_maps_module": "^1.6.0",
+    "npm_package_dependencies__types_node": "^12.0.12",
+    "SSH_AUTH_SOCK": "/run/user/1000/keyring/ssh",
+    "npm_package_dependencies_vue2_google_maps": "^0.10.6",
+    "npm_config_version_git_message": "v%s",
+    "SHELL": "/bin/bash",
+    "npm_lifecycle_event": "dev",
+    "npm_package_version": "1.0.0",
+    "QT_ACCESSIBILITY": "1",
+    "GDMSESSION": "ubuntu",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"dev\"],\"original\":[\"dev\"]}",
+    "npm_package_dependencies_graphql": "^14.5.3",
+    "npm_package_dependencies__bazzite_nuxt_netlify": "^0.1.1",
+    "npm_package_scripts_build": "nuxt build",
+    "LESSCLOSE": "/usr/bin/lesspipe %s %s",
+    "npm_package_dependencies_vue_markdown": "^2.2.4",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_git_sign": "",
+    "GPG_AGENT_INFO": "/run/user/1000/gnupg/S.gpg-agent:0:1",
+    "GJS_DEBUG_OUTPUT": "stderr",
+    "npm_package_scripts_generate": "nuxt generate",
+    "npm_config_strict_ssl": "true",
+    "QT_IM_MODULE": "ibus",
+    "XDG_VTNR": "2",
+    "npm_package_dependencies_firebase": "^6.3.3",
+    "PWD": "/home/erik/projects/nomadpitstops/app",
+    "npm_execpath": "/usr/local/lib/node_modules/yarn/bin/yarn.js",
+    "XDG_CONFIG_DIRS": "/etc/xdg/xdg-ubuntu:/etc/xdg",
+    "CLUTTER_IM_MODULE": "xim",
+    "XDG_DATA_DIRS": "/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop",
+    "npm_package_dependencies_terser_webpack_plugin": "^1.2.3",
+    "npm_package_dependencies_apollo_client": "^2.6.4",
+    "npm_package_dependencies__nuxtjs_vuetify": "^1.0.2",
+    "npm_package_author_name": "Erik Badger",
+    "npm_config_save_prefix": "^",
+    "npm_config_ignore_optional": "",
+    "npm_package_dependencies__nuxtjs_axios": "^5.4.1",
+    "TERMINAL": "zsh",
+    "TMUX_PANE": "%3",
+    "npm_package_dependencies_typescript": "^3.5.2",
+    "INIT_CWD": "/home/erik/projects/nomadpitstops/app",
+    "EDITOR": "/usr/bin/nvim",
+    "NODE_ENV": "development",
+    "_AXIOS_BASE_URL_": "http://localhost:3001",
+    "VUE_ENV": "server"
+  },
+  "userLimits": {
+    "core_file_size_blocks": {
+      "soft": 0,
+      "hard": "unlimited"
+    },
+    "data_seg_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "file_size_blocks": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_locked_memory_bytes": {
+      "soft": 67108864,
+      "hard": 67108864
+    },
+    "max_memory_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "open_files": {
+      "soft": 1048576,
+      "hard": 1048576
+    },
+    "stack_size_bytes": {
+      "soft": 8388608,
+      "hard": "unlimited"
+    },
+    "cpu_time_seconds": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_user_processes": {
+      "soft": 31241,
+      "hard": 31241
+    },
+    "virtual_memory_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    }
+  },
+  "sharedObjects": [
+    "linux-vdso.so.1",
+    "/lib/x86_64-linux-gnu/libdl.so.2",
+    "/lib/x86_64-linux-gnu/librt.so.1",
+    "/lib/x86_64-linux-gnu/libstdc++.so.6",
+    "/lib/x86_64-linux-gnu/libm.so.6",
+    "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+    "/lib/x86_64-linux-gnu/libpthread.so.0",
+    "/lib/x86_64-linux-gnu/libc.so.6",
+    "/lib64/ld-linux-x86-64.so.2",
+    "/home/erik/projects/nomadpitstops/app/node_modules/fibers/bin/linux-x64-72-glibc/fibers.node",
+    "/lib/x86_64-linux-gnu/libnss_files.so.2",
+    "/home/erik/projects/nomadpitstops/app/node_modules/grpc/src/node/extension_binary/node-v72-linux-x64-glibc/grpc_node.node",
+    "/lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2",
+    "/lib/x86_64-linux-gnu/libresolv.so.2",
+    "/lib/x86_64-linux-gnu/libnss_dns.so.2"
+  ]
+}
