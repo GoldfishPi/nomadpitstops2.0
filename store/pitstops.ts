@@ -42,6 +42,7 @@ export const actions:any = {
                     id
                     name
                     notes
+                    images
                 }
             }
         `
@@ -115,7 +116,24 @@ export const actions:any = {
             }
         `;
         const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
-    }
+    },
+
+    async ADD_IMAGE({commit, state}, { image, id}) {
+    
+        if(!this.$fireAuth.currentUser)return;
+
+        const userToken = await this.$fireAuth.currentUser.getIdToken();
+        const mutation = gql`
+            mutation {
+                addPitstopImage(
+                    token: "${userToken}",
+                    linkedId: "${id}",
+                    image: "${image}",
+                )
+            }
+        `;
+        const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
+    },
 };
 
 export const getters:any = {

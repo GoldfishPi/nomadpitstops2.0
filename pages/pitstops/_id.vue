@@ -17,39 +17,35 @@
 
                         <Map 
                             :loc="[pitstop.longitude, pitstop.latitude]" 
-                            @fullscreen="fullscreen = true"/></v-flex>
-                        <v-flex xs12 md5>
-                            <v-card flat class="hidden-sm-and-down">
-                                <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
-                                <v-card-text>{{pitstop.notes}}</v-card-text>
-                            </v-card>
-                            <v-card flat>
-                                <v-card-text>
-                                    <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="primary" text @click="addNote()">Add</v-btn>
-                                </v-card-actions>
-                            </v-card>
-                            <v-list three-line>
-                                <v-list-item v-for="c in pitstop.comments">
-                                    <v-list-item-avatar>
-                                        <v-img
-                                             src="https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif"
-                                             ></v-img>
-                                    </v-list-item-avatar>
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{c.user.displayName}} 
-                                        </v-list-item-title>
-                                        <v-list-item-subtitle>
-                                            {{c.text}}
-                                        </v-list-item-subtitle>
-                                    </v-list-item-content>
-                                </v-list-item>
-                            </v-list>
-                        </v-flex>
+                            @fullscreen="fullscreen = true"
+                                   >
+                        </Map>
+                    </v-flex>
+                    <v-flex xs12 md5>
+                        <v-card flat class="hidden-sm-and-down">
+                            <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
+                            <v-card-text>
+                                {{pitstop.notes}}
+                            </v-card-text>
+                        </v-card>
+
+                        <v-card flat>
+                            <v-card-text>
+                                <v-file-input 
+                                    label="Upload Pitstop Image"  
+                                    prepend-icon="mdi-camera"
+                                    @change="imageUpload($event)"
+                                    accept="image/*"
+                                    ></v-file-input>
+                                <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" text @click="addNote()">Add</v-btn>
+                            </v-card-actions>
+                        </v-card>
+
+                    </v-flex>
                 </v-layout>
             </v-card>
             <v-dialog fullscreen hide-overlay transition="dialog-bottom-transition" v-model="fullscreen">
@@ -59,12 +55,12 @@
                             <v-btn text class="white--text" @click="fullscreen = false">close</v-btn>
                         </v-toolbar>
                     </v-flex>
-                <v-flex xs11>
-                    <Map 
-                        :hide-toolbar="true" 
-                        :loc="[pitstop.longitude, pitstop.latitude]" 
-                        @fullscreen=""></Map>
-                </v-flex>
+                    <v-flex xs11>
+                        <Map 
+                            :hide-toolbar="true" 
+                            :loc="[pitstop.longitude, pitstop.latitude]" 
+                            @fullscreen=""></Map>
+                    </v-flex>
                 </v-layout>
             </v-dialog>
 
@@ -105,6 +101,25 @@ export default Vue.extend({
                     comment:this.note, 
                     id:this.$route.params.id
                 });
+        },
+        imageUpload(file) {
+            console.log('files', file);
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const arrayBuffer = e.target.result;
+                var str = btoa(
+                    String.fromCharCode.apply(null, new Uint8Array(arrayBuffer))
+                );
+                console.log('result', str);
+                this.$store
+                    .dispatch('pitstops/ADD_IMAGE', {
+                        image:file,
+                        id: this.$route.params.id
+                    });
+            };
+
+            reader.readAsArrayBuffer(file);
         }
     },
     head() {

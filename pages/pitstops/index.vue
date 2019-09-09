@@ -1,24 +1,15 @@
 <template>
     <div>
         <v-container>
-            <v-layout column>
-                <v-flex class="pitstop-card" v-for="(p, i) of pitstops" :key="i">
-                    <v-card flat outlined :to="`pitstops/${p.id}`">
-                        <v-layout align-center>
-                            <v-flex xs11>
-                                <v-card-title>{{p.name}}</v-card-title>
-                            </v-flex>
-                            <v-flex>
-                                <v-card-actions>
-                                    <v-btn icon :to="`pitstops/${p.id}`">
-                                        <v-icon>fas fa-angle-right</v-icon>
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-flex>
-                        </v-layout>
-                    </v-card>
-                </v-flex>
-            </v-layout>
+            <div class="pitstops">
+                <v-card v-for="p of pitstops" :key="p.id" :to="`pitstops/${p.id}`">
+                    <v-img 
+                        :src="p.images[1]"
+                    ></v-img>
+                    <v-card-title>{{p.name}}</v-card-title>
+                    <v-card-text>{{p.notes}}</v-card-text>
+                </v-card>
+            </div>
         </v-container>
         <div class="add">
             <v-btn @click="dialog = true" color="primary" fab large>
@@ -64,14 +55,16 @@ export default {
 };
 </script>
     
-<style>
+<style scoped>
 .add {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
 }
-.pitstop-card {
-    margin-bottom: 0.5rem;
+.pitstops {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(450px, 1fr));
+    grid-gap: 1rem;
 }
 .map-container {
     display: grid;
@@ -82,45 +75,4 @@ export default {
     /* margin: 1.3rem; */
     height: 100%;
 }
-/* .map-container .heading {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column: 1;
-}
-.controlls {
-    grid-row-start: 1;
-    grid-row-end: 3;
-}
-.map {
-    padding: 0;
-    grid-row: 3;
-    grid-column: 2;
-}
-.pitstops {
-    grid-column: 1;
-    grid-row-start: 1;
-    grid-row-end: 4;
-} */
-/* @media screen and (max-width: 1100px) {
-    .map-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 4rem 200px 60vh auto;
-    }
-    .cards {
-        grid-row: 2;
-        grid-column: 1;
-    }
-    .map {
-        grid-column: 1;
-    }
-    .controlls {
-        grid-row-start: 2;
-        grid-row-end: 3;
-        grid-column: 1;
-    }
-    .pitstops {
-        grid-column: 1;
-        grid-row: 4;
-    }
-} */
 </style>
