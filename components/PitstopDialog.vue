@@ -30,26 +30,41 @@
                     <v-stepper-content step="1">
                         <v-layout>
                             <v-spacer></v-spacer>
-                            <v-btn 
-                               large 
+                            <v-btn
+                                @click="useLocation()"
                                 color="primary" 
+                                large 
                                 >Use My Location</v-btn>
                         </v-layout>
-                        <Map :loc="[0,0]"></Map>
+                        <div class="map">
+                            <GmapMap
+                                :center="{lng:wLng, lat:wLat}"
+                                :zoom="15"
+                                :options="{disableDefaultUI: true}"
+                                @click="moveCursor($event)"
+                                >
+                                <GmapMarker :position="{lng:cLng, lat:cLat}">
+                                </GmapMarker> 
+                            </GmapMap>
+                        </div>
+
                         <v-layout>
                             <v-spacer></v-spacer>
                             <v-btn color="primary" @click="el = 2">Continue</v-btn>
                         </v-layout>
                     </v-stepper-content>
                     <v-stepper-content step="2">
-                        <v-text-field placeholder="Pitstop Titlte">
+                        <v-text-field v-model="title" placeholder="Pitstop Titlte">
                         </v-text-field>
                         <v-slider 
-                            prepend-icon="fas fa-wifi"
-                        >
-                        </v-slider>
-                        <v-textarea outlined placeholder="Description">
-                        </v-textarea>
+                          prepend-icon="fas fa-wifi"
+                          v-model="wifi"
+                          ></v-slider>
+                        <v-textarea 
+                            outlined 
+                            placeholder="Description"
+                            v-model="description"
+                            ></v-textarea>
                         <v-layout>
                             <v-btn @click="el = 1">Back</v-btn>
                             <v-spacer></v-spacer>
@@ -61,13 +76,14 @@
                             label="Upload Pitstop Image"  
                             prepend-icon="mdi-camera"
                             accept="image/*"
+                            v-model="images"
                             chips
                             multiple
-                        ></v-file-input>
+                            ></v-file-input>
                         <v-layout>
                             <v-btn @click="el = 2">Back</v-btn>
                             <v-spacer></v-spacer>
-                            <v-btn color="primary" @click="el = 3">
+                            <v-btn color="primary" @click="create()">
                                 Create Pitstop
                             </v-btn>
                         </v-layout>
@@ -81,16 +97,65 @@
 <script lang="ts">
 import Map from "./Map.vue";
 import Vue from "vue";
+import { getNavigatorCoords } from "geo-loc-utils";
 
 export default Vue.extend({
     props:['active'],
     components: {
         Map
     },
+    async mounted() {
+        try {
+            const coords = await getNavigatorCoords();
+            this.cLng = coords.longitude;
+            this.cLat = coords.latitude;
+
+            this.wLng = coords.longitude;
+            this.wLat = coords.latitude;
+        } catch(err) {}
+    },
     data:() => ({
         dialog:false,
         el:0,
+
+        cLng:0,
+        cLat:0,
+
+        wLng:0,
+        wLat:0,
+
+        title:'',
+        wifi:0,
+        description:'',
+        images:[],
+
     }),
+    methods: {
+        moveCursor({latLng}) {
+            this.cLng = latLng.lng();
+            this.cLat = latLng.lat();
+        },
+        async useLocation() {
+            try {
+                const coords = await getNavigatorCoords();
+                this.wLng = coords.longitude;
+                this.wLat = coords.latitude;
+
+                this.cLng = coords.longitude;
+                this.cLat = coords.latitude;
+            } catch(err) {}
+        },
+        create() {
+            this.$emit('create', {
+                lng:this.cLng,
+                lat:this.cLat,
+                title:this.title,
+                description: this.description,
+                images: this.images,
+            });
+            this.$emit('close');
+        }
+    }
 });
 </script>
 

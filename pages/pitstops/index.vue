@@ -12,7 +12,11 @@
                 </v-card>
             </div>
         </v-container>
-        <PitstopDialog :active="dialog" @close="dialog = !dialog"></PitstopDialog>
+        <PitstopDialog 
+            :active="dialog" 
+            @close="dialog = !dialog"
+            @create="createPitstop($event)"
+            ></PitstopDialog>
         <div class="add">
             <v-btn @click="dialog = true" color="primary" fab large>
                 <v-icon>fas fa-plus</v-icon>
@@ -45,6 +49,11 @@ export default Vue.extend({
         return {
             title: 'Nomad Pit Stops | Pit Stops'
         };
+    },
+    methods: {
+        createPitstop(p) {
+            console.log('pitstop lol', p);
+        }
     }
 });
 

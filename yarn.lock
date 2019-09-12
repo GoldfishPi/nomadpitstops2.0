@@ -5774,6 +5774,11 @@ gaze@1.1.3, gaze@^1.0.0:
   dependencies:
     globule "^1.0.0"
 
+geo-loc-utils@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/geo-loc-utils/-/geo-loc-utils-0.0.2.tgz#960bd3b01a34ae7565f3945f19ec31d490c18212"
+  integrity sha1-lgvTsBo0rnVl85RfGewx1JDBghI=
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
