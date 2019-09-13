@@ -38,7 +38,7 @@ export const actions:any = {
     async GET_PITSTOPS({commit}, context) {
         const query = gql`
             {
-                pitstops {
+                Pitstops {
                     id
                     name
                     notes
@@ -47,7 +47,8 @@ export const actions:any = {
             }
         `
         const res = await this.app.apolloProvider.defaultClient.query({query});
-        return commit('SET_PITSTOPS', res.data.pitstops);
+        console.log('got stops', res);
+        return commit('SET_PITSTOPS', res.data.Pitstops);
         //const res = await this.$apollo.query(query);
 
         //const collection = this.$fireStore.collection('pitstops');
@@ -59,7 +60,7 @@ export const actions:any = {
     async GET_PITSTOP({commit, state}, id) {
         const query = gql`
             {
-                pitstop (id:"${id}") {
+                Pitstop (id:"${id}") {
                     id
                     name
                     notes
@@ -77,7 +78,7 @@ export const actions:any = {
         
         const res = await this.app.apolloProvider.defaultClient.query({query});
 
-        const pitstop = res.data.pitstop;
+        const pitstop = res.data.Pitstop;
 
         if(!state.pitstops.length) {
             commit('SET_PITSTOPS',[pitstop]);
@@ -118,21 +119,30 @@ export const actions:any = {
         const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
     },
 
-    async ADD_IMAGE({commit, state}, { image, id}) {
+    async ADD_IMAGE({commit, state}, { file, id}) {
     
         if(!this.$fireAuth.currentUser)return;
 
         const userToken = await this.$fireAuth.currentUser.getIdToken();
         const mutation = gql`
-            mutation {
+            mutation($file: Upload!) {
                 addPitstopImage(
-                    token: "${userToken}",
-                    linkedId: "${id}",
-                    image: "${image}",
-                )
+                    id: "${id}",
+                    image: $file
+                ) {
+                    id
+                }
             }
         `;
-        const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
+        const res = await this.app.apolloProvider.defaultClient.mutate({
+            mutation,
+            variables: {
+                file 
+            },
+            context: {
+                hasUpload:true
+            }
+        });
     },
 };
 

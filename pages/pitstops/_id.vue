@@ -103,23 +103,21 @@ export default Vue.extend({
                 });
         },
         imageUpload(file) {
-            console.log('files', file);
-            const reader = new FileReader();
-            
-            reader.onload = (e) => {
-                const arrayBuffer = e.target.result;
-                var str = btoa(
-                    String.fromCharCode.apply(null, new Uint8Array(arrayBuffer))
-                );
-                console.log('result', str);
+            const fr = new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener('load', () => {
+                console.log('res', fr.result);
                 this.$store
                     .dispatch('pitstops/ADD_IMAGE', {
-                        image:file,
+                        file: fr.result,
                         id: this.$route.params.id
                     });
-            };
-
-            reader.readAsArrayBuffer(file);
+            });
+            //this.$store
+            //    .dispatch('pitstops/ADD_IMAGE', {
+            //        file,
+            //        id: this.$route.params.id
+            //    });
         }
     },
     head() {
