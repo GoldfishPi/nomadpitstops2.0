@@ -6,6 +6,7 @@
                     <v-img 
                         v-if="p.images"
                         :src="p.images[1]"
+                        height="400"
                     ></v-img>
                     <v-card-title>{{p.name}}</v-card-title>
                     <v-card-text>{{p.notes}}</v-card-text>

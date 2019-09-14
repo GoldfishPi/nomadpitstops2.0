@@ -159,7 +159,7 @@ export default Vue.extend({
 });
 </script>
 
-<style >
+<style scoped>
 .map {
     height:500px;
     margin: 1rem 0;

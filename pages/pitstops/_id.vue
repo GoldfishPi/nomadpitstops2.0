@@ -4,6 +4,7 @@
             <v-card height="100%" width="100%" flat outlined>
                 <v-layout fill-height justify-space-between wrap>
                     <v-flex xs12 md7>
+
                         <v-toolbar flat class="hidden-md-and-up">
                             <v-toolbar-title>{{pitstop.name}}</v-toolbar-title>
                             <v-spacer></v-spacer>
@@ -15,13 +16,35 @@
                             </v-btn>
                         </v-toolbar>
 
+                        <v-img 
+                            v-if="pitstop.images"
+                            :src="pitstop.images[0]"
+                            height="300"
+                            class="hidden-md-and-up"
+                        ></v-img>
+
+                        <v-card class="hidden-md-and-up" flat>
+                            <v-card-text>
+                                {{pitstop.notes}}
+                            </v-card-text>
+
+                        </v-card>
+
                         <Map 
+                            class="hidden-sm-and-down"
+                            :hide-toolbar="true" 
                             :loc="[pitstop.longitude, pitstop.latitude]" 
-                            @fullscreen="fullscreen = true"
-                                   >
+                            @fullscreen="">
                         </Map>
+
                     </v-flex>
                     <v-flex xs12 md5>
+                        <v-img 
+                            v-if="pitstop.images"
+                            :src="pitstop.images[0]"
+                            height="300"
+                            class="hidden-sm-and-down"
+                        ></v-img>
                         <v-card flat class="hidden-sm-and-down">
                             <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
                             <v-card-text>
@@ -103,21 +126,11 @@ export default Vue.extend({
                 });
         },
         imageUpload(file) {
-            const fr = new FileReader();
-            fr.readAsDataURL(file);
-            fr.addEventListener('load', () => {
-                console.log('res', fr.result);
-                this.$store
-                    .dispatch('pitstops/ADD_IMAGE', {
-                        file: fr.result,
-                        id: this.$route.params.id
-                    });
-            });
-            //this.$store
-            //    .dispatch('pitstops/ADD_IMAGE', {
-            //        file,
-            //        id: this.$route.params.id
-            //    });
+            this.$store
+                .dispatch('pitstops/ADD_IMAGE', {
+                    file,
+                    id: this.$route.params.id
+                });
         }
     },
     head() {

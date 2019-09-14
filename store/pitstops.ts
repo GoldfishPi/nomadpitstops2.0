@@ -66,6 +66,7 @@ export const actions:any = {
                     notes
                     longitude
                     latitude
+                    images
                     comments {
                         text
                         user {
