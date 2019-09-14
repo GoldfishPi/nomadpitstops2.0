@@ -85,10 +85,13 @@
     <v-snackbar color="success" v-model="signUpSuccessSnackbar" :top="true">Welcome To Nomad Pit Stops</v-snackbar>
     </v-app>
 </template>
-<script>
+
+<script lang="ts">
+import Vue from "vue";
 import Nav from './partials/nav';
 
-export default {
+
+export default Vue.extend({
     components: {
         Nav,
     },
@@ -139,42 +142,29 @@ export default {
     methods: {
         onLogin() {
             this.loginDialog = true;
-            console.log('lol')
         },
         async login() {
-            try {
-                const login = await this.$fireAuth.signInWithEmailAndPassword(this.email, this.password);
+            const loggedIn = await this.$store.dispatch('auth/LOGIN', {
+                email:this.email,
+                password: this.password
+            });
+            if(loggedIn) {
                 this.loginSuccessSnackbar = true;
                 this.loginDialog = false;
-            } catch (e) {
+            } else {
                 this.loginFailSnackbar = true;
             }
         },
-        async signUp() {
-            try {
-                const signUp = await this.$fireAuth.createUserWithEmailAndPassword(this.email, this.password);       
-                const login = await this.$fireAuth.signInWithEmailAndPassword(this.email, this.password);
-
-                const userCollection = this.$fireStore.collection('users');
-                await userCollection.doc(this.$fireAuth.getUid()).set({
-                    username:this.username
-                });
-
-                this.$fireAuth.currentUser.updateProfile({
-                    displayName:this.username
-                });
-                this.signUpDialog = false;
-                this.signUpSuccessSnackbar = true;
-            } catch (e) {
-                console.log('nope');
-            }
-        },
-        onSignUp() {
+        async onSignUp() {
+            await this.dispatch('auth/SIGN_UP', {
+                email:this.email,
+                password: this.password
+            });
             this.loginDialog = false;
             this.signUpDialog = true;
         },
         onSignout() {
-            this.$fireAuth.signOut();
+            this.$store.dispatch('auth/LOGOUT');
             this.loggedIn = false;
         },
         checkForEnter(e) {
@@ -182,7 +172,7 @@ export default {
         }
     }
 
-};
+});
 </script>
 
 <style>
