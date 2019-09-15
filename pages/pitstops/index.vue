@@ -4,8 +4,8 @@
             <div class="pitstops">
                 <v-card v-for="p of pitstops" :key="p.id" :to="`pitstops/${p.id}`">
                     <v-img 
-                        v-if="p.images"
-                        :src="p.images[1]"
+                        v-if="p.images && p.images.length"
+                        :src="p.images[0].link"
                         height="400"
                     ></v-img>
                     <v-card-title>{{p.name}}</v-card-title>

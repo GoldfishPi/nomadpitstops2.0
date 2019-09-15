@@ -1,8 +1,8 @@
 <template>
         <v-container fill-height fluid>
             <!-- <h1>Pitstop Name</h1> -->
-            <v-card height="100%" width="100%" flat outlined>
-                <v-layout fill-height justify-space-between wrap>
+            <v-card width="100%" flat outlined>
+                <v-layout justify-space-between wrap>
                     <v-flex xs12 md7>
 
                         <v-toolbar flat class="hidden-md-and-up">
@@ -16,20 +16,6 @@
                             </v-btn>
                         </v-toolbar>
 
-                        <v-img 
-                            v-if="pitstop.images"
-                            :src="pitstop.images[0]"
-                            height="300"
-                            class="hidden-md-and-up"
-                        ></v-img>
-
-                        <v-card class="hidden-md-and-up" flat>
-                            <v-card-text>
-                                {{pitstop.notes}}
-                            </v-card-text>
-
-                        </v-card>
-
                         <Map 
                             class="hidden-sm-and-down"
                             :hide-toolbar="true" 
@@ -40,10 +26,9 @@
                     </v-flex>
                     <v-flex xs12 md5>
                         <v-img 
-                            v-if="pitstop.images"
-                            :src="pitstop.images[0]"
+                            v-if="pitstop.images && pitstop.images.length"
+                            :src="pitstop.images[0].link"
                             height="300"
-                            class="hidden-sm-and-down"
                         ></v-img>
                         <v-card flat class="hidden-sm-and-down">
                             <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
@@ -100,8 +85,10 @@ export default Vue.extend({
     computed: {
         pitstop() {
 
-            return this.$store.state.pitstops.pitstops
+            const ps = this.$store.state.pitstops.pitstops
                 .find(p => p.id == this.$route.params.id);
+            console.log('got ps', ps);
+            return ps;
         },
         notes() {
             return [];
@@ -134,8 +121,57 @@ export default Vue.extend({
         }
     },
     head() {
+        const images = this.pitstop.images ? this.pitstop.images : [];
+        const link = images[0] ? images[0].link : '';
+
+        const name = this.pitstop.name;
+        const description = this.pitstop.notes;
+
         return {
-            title: `Nomad Pit Stops | Pit Stops`
+            title: `Nomad Pit Stops | Pit Stops | ${name}`,
+            meta: [
+                {
+                    hid: 'og:image',
+                    name: 'og:image',
+                    content: link
+                },
+                {
+                    hid: 'twitter:image',
+                    name: 'twitter:image',
+                    content:link
+                },
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content:description
+                },
+                {
+                    hid: 'og:description',
+                    name: 'og:description',
+                    content: description
+                },
+                {
+                    hid: 'twitter:title',
+                    name: 'twitter:title',
+                    content: name
+                },
+                {
+                    hid: 'twitter:card',
+                    name: 'twitter:card',
+                    content: 'website'
+                },
+                {
+                    hid: 'og:url',
+                    name: 'og:url',
+                    content: process.env.siteUrl + this.$route.path
+                },
+                {
+                    hid: 'og:title',
+                    name: 'og:title',
+                    content: name
+                },
+
+            ]
         }
     }
 });

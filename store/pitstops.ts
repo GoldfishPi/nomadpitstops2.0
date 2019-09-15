@@ -42,7 +42,9 @@ export const actions:any = {
                     id
                     name
                     notes
-                    images
+                    images {
+                        link
+                    }
                 }
             }
         `
@@ -66,11 +68,13 @@ export const actions:any = {
                     notes
                     longitude
                     latitude
-                    images
+                    images {
+                        link
+                    }
                     comments {
                         text
                         user {
-                            displayName
+                            username
                         }
                     }
                 }
@@ -120,7 +124,7 @@ export const actions:any = {
         const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
     },
 
-    async ADD_IMAGE({commit, state}, { file, id}) {
+    async ADD_IMAGE({commit, state, dispatch}, { file, id}) {
     
         if(!this.$fireAuth.currentUser)return;
 
@@ -144,6 +148,7 @@ export const actions:any = {
                 hasUpload:true
             }
         });
+        await dispatch('GET_PITSTOPS');
     },
 };
 
