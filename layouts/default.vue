@@ -30,44 +30,23 @@
                     <v-list-item-title>Signout</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-
         </v-navigation-drawer>
     </v-app-bar>
 
-    <v-dialog width="400" v-model="loginDialog" @keydown="checkForEnter($event)">
-        <v-card>
-            <v-card-title>Login</v-card-title>
-            <v-card-text>
-                <v-form>
-                    <v-text-field label="Email" :rules="emailRules" v-model="email"></v-text-field>
-                    <v-text-field label="Password" type="password" v-model="password"></v-text-field>
-                </v-form>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn text @click="loginDialog=false">Cancel</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="onSignUp()">SIGN UP</v-btn>
-                <v-btn text color="primary" @click="login()">LOGIN</v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
-    <v-dialog width="500" v-model="signUpDialog">
-        <v-card>
-            <v-card-title>Sign Up</v-card-title>
-            <v-card-text>
-                <v-form>
-                    <v-text-field label="Username" v-model="username"></v-text-field>
-                    <v-text-field :rules="emailRules" label="Email" v-model="email"></v-text-field>
-                    <v-text-field :rules="passwordRules" label="Password" type="password" v-model="password"></v-text-field>
-                </v-form>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn text v-on:click="signUpDialog=false">Cancel</v-btn>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="signUp()">Sign Up</v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
+    <SignUp 
+        v-model="signUpDialog"
+        @cancel="signUpDialog = false"
+        @close="signUpDialog = false"
+        @done="signup($event)"
+    ></SignUp>
+
+    <Login
+        v-model="loginDialog"
+        @cancel="loginDialog = false"
+        @signUp="loginDialog = false; signUpDialog = true"
+        @done="login($event)"
+    ></Login>
+
     <v-snackbar
        v-model="loginSuccessSnackbar"
        color="success"
@@ -89,11 +68,15 @@
 <script lang="ts">
 import Vue from "vue";
 import Nav from './partials/nav';
+import SignUp from "./../components/dialogs/SignUp.vue";
+import Login from "./../components/dialogs/Login.vue";
 
 
 export default Vue.extend({
     components: {
         Nav,
+        SignUp,
+        Login
     },
     mounted() {
         this.$fireAuth.onAuthStateChanged(() => {
@@ -143,10 +126,10 @@ export default Vue.extend({
         onLogin() {
             this.loginDialog = true;
         },
-        async login() {
+        async login({email, password}) {
             const loggedIn = await this.$store.dispatch('auth/LOGIN', {
-                email:this.email,
-                password: this.password
+                email,
+                password
             });
             if(loggedIn) {
                 this.loginSuccessSnackbar = true;
@@ -156,12 +139,14 @@ export default Vue.extend({
             }
         },
         async onSignUp() {
-            await this.dispatch('auth/SIGN_UP', {
-                email:this.email,
-                password: this.password
-            });
             this.loginDialog = false;
             this.signUpDialog = true;
+        },
+        async signup(creds) {
+            console.log('creds', creds);
+            await this.$store.dispatch('auth/SIGN_UP', creds);
+            this.signUpDialog = false;
+
         },
         onSignout() {
             this.$store.dispatch('auth/LOGOUT');
@@ -169,6 +154,9 @@ export default Vue.extend({
         },
         checkForEnter(e) {
             if(e.keyCode === 13) this.login();
+        },
+        onCancel() {
+            console.log('cancel')
         }
     }
 

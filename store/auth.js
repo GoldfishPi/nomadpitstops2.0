@@ -1,3 +1,4 @@
+import gql from "graphql-tag";
 export const state = () => ({
     loggedIn: false,
     user: {}
@@ -17,10 +18,6 @@ export const mutations = {
 
 export const actions = {
     async LOGIN(state, { email, password}) {
-        console.log('creds', {
-            email,
-            password
-        });
         try {
             const login = await this.$fireAuth
                 .signInWithEmailAndPassword(email, password);
@@ -28,19 +25,59 @@ export const actions = {
             return false;
         }
         await this.$apolloHelpers
-            .onLogin(this.$fireAuth.currentUser.getIdToken())
+            .onLogin(await this.$fireAuth.currentUser.getIdToken())
         return true;
     },
-    async SIGN_UP(state, { eamil, password}) {
+    async SIGN_UP({dispatch}, { email, password, firstName, lastName,username}) {
         try {
             const signUp = await this.$fireAuth
-                .createUserWithEmailAndPassword(this.email, this.password);       
+                .createUserWithEmailAndPassword(email, password);       
 
-            const login = await this.$fireAuth
-                .signInWithEmailAndPassword(this.email, this.password);
         } catch(e) {
+            console.log('bad', e);
             return false;
         }
+
+
+        try {
+            dispatch('LOGIN', { email, password });
+        } catch(e) {
+            console.log('bad', e);
+        }
+
+        try {
+            const mutation = gql`
+                mutation(
+                    $email:String!, 
+                    $uid:String!, 
+                    $firstName:String!, 
+                    $lastName:String!, 
+                    $username:String!
+                    ) {
+                    addUser(
+                        email:$email,
+                        uid:$uid,
+                        firstName:$firstName,
+                        lastName:$lastName,
+                        username:$username
+                    )
+                }
+            `;
+            const res = await this.app.apolloProvider.defaultClient
+                .mutate({
+                    mutation,
+                    variables: {
+                        uid:this.$fireAuth.currentUser.uid,
+                        email,
+                        firstName,
+                        lastName,
+                        username
+                    }
+                });
+        } catch(e) {
+            console.log('errr', e);
+        }
+
         return true;
 
     },
