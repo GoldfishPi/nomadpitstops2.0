@@ -30,6 +30,21 @@
                             :src="pitstop.images[0].link"
                             height="300"
                         ></v-img>
+                        <v-container>
+                            <v-layout align-center>
+                            <v-flex xs1>
+                                <v-icon>fas fa-wifi</v-icon>
+                            </v-flex>
+                            <v-flex>
+                                <v-progress-linear 
+                                height="20"
+                                :value="connection"
+                                bottom
+                                rounded
+                                ></v-progress-linear>
+                            </v-flex>
+                            </v-layout>
+                        </v-container>
                         <v-card flat class="hidden-sm-and-down">
                             <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
                             <v-card-text>
@@ -40,11 +55,11 @@
                         <v-card flat>
                             <v-card-text>
                                 <v-file-input 
-                                    label="Upload Pitstop Image"  
-                                    prepend-icon="mdi-camera"
-                                    @change="imageUpload($event)"
-                                    accept="image/*"
-                                    ></v-file-input>
+                                label="Upload Pitstop Image"  
+                                prepend-icon="mdi-camera"
+                                @change="imageUpload($event)"
+                                accept="image/*"
+                                ></v-file-input>
                                 <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
                             </v-card-text>
                             <v-card-actions>
@@ -95,6 +110,9 @@ export default Vue.extend({
             return this.$store.getters['pitstops/NOTES']
                 .find(n => n.pitstopId === this.$route.params.id).notes;
         },
+        connection() {
+            return this.pitstop.connection * 10;
+        }
     },
     data: () => ({
         fullscreen:false,

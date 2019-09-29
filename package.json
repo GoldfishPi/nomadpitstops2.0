@@ -39,6 +39,7 @@
         "ts-node": "^8.3.0",
         "typescript": "^3.5.2",
         "vue-markdown": "^2.2.4",
+        "vue-ts-plugin": "^0.1.0",
         "vue2-google-maps": "^0.10.6",
         "vuetify": "^2.0.1",
         "vuex": "^3.1.0"

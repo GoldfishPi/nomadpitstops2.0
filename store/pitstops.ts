@@ -68,6 +68,7 @@ export const actions:any = {
                     notes
                     longitude
                     latitude
+                    connection
                     images {
                         link
                     }

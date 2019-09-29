@@ -11695,7 +11695,7 @@ vue-svg-loader@^0.12.0:
     loader-utils "^1.2.3"
     svg-to-vue "^0.4.0"
 
-vue-template-compiler@^2.6.10:
+vue-template-compiler@^2.2.1, vue-template-compiler@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.10.tgz#323b4f3495f04faa3503337a82f5d6507799c9cc"
   integrity sha512-jVZkw4/I/HT5ZMvRnhv78okGusqe0+qH2A0Em0Cp8aq78+NK9TII263CDVz2QXZsIT+yyV/gZc/j/vlwa+Epyg==
@@ -11707,6 +11707,13 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-ts-plugin@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/vue-ts-plugin/-/vue-ts-plugin-0.1.0.tgz#d12e956010fc2b60ddf4b440ecd80ef8c0048716"
+  integrity sha1-0S6VYBD8K2Dd9LRA7NgO+MAEhxY=
+  dependencies:
+    vue-template-compiler "^2.2.1"
 
 vue2-google-maps@^0.10.6:
   version "0.10.6"
