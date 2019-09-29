@@ -172,10 +172,27 @@ export default {
         gzip: true,
         async routes(callback) {
             let api:any = await prismic.api(prismicConfig.endpoint);
+
             let posts = await api.query(
                 prismic.Predicates.at('document.type', 'blog-post')
             );
-            callback(null, posts.results.map(post => '/blog/' + post.uid));
+            const blogRoutes = posts.results.map(post => '/blog/' + post.uid);
+
+            const pitstops = await axios.post('https://lol.nomadpitstops.com', {
+                query: `
+                {
+                      pitstops {
+                        id
+                      }
+                }
+                `
+            });
+            const pitstopRoutes = pitstops.data.data.pitstops.map(({id}:any) => `/pitstops/${id}`)
+            const routes = [
+                ...blogRoutes,
+                ...pitstopRoutes
+            ]
+            callback(null, routes);
         }
     }
 };
