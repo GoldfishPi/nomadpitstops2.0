@@ -65,7 +65,7 @@
     </v-app>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import Nav from './partials/nav';
 import SignUp from "./../components/dialogs/SignUp.vue";

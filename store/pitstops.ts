@@ -47,9 +47,8 @@ export const actions:any = {
                     }
                 }
             }
-        `
+        `;
         const res = await this.app.apolloProvider.defaultClient.query({query});
-        console.log('got stops', res);
         return commit('SET_PITSTOPS', res.data.Pitstops);
         //const res = await this.$apollo.query(query);
 
@@ -93,6 +92,32 @@ export const actions:any = {
         commit('SET_PITSTOPS', state.pitstops
             .map(s => s.id === pitstop.id ? pitstop : s));
     },
+    async ADD_PITSTOP(args:any, options:any) {
+        const { name, notes, connection, lng, lat } = options;
+        const mutation = gql`
+            mutation($name:String!, $notes:String!, $connection:Int!, $longitude:Float!, $latitude:Float!) {
+              addPitstop(
+                name: $name,
+                notes:$notes,
+                connection:$connection,
+                longitude:$longitude,
+                latitude:$latitude
+              ) {
+                id
+              }
+            }
+        `;
+        const res = await this.app.apolloProvider.defaultClient.mutate({
+            mutation,
+            variables: {
+                name,
+                notes,
+                connection,
+                longitude:lng,
+                latitude:lat
+            }
+        });
+    },
     async GET_PITSTOP_NOTES({commit, state}, pitstopId) {
 
     },
@@ -126,7 +151,7 @@ export const actions:any = {
     },
 
     async ADD_IMAGE({commit, state, dispatch}, { file, id}) {
-    
+
         if(!this.$fireAuth.currentUser)return;
 
         const userToken = await this.$fireAuth.currentUser.getIdToken();

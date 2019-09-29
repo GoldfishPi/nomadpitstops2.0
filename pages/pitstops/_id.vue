@@ -45,14 +45,15 @@
                             </v-flex>
                             </v-layout>
                         </v-container>
-                        <v-card flat class="hidden-sm-and-down">
-                            <v-card-title><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
+                        <v-card flat >
+                            <v-card-title class="hidden-sm-and-down"><h1 class="headline">{{pitstop.name}}</h1></v-card-title>
                             <v-card-text>
                                 {{pitstop.notes}}
                             </v-card-text>
                         </v-card>
 
                         <v-card flat>
+                            <!--
                             <v-card-text>
                                 <v-file-input 
                                 label="Upload Pitstop Image"  
@@ -66,6 +67,7 @@
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" text @click="addNote()">Add</v-btn>
                             </v-card-actions>
+                            -->
                         </v-card>
 
                     </v-flex>
@@ -90,10 +92,11 @@
         </v-container>
 </template>
 
-<script lang="ts">
+<script>
 import Map from '../../components/Map.vue';
 import Vue from 'vue';
 export default Vue.extend({
+    pitstop:{},
     components: {
         Map
     },
@@ -139,11 +142,13 @@ export default Vue.extend({
         }
     },
     head() {
-        const images = this.pitstop.images ? this.pitstop.images : [];
+        const pitstop = this.pitstop;
+
+        const images = pitstop.images ? pitstop.images : [];
         const link = images[0] ? images[0].link : '';
 
-        const name = this.pitstop.name;
-        const description = this.pitstop.notes;
+        const name = pitstop.name;
+        const description = pitstop.notes;
 
         return {
             title: `Nomad Pit Stops | Pit Stops | ${name}`,
