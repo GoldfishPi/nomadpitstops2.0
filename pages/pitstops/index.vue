@@ -28,7 +28,7 @@
 
 <script lange="ts">
 import Vue from "vue";
-import PitstopDialog from "../../components/PitstopDialog";
+import PitstopDialog from "../../components/dialogs/PitstopDialog/index.vue";
 export default Vue.extend({
     components: {
         PitstopDialog

@@ -42,6 +42,7 @@
         "vue-ts-plugin": "^0.1.0",
         "vue2-google-maps": "^0.10.6",
         "vuetify": "^2.0.1",
+        "vuetype": "^0.3.2",
         "vuex": "^3.1.0"
     },
     "devDependencies": {

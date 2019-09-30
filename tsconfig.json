@@ -30,6 +30,9 @@
             "@types/node",
             "@nuxt/vue-app"
         ],
+        "files": [
+            "types/**/*.d.ts"
+        ],
         "allowSyntheticDefaultImports": true,
         "plugins": [{ "name": "vue-ts-plugin" }]
     }
