@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import BlogPostCard from '@/components/BlogPostCard';
+import BlogPostCard from '@/components/cards/BlogPostCard';
 import axios from 'axios';
 import moment from 'moment';
 export default {

@@ -1,4 +1,4 @@
-import Map from "./../../Map.vue"
+import Map from "./../../helpers/Map/index.vue"
 import Vue from "vue";
 import { getNavigatorCoords } from "geo-loc-utils";
 

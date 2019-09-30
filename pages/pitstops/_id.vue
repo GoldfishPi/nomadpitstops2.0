@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import Map from '../../components/Map.vue';
+import Map from '../../components/helpers/Map/index.vue';
 import Vue from 'vue';
 export default Vue.extend({
     pitstop:{},
