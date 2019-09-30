@@ -105,7 +105,6 @@ export default Vue.extend({
 
             const ps = this.$store.state.pitstops.pitstops
                 .find(p => p.id == this.$route.params.id);
-            console.log('got ps', ps);
             return ps;
         },
         notes() {

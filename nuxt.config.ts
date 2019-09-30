@@ -2,6 +2,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 import prismic from 'prismic-javascript';
 import prismicConfig from './prismic.config';
 import axios from 'axios';
+import { createRoutes } from "./helpers/routes";
+import { createSitemap } from "./helpers/sitemap";
 
 export default {
     mode: 'universal',
@@ -11,33 +13,7 @@ export default {
      ** Headers of the page
      */
     generate: {
-        routes: async () => {
-            //prismic routes
-            const api:any = await prismic.api(prismicConfig.endpoint);
-            const posts = await api.query(
-                prismic.Predicates.at('document.type', 'blog-post')
-            );
-            const postRoutes = posts.results.map(post => '/blog/' + post.uid)
-
-            //pitstop routes
-            const pitstops = await axios.post('https://lol.nomadpitstops.com', {
-                query: `
-                {
-                      pitstops {
-                        id
-                      }
-                }
-                `
-            });
-            const pitstopRoutes = pitstops.data.data.pitstops
-                .map(ps => `/pitstops/${ps.id}`);
-
-            return [
-                ...postRoutes,
-                ...pitstopRoutes
-            ];
-             
-        }
+        routes:createRoutes
     },
     head: {
         title:
@@ -170,29 +146,6 @@ export default {
     sitemap: {
         hostname: 'https://nomadpitstops.com',
         gzip: true,
-        async routes(callback) {
-            let api:any = await prismic.api(prismicConfig.endpoint);
-
-            let posts = await api.query(
-                prismic.Predicates.at('document.type', 'blog-post')
-            );
-            const blogRoutes = posts.results.map(post => '/blog/' + post.uid);
-
-            const pitstops = await axios.post('https://lol.nomadpitstops.com', {
-                query: `
-                {
-                      pitstops {
-                        id
-                      }
-                }
-                `
-            });
-            const pitstopRoutes = pitstops.data.data.pitstops.map(({id}:any) => `/pitstops/${id}`)
-            const routes = [
-                ...blogRoutes,
-                ...pitstopRoutes
-            ]
-            callback(null, routes);
-        }
+        routes: createSitemap
     }
 };
