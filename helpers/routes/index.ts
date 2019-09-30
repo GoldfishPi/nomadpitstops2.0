@@ -10,6 +10,8 @@ export const createRoutes = async () => {
         await createPitstopRoutes()
     ]);
 
+    console.log('unflat routes', routes);
+
     console.log('flat routes', routes.flat());
 
     return routes.flat();
