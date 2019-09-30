@@ -10,11 +10,15 @@ export const createRoutes = async () => {
         await createPitstopRoutes()
     ]);
 
-    console.log('unflat routes', routes);
+    let flatRoutes:string[] = [];
+    for(let subRoutes of routes) {
+        flatRoutes = [
+            ...flatRoutes,
+            ...subRoutes
+        ];
+    }
 
-    console.log('flat routes', routes.flat());
-
-    return routes.flat();
+    return flatRoutes; 
 }
 
 const createPrismicRoutes = async ():Promise<string[]> => {
