@@ -16,10 +16,7 @@
     </v-card>
     <!-- <div></div> -->
 </template>
-<script>
-export default {
-     props:['post']
-}
+<script lang="ts" src="./index.ts">
 </script>
 <style>
 .blog-post-card {

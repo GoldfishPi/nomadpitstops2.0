@@ -1,9 +1,12 @@
 <template>
-    <v-dialog width="500" v-model="inputVal">
+    <v-dialog 
+        @keydown="checkForEnter($event)"
+        width="500" 
+        v-model="inputVal">
         <v-card>
             <v-card-title>Sign Up</v-card-title>
             <v-card-text>
-                <v-form>
+                <v-form v-model="valid">
                     <v-layout>
                         <v-flex xs5>
                             <v-text-field 
@@ -36,63 +39,19 @@
             <v-card-actions>
                 <v-btn 
                     @click="$emit('cancel')" 
-                                                                                text
+                    text
                 >Cancel</v-btn>
                 <v-spacer></v-spacer>
                 <v-btn 
+                    :disabled="!valid"
                     color="primary" 
                     text 
-                    @click="onDone()"
-                >Sign Up</v-btn>
+                    @click="done()"
+                    >Sign Up</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-    props: [
-        'value'
-    ],
-    data() {
-        return {
-            firstName: '',
-            lastName: '',
-            username: '',
-            email: '',
-            password: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-            ],
-            passwordRules: [
-                v => (v && v.length >= 8) || 'Password must contain at least 8 charecters'
-            ],
-
-            inputVal:this.value
-        }
-
-    },
-    methods: {
-        onDone() {
-            this.$emit('done', {
-                firstName:this.firstName,
-                lastName: this.lastName,
-                username: this.username,
-                password: this.password,
-                email: this.email,
-            });
-        }
-    },
-    watch: {
-        value(val) {
-            this.inputVal = val;
-        },
-        inputVal(val) {
-            this.$emit('input', val);
-        }
-    }
-});
-</script>
+<script lang="ts" src="./index.ts"></script>

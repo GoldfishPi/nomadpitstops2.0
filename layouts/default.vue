@@ -68,8 +68,8 @@
 <script>
 import Vue from "vue";
 import Nav from './partials/nav';
-import SignUp from "./../components/dialogs/SignUp.vue";
-import Login from "./../components/dialogs/Login.vue";
+import SignUp from "./../components/dialogs/SignUp/index.vue";
+import Login from "./../components/dialogs/Login/index.vue";
 
 
 export default Vue.extend({

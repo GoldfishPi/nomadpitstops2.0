@@ -1,0 +1,44 @@
+<template>
+    <v-dialog 
+        width="400" 
+        @keydown="checkForEnter($event)"
+        v-model="inputVal"
+        >
+        <v-card>
+            <v-card-title>Login</v-card-title>
+            <v-card-text>
+                <v-form v-model="valid">
+                    <v-text-field 
+                        label="Email" 
+                        :rules="emailRules" 
+                        v-model="email"
+                        ></v-text-field>
+                    <v-text-field 
+                        label="Password" 
+                        type="password" 
+                        v-model="password"
+                        ></v-text-field>
+                </v-form>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn 
+                        text 
+                        @click="$emit('cancel')"
+                        >Cancel</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn 
+                        text 
+                        color="primary" 
+                        @click="$emit('signUp')"
+                        >SIGN UP</v-btn>
+                <v-btn 
+                        text 
+                        disabled="!valid"
+                        color="primary" 
+                        @click="done()"
+                        >LOGIN</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+</template>
+<script lang="ts" src="./index.ts"></script>
