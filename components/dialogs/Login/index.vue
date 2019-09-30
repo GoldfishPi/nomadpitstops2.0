@@ -33,7 +33,7 @@
                         >SIGN UP</v-btn>
                 <v-btn 
                         text 
-                        disabled="!valid"
+                        :disabled="!valid"
                         color="primary" 
                         @click="done()"
                         >LOGIN</v-btn>
