@@ -49,13 +49,14 @@ export default Vue.extend({
             } catch(err) {}
         },
         create() {
-            this.$emit('create', {
-                lng:this.cLng,
-                lat:this.cLat,
-                title:this.title,
-                description: this.description,
-                images: this.images,
-            });
+            const ps:Pitstop = {
+                longitude:this.cLng,
+                latitude:this.cLat,
+                name:this.title,
+                notes:this.description,
+                connection:this.wifi
+            }
+            this.$emit('create', ps);
             this.$emit('close');
         }
     }

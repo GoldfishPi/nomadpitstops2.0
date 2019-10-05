@@ -20,7 +20,7 @@
                             class="hidden-sm-and-down"
                             :hide-toolbar="true" 
                             :loc="[pitstop.longitude, pitstop.latitude]" 
-                            @fullscreen="">
+                            >
                         </Map>
 
                     </v-flex>
@@ -84,7 +84,7 @@
                         <Map 
                             :hide-toolbar="true" 
                             :loc="[pitstop.longitude, pitstop.latitude]" 
-                            @fullscreen=""></Map>
+                            ></Map>
                     </v-flex>
                 </v-layout>
             </v-dialog>

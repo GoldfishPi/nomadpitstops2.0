@@ -1,37 +1,16 @@
 import gql from "graphql-tag";
-interface Pitstop  {
-    id:string;
-    name:string;
-    connection:number;
-    loc: {
-        _lat:number;
-        _lon:number;
-    };
-    }
 interface Store {
     pitstops:Pitstop[];
-    pitstopNotes:Array<{
-        pitstopId:string;
-        notes:Array<{
-            note:string;
-            uid:string;
-        }>;
-    }>;
-
 }
 
 export const state = () => ({
     pitstops:[],
-    pitstopNotes:[],
 });
 
 export const mutations = {
     SET_PITSTOPS(store:Store, pitstops:Pitstop[]) {
         store.pitstops = pitstops;
     },
-    SET_PITSTOP_NOTES(store:Store, notes:any[]) {
-        store.pitstopNotes = notes;
-    }
 };
 
 export const actions:any = {
@@ -92,8 +71,8 @@ export const actions:any = {
         commit('SET_PITSTOPS', state.pitstops
             .map(s => s.id === pitstop.id ? pitstop : s));
     },
-    async ADD_PITSTOP(args:any, options:any) {
-        const { name, notes, connection, lng, lat } = options;
+    async ADD_PITSTOP(args:any, ps:Pitstop) {
+        const { name, notes, connection,longitude , latitude } = ps;
         const mutation = gql`
             mutation($name:String!, $notes:String!, $connection:Int!, $longitude:Float!, $latitude:Float!) {
               addPitstop(
@@ -113,21 +92,9 @@ export const actions:any = {
                 name,
                 notes,
                 connection,
-                longitude:lng,
-                latitude:lat
+                longitude,
+                latitude
             }
-        });
-    },
-    async GET_PITSTOP_NOTES({commit, state}, pitstopId) {
-
-    },
-    async POST_PITSTOP_NOTE({commit, state}, {note, pitstopId}) {
-        const userCollection = this.$fireStore.collection('users');
-        // const userPitstopCollection = this.$fireStore.doc(this.$fireAuth.getUid()).collection('pitstopNotes');
-        const doc = this.$fireStore.collection('pitstops').doc(pitstopId);
-        const add = await doc.collection('pitstopNotes').add({
-            note,
-            uid:this.$fireAuth.getUid()
         });
     },
 
@@ -178,8 +145,3 @@ export const actions:any = {
     },
 };
 
-export const getters:any = {
-    NOTES(state:Store) {
-        return state.pitstopNotes;
-    }
-}

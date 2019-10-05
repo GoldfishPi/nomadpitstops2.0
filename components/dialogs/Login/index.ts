@@ -6,12 +6,12 @@ export default Vue.extend({
         return {
             valid:false,
             emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                (v:string) => !!v || 'E-mail is required',
+                (v:string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
             ],
 
             passwordRules: [
-                v => (v && v.length >= 8) || 'Password must contain at least 8 charecters'
+                (v:string) => (v && v.length >= 8) || 'Password must contain at least 8 charecters'
             ],
             email:'',
             password:'',
@@ -19,7 +19,7 @@ export default Vue.extend({
         }
     },
     methods: {
-        checkForEnter(e) {
+        checkForEnter(e:any) {
             if(e.keyCode != 13)return;
             console.log('is enter');
             if(this.valid)this.done();

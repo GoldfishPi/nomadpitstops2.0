@@ -56,9 +56,6 @@ export default Vue.extend({
             console.log('pitstop lol', p);
             this.$store.dispatch('pitstops/ADD_PITSTOP', {
                 ...p,
-                name:p.title,
-                notes:p.description,
-                connection:0
             });
         }
     }
