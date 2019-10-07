@@ -16,7 +16,13 @@
     </v-card>
     <!-- <div></div> -->
 </template>
-<script lang="ts" src="./index.ts">
+<script lang="ts">
+
+import Vue from 'vue';
+
+export default Vue.extend({
+    props:['post']
+});
 </script>
 <style>
 .blog-post-card {
