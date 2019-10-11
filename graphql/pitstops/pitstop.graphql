@@ -1,0 +1,20 @@
+
+query Pitstop($id:ID!){
+  Pitstop (id:$id) {
+    id
+    name
+    notes
+    longitude
+    latitude
+    connection
+    images {
+      link
+    }
+    comments {
+      text
+      user {
+        username
+      }
+    }
+  }
+}

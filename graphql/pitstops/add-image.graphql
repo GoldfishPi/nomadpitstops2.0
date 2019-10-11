@@ -1,0 +1,12 @@
+
+mutation addPitstopImage(
+  $file: Upload!,
+  $id:ID!
+) {
+  addPitstopImage(
+    id: $id,
+    image: $file
+  ) {
+    id
+  }
+}

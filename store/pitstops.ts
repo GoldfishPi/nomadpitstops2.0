@@ -1,4 +1,9 @@
 import gql from "graphql-tag";
+import  PitstopsList from "./../graphql/pitstops/list.graphql";
+import  PitstopQuery from "./../graphql/pitstops/pitstop.graphql";
+import  AddPitstop from "./../graphql/pitstops/add.graphql";
+import  AddComment from "./../graphql/pitstops/add-comment.graphql";
+import  AddImage from "./../graphql/pitstops/add-image.graphql";
 interface Store {
     pitstops:Pitstop[];
 }
@@ -15,52 +20,17 @@ export const mutations = {
 
 export const actions:any = {
     async GET_PITSTOPS({commit}, context) {
-        const query = gql`
-            {
-                Pitstops {
-                    id
-                    name
-                    notes
-                    images {
-                        link
-                    }
-                }
-            }
-        `;
-        const res = await this.app.apolloProvider.defaultClient.query({query});
+        const res = await this.app.apolloProvider.defaultClient.query({query:PitstopsList});
         return commit('SET_PITSTOPS', res.data.Pitstops);
-        //const res = await this.$apollo.query(query);
-
-        //const collection = this.$fireStore.collection('pitstops');
-        //const snapshot = await collection.get();
-        //const docs = snapshot.docs;
-        //return commit('SET_PITSTOPS', docs.map(d => ({...d.data(), id:d.id})));
-
     },
-    async GET_PITSTOP({commit, state}, id) {
-        const query = gql`
-            {
-                Pitstop (id:"${id}") {
-                    id
-                    name
-                    notes
-                    longitude
-                    latitude
-                    connection
-                    images {
-                        link
-                    }
-                    comments {
-                        text
-                        user {
-                            username
-                        }
-                    }
-                }
-            }
-        `;
+    async GET_PITSTOP({commit, state}, id:any) {
         
-        const res = await this.app.apolloProvider.defaultClient.query({query});
+        const res = await this.app.apolloProvider.defaultClient.query({
+            query:PitstopQuery,
+            variables: {
+                id
+            }
+        });
 
         const pitstop = res.data.Pitstop;
 
@@ -73,21 +43,8 @@ export const actions:any = {
     },
     async ADD_PITSTOP(args:any, ps:Pitstop) {
         const { name, notes, connection,longitude , latitude } = ps;
-        const mutation = gql`
-            mutation($name:String!, $notes:String!, $connection:Int!, $longitude:Float!, $latitude:Float!) {
-              addPitstop(
-                name: $name,
-                notes:$notes,
-                connection:$connection,
-                longitude:$longitude,
-                latitude:$latitude
-              ) {
-                id
-              }
-            }
-        `;
-        const res = await this.app.apolloProvider.defaultClient.mutate({
-            mutation,
+        return await this.app.apolloProvider.defaultClient.mutate({
+            mutation:AddPitstop,
             variables: {
                 name,
                 notes,
@@ -102,39 +59,22 @@ export const actions:any = {
 
         if(!this.$fireAuth.currentUser)return;
 
-        const userToken = await this.$fireAuth.currentUser.getIdToken();
-        const mutation = gql`
-            mutation {
-                addPitstopComment(
-                    token: "${userToken}",
-                    linkedId: "${id}",
-                    text: "${comment}"
-                ) {
-                    text
-                }
+        return  await this.app.apolloProvider.defaultClient.mutate({
+            mutation:AddComment,
+            variables: {
+                id,
+                text:comment
             }
-        `;
-        const res = await this.app.apolloProvider.defaultClient.mutate({mutation});
+        });
     },
 
     async ADD_IMAGE({commit, state, dispatch}, { file, id}) {
 
         if(!this.$fireAuth.currentUser)return;
-
-        const userToken = await this.$fireAuth.currentUser.getIdToken();
-        const mutation = gql`
-            mutation($file: Upload!) {
-                addPitstopImage(
-                    id: "${id}",
-                    image: $file
-                ) {
-                    id
-                }
-            }
-        `;
         const res = await this.app.apolloProvider.defaultClient.mutate({
-            mutation,
+            mutation:AddImage,
             variables: {
+                id,
                 file 
             },
             context: {

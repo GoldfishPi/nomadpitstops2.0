@@ -1,0 +1,18 @@
+
+mutation addPitstop(
+  $name:String!, 
+  $notes:String!, 
+  $connection:Int!, 
+  $longitude:Float!, 
+  $latitude:Float!
+) {
+  addPitstop(
+    name: $name,
+    notes:$notes,
+    connection:$connection,
+    longitude:$longitude,
+    latitude:$latitude
+  ) {
+    id
+  }
+}

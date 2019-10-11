@@ -8,10 +8,12 @@
         "dev": "nuxt --port 3333",
         "build": "nuxt build",
         "start": "nuxt start",
-        "generate": "nuxt generate"
+        "generate": "nuxt generate",
+        "gql:generate": "graphql-codegen"
     },
     "dependencies": {
         "@bazzite/nuxt-netlify": "^0.1.1",
+        "@graphql-codegen/typescript-operations": "^1.8.1",
         "@nuxtjs/apollo": "^4.0.0-rc11",
         "@nuxtjs/axios": "^5.4.1",
         "@nuxtjs/pwa": "^2.6.0",
@@ -27,7 +29,7 @@
         "cross-env": "^5.2.0",
         "firebase": "^6.3.3",
         "geo-loc-utils": "^0.0.2",
-        "graphql": "^14.5.3",
+        "graphql": "^14.5.8",
         "graphql-tag": "^2.10.1",
         "jest": "^24.9.0",
         "jest-serializer-vue": "^2.0.2",
@@ -54,6 +56,8 @@
         "vuex": "^3.1.0"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^1.8.1",
+        "@graphql-codegen/typescript": "^1.8.1",
         "@nuxt/typescript": "^2.8.1",
         "nodemon": "^1.18.9",
         "sass": "^1.22.7"

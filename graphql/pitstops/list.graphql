@@ -1,0 +1,10 @@
+query PitstopsList {
+  Pitstops {
+    id
+    name
+    notes
+    images {
+      link
+    }
+  }
+}
