@@ -94,7 +94,7 @@
     </v-dialog>
 </template>
 
-<script lang="ts" src="./index.ts">
+<script lang="ts">
 
 import Map from "./../../helpers/Map/index.vue"
 import Vue from "vue";
