@@ -1,4 +1,12 @@
 <template>
+    <div>
+        <v-btn 
+            color="primary" 
+            fab
+            to="/pitstops"
+            class="back-btn">
+            <v-icon>fa fa-arrow-left</v-icon>
+        </v-btn>
         <v-container fill-height fluid>
             <!-- <h1>Pitstop Name</h1> -->
             <v-card class="page-card" width="100%" flat outlined>
@@ -17,10 +25,10 @@
                         </v-toolbar>
 
                         <Map 
-                            class="hidden-sm-and-down"
-                            :hide-toolbar="true" 
-                            :loc="[pitstop.longitude, pitstop.latitude]" 
-                            >
+                                   class="hidden-sm-and-down"
+                                   :hide-toolbar="true" 
+                                   :loc="[pitstop.longitude, pitstop.latitude]" 
+                                   >
                         </Map>
 
                     </v-flex>
@@ -29,20 +37,20 @@
                             v-if="pitstop.images && pitstop.images.length"
                             :src="pitstop.images[0].link"
                             height="300"
-                        ></v-img>
+                            ></v-img>
                         <v-container>
                             <v-layout align-center>
-                            <v-flex xs1>
-                                <v-icon>fas fa-wifi</v-icon>
-                            </v-flex>
-                            <v-flex>
-                                <v-progress-linear 
-                                height="20"
-                                :value="connection"
-                                bottom
-                                rounded
-                                ></v-progress-linear>
-                            </v-flex>
+                                <v-flex xs1>
+                                    <v-icon>fas fa-wifi</v-icon>
+                                </v-flex>
+                                <v-flex>
+                                    <v-progress-linear 
+                                        height="20"
+                                        :value="connection"
+                                        bottom
+                                        rounded
+                                        ></v-progress-linear>
+                                </v-flex>
                             </v-layout>
                         </v-container>
                         <v-card flat >
@@ -54,7 +62,7 @@
 
                         <v-card flat>
                             <!--
-                            <v-card-text>
+                                <v-card-text>
                                 <v-file-input 
                                 label="Upload Pitstop Image"  
                                 prepend-icon="mdi-camera"
@@ -62,11 +70,11 @@
                                 accept="image/*"
                                 ></v-file-input>
                                 <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
-                            </v-card-text>
-                            <v-card-actions>
+                                </v-card-text>
+                                <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" text @click="addNote()">Add</v-btn>
-                            </v-card-actions>
+                                </v-card-actions>
                             -->
                         </v-card>
 
@@ -90,6 +98,7 @@
             </v-dialog>
 
         </v-container>
+    </div>
 </template>
 
 <script>
@@ -206,5 +215,9 @@ export default Vue.extend({
 }
 .page-card {
     min-height: 80vh;
+}
+.back-btn {
+    margin-top:1rem;
+    margin-left:1rem;
 }
 </style>
