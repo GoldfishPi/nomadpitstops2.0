@@ -1,8 +1,8 @@
 <template>
         <v-container fill-height fluid>
             <!-- <h1>Pitstop Name</h1> -->
-            <v-card width="100%" flat outlined>
-                <v-layout justify-space-between wrap>
+            <v-card class="page-card" width="100%" flat outlined>
+                <v-layout fill-height justify-space-between wrap>
                     <v-flex xs12 md7>
 
                         <v-toolbar flat class="hidden-md-and-up">
@@ -202,9 +202,9 @@ export default Vue.extend({
 <style scoped>
 .map {
     height: 100%;
+    min-height:80vh;
 }
-.map-wrap {
-    /* margin-bottom: 0.5rem; */
-    /* margin-right: 0.5rem; */
+.page-card {
+    min-height: 80vh;
 }
 </style>
