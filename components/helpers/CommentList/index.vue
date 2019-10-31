@@ -21,7 +21,8 @@
             <v-btn 
                   text 
                   color="primary"
-                  @click="showMore = true">
+                  @click="showMore = true"
+                  v-if="comments.length >= 3">
                 Show More
             </v-btn>
         </v-layout>
