@@ -19,10 +19,13 @@
             @create="createPitstop($event)"
             ></PitstopDialog>
         <div class="add">
-            <v-btn @click="dialog = true" color="primary" fab large>
+            <v-btn @click="toggleDialog()" color="primary" fab large>
                 <v-icon>fas fa-plus</v-icon>
             </v-btn>
         </div>
+        <v-snackbar v-model="snackbar" color="error">
+            <p>You have to be logged in to add pit stops</p>
+        </v-snackbar>
     </div>
 </template>
 
@@ -35,7 +38,8 @@ export default Vue.extend({
     },
     data() {
         return {
-            dialog: false
+            dialog: false,
+            snackbar:false
         };
     },
     computed: {
@@ -56,6 +60,11 @@ export default Vue.extend({
             this.$store.dispatch('pitstops/ADD_PITSTOP', {
                 ...p,
             });
+        },
+        toggleDialog() {
+            if(!this.$fireAuth.currentUser)return this.snackbar = true;
+            this.dialog = true;
+
         }
     }
 });
@@ -76,10 +85,7 @@ export default Vue.extend({
 .map-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    /* grid-template-rows: 4rem 10vh 55vh; */
     grid-template-rows: 90vh;
-    /* grid-gap: 1.3rem; */
-    /* margin: 1.3rem; */
     height: 100%;
 }
 </style>
