@@ -61,7 +61,6 @@
                         </v-card>
 
                         <v-card flat>
-                            <!--
                                 <v-card-text>
                                 <v-file-input 
                                 label="Upload Pitstop Image"  
@@ -75,8 +74,9 @@
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" text @click="addNote()">Add</v-btn>
                                 </v-card-actions>
-                            -->
                         </v-card>
+
+                        <CommentList :comments="pitstop.comments"/>
 
                     </v-flex>
                 </v-layout>
@@ -101,21 +101,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Map from '../../components/helpers/Map/index.vue';
+import CommentList from "../../components/helpers/CommentList/index.vue";
 import Vue from 'vue';
 export default Vue.extend({
-    pitstop:{},
     components: {
-        Map
+        Map,
+        CommentList
     },
     computed: {
-        pitstop() {
-
-            const ps = this.$store.state.pitstops.pitstops
-                .find(p => p.id == this.$route.params.id);
-            return ps;
-        },
         notes() {
             return [];
             return this.$store.getters['pitstops/NOTES']
@@ -129,17 +124,33 @@ export default Vue.extend({
         fullscreen:false,
         doc:{},
         note:'',
+        pitstop:{
+            connection:0,
+            images:[],
+            name:'',
+            notes:'',
+            comments:[],
+            id:''
+        },
     }),
-    async asyncData({params, app, store}) {
-        return await store.dispatch('pitstops/GET_PITSTOP', params.id);
+    async asyncData({params, app, store, route}) {
+        await store.dispatch('pitstops/GET_PITSTOP', params.id);
+        const ps = store.state.pitstops.pitstops
+            .find(p => p.id == route.params.id);
+        return {
+            pitstop:ps
+        }
     },
     methods: {
         async addNote() {
-            this.$store
+            await this.$store
                 .dispatch('pitstops/ADD_COMMENT', {
                     comment:this.note, 
                     id:this.$route.params.id
                 });
+            this.pitstop = await this.$store
+                .dispatch('pitstops/GET_PITSTOP', this.pitstop.id);
+            this.note = '';
         },
         imageUpload(file) {
             this.$store

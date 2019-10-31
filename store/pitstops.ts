@@ -19,12 +19,12 @@ export const mutations = {
 };
 
 export const actions:any = {
-    async GET_PITSTOPS({commit}, context) {
+    async GET_PITSTOPS({commit }, context) {
         const res = await this.app.apolloProvider.defaultClient.query({query:PitstopsList});
         return commit('SET_PITSTOPS', res.data.Pitstops);
     },
     async GET_PITSTOP({commit, state}, id:any) {
-        
+
         const res = await this.app.apolloProvider.defaultClient.query({
             query:PitstopQuery,
             variables: {
@@ -38,8 +38,10 @@ export const actions:any = {
             commit('SET_PITSTOPS',[pitstop]);
             return;
         }
-        commit('SET_PITSTOPS', state.pitstops
+        await commit('SET_PITSTOPS', state.pitstops
             .map(s => s.id === pitstop.id ? pitstop : s));
+
+        return state.pitstops.find(p => p.id === id);
     },
     async ADD_PITSTOP(args:any, ps:Pitstop) {
         const { name, notes, connection,longitude , latitude } = ps;
@@ -59,7 +61,7 @@ export const actions:any = {
 
         if(!this.$fireAuth.currentUser)return;
 
-        return  await this.app.apolloProvider.defaultClient.mutate({
+        return await this.app.apolloProvider.defaultClient.mutate({
             mutation:AddComment,
             variables: {
                 id,

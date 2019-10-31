@@ -1,9 +1,9 @@
 
-mutation AddComment($linkedId:String!, $text:String!){
+mutation AddComment($id:ID!, $text:String!){
   addPitstopComment(
-    linkedId:$linkedId ,
+    id:$id,
     text: $text
   ) {
-    text
+    id
   }
 }

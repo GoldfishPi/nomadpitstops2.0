@@ -1,6 +1,6 @@
 <template>
     <v-list three-line>
-        <v-list-item v-for="c in comments" :key="c">
+        <v-list-item v-for="c in comments" :key="c.id">
             <v-list-item-avatar>
                 <v-img
                     src="https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif"
@@ -21,8 +21,8 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-    propsData:{
-        comments:[]
+    props:{
+        comments: Array
     }
 });
 </script>
