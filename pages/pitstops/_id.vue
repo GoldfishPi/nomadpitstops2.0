@@ -62,12 +62,12 @@
 
                         <v-card flat>
                                 <v-card-text>
-                                <v-file-input 
+                                <!-- <v-file-input 
                                 label="Upload Pitstop Image"  
                                 prepend-icon="mdi-camera"
                                 @change="imageUpload($event)"
                                 accept="image/*"
-                                ></v-file-input>
+                                ></v-file-input> -->
                                 <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
                                 </v-card-text>
                                 <v-card-actions>

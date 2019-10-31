@@ -2,7 +2,7 @@
     <div>
         <v-container>
             <div class="pitstops">
-                <v-card v-for="p of pitstops" :key="p.id" :to="`pitstops/${p.id}`">
+                <v-card flat outlined v-for="p of pitstops" :key="p.id" :to="`pitstops/${p.id}`">
                     <v-img 
                         v-if="p.images && p.images.length"
                         :src="p.images[0].link"
@@ -53,7 +53,6 @@ export default Vue.extend({
     },
     methods: {
         createPitstop(p) {
-            console.log('pitstop lol', p);
             this.$store.dispatch('pitstops/ADD_PITSTOP', {
                 ...p,
             });

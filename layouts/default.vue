@@ -143,7 +143,6 @@ export default Vue.extend({
             this.signUpDialog = true;
         },
         async signup(creds) {
-            console.log('creds', creds);
             await this.$store.dispatch('auth/SIGN_UP', creds);
             this.signUpDialog = false;
 
