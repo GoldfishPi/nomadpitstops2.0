@@ -47,6 +47,9 @@
                         </v-list-item>
                     </v-list>
                 </v-card-text>
+                <v-card-actions>
+                    <v-btn @click="showMore = false" text color="primary">Close</v-btn>
+                </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
