@@ -61,19 +61,19 @@
                         </v-card>
 
                         <v-card flat>
-                                <v-card-text>
+                            <v-card-text>
                                 <!-- <v-file-input 
-                                label="Upload Pitstop Image"  
-                                prepend-icon="mdi-camera"
-                                @change="imageUpload($event)"
-                                accept="image/*"
-                                ></v-file-input> -->
-                                <v-textarea outlined label="Field Notes" v-model="note"></v-textarea>
-                                </v-card-text>
-                                <v-card-actions>
+                                    label="Upload Pitstop Image"  
+                                    prepend-icon="mdi-camera"
+                                    @change="imageUpload($event)"
+                                    accept="image/*"
+                                    ></v-file-input> -->
+                                <v-text-field dense label="Add a public comment" v-model="note"></v-text-field>
+                            </v-card-text>
+                            <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" text @click="addNote()">Add</v-btn>
-                                </v-card-actions>
+                                <v-btn color="primary" text @click="addNote()">Comment</v-btn>
+                            </v-card-actions>
                         </v-card>
 
                         <CommentList :comments="pitstop.comments"/>
