@@ -230,5 +230,9 @@ export default Vue.extend({
 .back-btn {
     margin-top:1rem;
     margin-left:1rem;
+    position:absolute;
+    top:5px;
+    left:5px;
+    z-index:200;
 }
 </style>
